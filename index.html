@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNGAA | Vsynap Technologies</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #5b9aff; 
+    --bg: #F5F5F7;
+    --text: #1d1d1f; 
+    --header-bg: rgba(139, 222, 255, 0.15);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glow-color: rgba(0, 122, 255, 0.12);
+    --cta-text: #ffffff;
+    --btn-bg: #000000;
+    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --lang-gradient: linear-gradient(90deg, #0061fd, #ff007a, #00c6ff);
+}
+
+body.dark-mode {
+    --primary: #00f2ff;
+    --bg: #050505;
+    --text: #ffffff; 
+    --header-bg: rgba(0, 242, 255, 0.12);
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(0, 242, 255, 0.18);
+    --cta-text: #000000;
+    --btn-bg: #ffffff;
+    --lang-gradient: linear-gradient(90deg, #00f2ff, #bc00ff, #0061fd);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: var(--transition);
+}
+
+#glow {
+    position: fixed; 
+    width: 600px; 
+    height: 600px;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    border-radius: 50%; 
+    pointer-events: none; 
+    z-index: 0;
+    transform: translate(-50%, -50%); 
+    transition: 0.1s linear;
+}
+
+header {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    padding: 10px 40px; 
+    background: var(--header-bg);
+    backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid var(--glass-border); 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    z-index: 1000;
+}
+
+.header-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 0px; 
+}
+
+.logo-img { 
+    width: 55px; 
+    display: block;
+    opacity: 1 !important;
+    transition: var(--transition); 
+}
+
+.company-info { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+}
+
+.company-name { 
+    font-size: 18px; 
+    font-weight: 800; 
+    color: var(--primary); 
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.tagline { 
+    font-size: 9px; 
+    font-weight: 500; 
+    color: var(--text); 
+    opacity: 0.8; 
+    transition: var(--transition); 
+    white-space: nowrap;
+    margin-top: 2px;
+}
+
+.menu-btn { 
+    font-size: 24px; 
+    cursor: pointer; 
+    color: var(--text); 
+    z-index: 1002; 
+}
+
+.dropdown { 
+    position: absolute; 
+    top: 75px; 
+    right: 40px; 
+    background: var(--card-bg); 
+    backdrop-filter: blur(30px); 
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 20px; 
+    display: none; 
+    flex-direction: column; 
+    min-width: 240px; 
+    border: 1px solid var(--glass-border); 
+    z-index: 1001; 
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.dropdown button, .dropdown a { 
+    padding: 15px 20px; 
+    text-decoration: none; 
+    color: var(--text); 
+    background: none; 
+    border: none; 
+    text-align: left; 
+    cursor: pointer; 
+    font-size: 15px; 
+    font-weight: 600; 
+    display: block; 
+    width: 100%; 
+    transition: background 0.2s; 
+}
+
+.dropdown button:hover, .dropdown a:hover { 
+    background: rgba(0,0,0,0.05); 
+}
+
+/* --- HERO SECTION --- */
+.hero { 
+    padding: 140px 8% 80px; 
+    text-align: center; 
+}
+
+.hero-title { 
+    font-size: clamp(45px, 9vw, 95px); 
+    font-weight: 800; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 25px; 
+    margin-bottom: 40px; 
+}
+
+.hero-icon { 
+    width: clamp(45px, 7vw, 90px); 
+    cursor: pointer; 
+    transition: transform 0.4s; 
+}
+
+.hero-content { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 60px; 
+}
+
+.hero-text { 
+    max-width: 750px; 
+    text-align: left; 
+}
+
+.hero-img-container {
+    position: relative;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.main-img-box {
+    position: relative;
+    width: 280px;
+    height: 606px;
+    background: var(--card-bg);
+    border-radius: 20px; 
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bg-book {
+    position: absolute;
+    width: 650px; 
+    z-index: -1; 
+    opacity: 0.35; 
+    pointer-events: none;
+    animation: floatBookPage 12s ease-in-out infinite;
+}
+
+@keyframes floatBookPage {
+    0%, 100% { transform: translate(-5%, 0) rotate(-4deg); }
+    50% { transform: translate(5%, -40px) rotate(4deg); }
+}
+
+.hero-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: fill; 
+    transition: opacity 0.6s ease-in-out; 
+    z-index: 2;
+    background: transparent;
+}
+
+.support-text {
+    font-size: 18px;
+    font-weight: 800;
+    background: var(--lang-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    letter-spacing: -0.5px;
+}
+
+.hero-points { 
+    list-style: none; 
+    margin-top: 20px; 
+}
+
+.hero-points li { 
+    margin-bottom: 25px; 
+    position: relative; 
+    padding-left: 30px; 
+    line-height: 1.4; 
+    font-size: clamp(18px, 2.5vw, 24px); 
+    font-weight: 500;
+}
+
+.hero-points li strong { 
+    font-weight: 800; 
+    color: var(--primary); 
+}
+
+.hero-points li::before { 
+    content: "•"; 
+    color: var(--primary); 
+    position: absolute; 
+    left: 0; 
+    font-weight: 800; 
+}
+
+/* --- HOW IT WORKS --- */
+#about { 
+    position: relative; 
+    padding: 120px 0; 
+    background: #000; 
+}
+
+.video-bg { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    min-width: 100%; 
+    min-height: 100%; 
+    transform: translate(-50%, -50%); 
+    object-fit: cover; 
+    z-index: 0; 
+}
+
+.video-overlay { 
+    position: absolute; 
+    inset: 0; 
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)); 
+    z-index: 1; 
+}
+
+.container { 
+    position: relative; 
+    z-index: 2; 
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+.section-header h2 { 
+    font-size: 42px; 
+    font-weight: 800; 
+    color: var(--primary); 
+    text-align: center; 
+    margin-bottom: 60px; 
+}
+
+.video-frames { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px; 
+    margin-bottom: 40px; 
+    flex-wrap: wrap; 
+}
+
+.video-frame { 
+    width: 360px; 
+    height: 752px; 
+    border-radius: 40px; 
+    overflow: hidden; 
+    background: #000; 
+    border: 6px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5); 
+}
+
+.video-frame video { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+}
+
+/* --- FLIPPING SLIDER --- */
+.hero-slider-container { 
+    position: relative; 
+    width: 92%; 
+    margin: 60px auto; 
+    aspect-ratio: 16 / 9; 
+    max-height: 85vh; 
+    border-radius: 40px; 
+    overflow: hidden; 
+    box-shadow: 0 40px 100px rgba(0,0,0,0.2); 
+    border: 1px solid var(--glass-border); 
+    perspective: 1000px; 
+}
+
+.hero-slide {
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    transform: rotateY(90deg) scale(0.9); 
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    pointer-events: none; 
+    backface-visibility: hidden; 
+}
+
+.hero-slide.active { 
+    opacity: 1; 
+    transform: rotateY(0deg) scale(1); 
+    pointer-events: auto; 
+}
+
+.hero-slide video { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.slide-overlay { 
+    position: absolute; 
+    bottom: 30px; 
+    left: 15px; 
+    right: 15px; 
+    padding: 15px 20px; 
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 20px; 
+    color: white; 
+    z-index: 2; 
+}
+
+.slide-overlay h3 { 
+    font-size: clamp(16px, 4vw, 36px); 
+    font-weight: 800; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+}
+
+/* --- DOWNLOAD SECTION --- */
+.download-section { 
+    padding: 100px 8%; 
+    text-align: center; 
+    position: relative; 
+    z-index: 2; 
+}
+
+.download-title { 
+    font-size: 36px; 
+    font-weight: 800; 
+    margin-bottom: 40px; 
+    color: var(--text); 
+}
+
+.download-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
+
+.download-card {
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    padding: 12px 25px; 
+    background: var(--btn-bg); 
+    color: var(--cta-text); 
+    border-radius: 18px; 
+    text-decoration: none; 
+    transition: var(--transition);
+    border: 1px solid var(--glass-border); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.download-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 30px var(--glow-color); 
+    opacity: 0.9; 
+}
+
+.dl-icon-img { 
+    width: 28px; 
+    height: auto; 
+}
+
+.download-card .text-wrap { 
+    text-align: left; 
+}
+
+.download-card .small-text { 
+    font-size: 10px; 
+    text-transform: uppercase; 
+    opacity: 0.7; 
+    display: block; 
+}
+
+.download-card .big-text { 
+    font-size: 16px; 
+    font-weight: 800; 
+}
+
+.nav-btn { 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    color: white; 
+    font-size: 18px; 
+    cursor: pointer; 
+    z-index: 50; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: all 0.3s ease; 
+}
+
+.nav-btn.prev { left: 15px; } 
+.nav-btn.next { right: 15px; }
+
+.slider-dots { 
+    position: absolute; 
+    bottom: 80px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex; 
+    gap: 10px; 
+    z-index: 50; 
+}
+
+.dot { 
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+    background: rgba(255,255,255,0.3); 
+    cursor: pointer; 
+    transition: 0.4s; 
+}
+
+.dot.active { 
+    background: var(--primary); 
+    width: 25px; 
+    border-radius: 10px; 
+}
+
+@media (max-width: 768px) {
+    header { padding: 10px 20px; }
+    .logo-img { width: 45px; }
+    .company-name { font-size: 16px; }
+    .hero { padding: 100px 5% 40px; }
+    .hero-content { flex-direction: column; gap: 40px; }
+    .hero-text { text-align: center; }
+    .main-img-box { height: 476px; }
+    .video-frame { width: 280px; height: 580px; }
+    .hero-slider-container { width: 95%; aspect-ratio: 9 / 16; max-height: 600px; }
+}
+</style>
+</head>
+<body>
+
+<div id="glow"></div>
+
+<header>
+    <div class="header-left">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <div class="company-info">
+            <div class="company-name">Vsynap Technologies</div>
+            <div class="tagline">We connect to the world</div>
+        </div>
+    </div>
+    <div class="menu-btn" id="menuToggle">☰</div>
+    <div class="dropdown" id="menuDropdown">
+        <a href="#about">How it Works</a>
+        <a href="#download">Download App</a>
+        <button id="settings-btn">Appearance Settings ⚙️</button>
+        <div id="theme-options" style="display:none; flex-direction:column; background:rgba(0,0,0,0.05);">
+            <button id="light-mode">☀️ Light</button>
+            <button id="dark-mode">🌙 Dark</button>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-title">
+        UNGAA
+        <div class="hero-icon-container">
+            <img src="anio1.png" alt="Theme Icon" class="hero-icon" id="dynamicIcon">
+            <img src="anio2.png" alt="Icon 2" class="hero-icon">
+        </div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <ul class="hero-points">
+                <li><strong>Curiosity is the mother of learning new things.</strong> Each new word you explore is a chance to upgrade yourself. Capture new words and topics daily in Ungaa App and learn about them instantly.</li>
+                <li><strong>Become an expert -</strong> Go beyond vocabulary, Learn with examples, short videos, create your own notes and learn deeper.</li>
+                 <li><strong>Become a champion -</strong> Everyone learns differently. Save your thoughts as text, voice, or video in your preferred language.</li>
+                <li><strong>Share your Creation -</strong> Share your meanings with friends and family on Ungaa App— their opinions and likes will motivate you.</li>
+            </ul>
+        </div>
+        <div class="hero-img-container">
+            <img src="book.png" alt="Book Design" class="bg-book">
+            <div class="main-img-box">
+                <img src="unga0.jpg" alt="UNGAA Preview" class="hero-img" id="ungaRotator">
+            </div>
+            <p class="support-text">UNGAA App supports 100+ languages</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
+    <div class="video-overlay"></div>
+    <div class="container">
+        <div class="section-header"><h2>How UNGAA Works</h2></div>
+        
+        <div class="video-frames">
+            <div class="video-frame"><video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video></div>
+            <div class="video-frame"><video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video></div>
+            <div class="video-frame"><video autoplay muted loop playsinline><source src="video3.mp4" type="video/mp4"></video></div>
+        </div>
+    </div>
+</section>
+
+<div class="hero-slider-container">
+    <button class="nav-btn prev" onclick="moveSlide(-1)">❮</button>
+    <button class="nav-btn next" onclick="moveSlide(1)">❯</button>
+    <div id="mainSlider">
+        <div class="hero-slide active">
+            <video id="allVideo" autoplay muted playsinline class="sync-video"><source src="all.mp4" type="video/mp4"></video>
+        </div>
+        <div class="hero-slide">
+            <video muted playsinline class="sync-video"><source src="students.mp4" type="video/mp4"></video>
+        </div>
+        <div class="hero-slide">
+            <video muted playsinline class="sync-video"><source src="teacher.mp4" type="video/mp4"></video>
+        </div>
+        <div class="hero-slide">
+            <video muted playsinline class="sync-video"><source src="aspiring.mp4" type="video/mp4"></video>
+
+        </div>
+        <div class="hero-slide">
+            <video muted playsinline class="sync-video"><source src="profession.mp4" type="video/mp4"></video>
+        </div>
+    </div>
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
+</div>
+
+<section class="download-section" id="download">
+    <h2 class="download-title">Download UNGAA</h2>
+    <div class="download-container">
+        <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank" rel="noopener" class="download-card">
+            <img src="anio3.png" alt="iOS" class="dl-icon-img" id="iosIcon">
+            <div class="text-wrap">
+                <span class="small-text">Download on the</span>
+                <span class="big-text">App Store</span>
+            </div>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME" target="_blank" rel="noopener" class="download-card">
+            <img src="anio2.png" alt="Android" class="dl-icon-img">
+            <div class="text-wrap">
+                <span class="small-text">Get it on</span>
+                <span class="big-text">Google Play</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<footer style="padding: 60px; text-align: center; opacity: 0.5;">
+    © 2026 Vsynap Technologies. All Rights Reserved.
+</footer>
+
+<script>
+const allVid = document.getElementById('allVideo');
+if(allVid) allVid.playbackRate = 0.5;
+
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+const videos = document.querySelectorAll('.sync-video');
+let currentIdx = 0;
+
+function moveSlide(direction) {
+    videos[currentIdx].pause();
+    videos[currentIdx].currentTime = 0;
+    slides[currentIdx].classList.remove('active');
+    dots[currentIdx].classList.remove('active');
+    currentIdx = (currentIdx + direction + slides.length) % slides.length;
+    slides[currentIdx].classList.add('active');
+    dots[currentIdx].classList.add('active');
+    videos[currentIdx].play().catch(e => {});
+}
+
+function currentSlide(n) {
+    if(n === currentIdx) return;
+    videos[currentIdx].pause();
+    videos[currentIdx].currentTime = 0;
+    slides[currentIdx].classList.remove('active');
+    dots[currentIdx].classList.remove('active');
+    currentIdx = n;
+    slides[currentIdx].classList.add('active');
+    dots[currentIdx].classList.add('active');
+    videos[currentIdx].play();
+}
+
+videos.forEach((video) => {
+    video.addEventListener('ended', () => moveSlide(1));
+});
+
+let ungaIdx = 0;
+const ungaImg = document.getElementById('ungaRotator');
+setInterval(() => {
+    ungaImg.style.opacity = 0;
+    setTimeout(() => {
+        ungaIdx = (ungaIdx + 1) % 4; 
+        ungaImg.src = `unga${ungaIdx}.jpg`;
+        ungaImg.style.opacity = 1;
+    }, 600);
+}, 4500);
+
+const glow = document.getElementById('glow');
+window.onmousemove = (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+};
+
+const menuToggle = document.getElementById('menuToggle');
+const menuDropdown = document.getElementById('menuDropdown');
+menuToggle.onclick = (e) => {
+    e.stopPropagation();
+    menuDropdown.style.display = (menuDropdown.style.display === 'flex') ? 'none' : 'flex';
+};
+
+document.getElementById('settings-btn').onclick = (e) => {
+    e.stopPropagation();
+    const subOptions = document.getElementById('theme-options');
+    subOptions.style.display = (subOptions.style.display === 'flex') ? 'none' : 'flex';
+};
+
+const iosIcon = document.getElementById('iosIcon');
+const dynamicIcon = document.getElementById('dynamicIcon');
+
+document.getElementById('light-mode').onclick = () => { 
+    document.body.classList.remove('dark-mode'); 
+    iosIcon.src = 'anio3.png'; 
+    dynamicIcon.src = 'anio1.png'; 
+};
+document.getElementById('dark-mode').onclick = () => { 
+    document.body.classList.add('dark-mode'); 
+    iosIcon.src = 'anio1.png'; 
+    dynamicIcon.src = 'anio3.png'; 
+};
+
+window.onclick = () => {
+    menuDropdown.style.display = 'none';
+};
+</script>
+</body>
+</html>
