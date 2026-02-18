@@ -22,6 +22,7 @@
     --btn-bg: #000000;
     --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     --lang-gradient: linear-gradient(90deg, #0061fd, #ff007a, #00c6ff);
+    --footer-bg: rgba(0, 0, 0, 0.03);
 }
 
 body.dark-mode {
@@ -35,6 +36,7 @@ body.dark-mode {
     --cta-text: #000000;
     --btn-bg: #ffffff;
     --lang-gradient: linear-gradient(90deg, #00f2ff, #bc00ff, #0061fd);
+    --footer-bg: rgba(255, 255, 255, 0.05);
 }
 
 * { 
@@ -144,7 +146,7 @@ header {
 .dropdown button, .dropdown a { 
     padding: 15px 20px; 
     text-decoration: none; 
-    color: var(--text); /* Changed to var(--text) for adaptive color */
+    color: var(--text); 
     background: none; 
     border: none; 
     text-align: left; 
@@ -170,10 +172,37 @@ header {
     font-size: clamp(45px, 9vw, 95px); 
     font-weight: 800; 
     display: flex; 
+    flex-direction: column; 
     justify-content: center; 
     align-items: center; 
-    gap: 25px; 
+    gap: 0px; 
     margin-bottom: 40px; 
+}
+
+.title-main-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.side-icon-left {
+    height: 0.77em; 
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 7.2px;
+}
+
+.ungaa-tagline {
+    font-size: clamp(12px, 2vw, 18px);
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: -5px; 
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.1));
+    opacity: 0.7;
 }
 
 .hero-icon { 
@@ -221,7 +250,7 @@ header {
 .bg-book {
     position: absolute;
     top: 20%;
-    width: 650px; 
+    width: 500px; 
     z-index: -1; 
     opacity: 0.35; 
     pointer-events: none;
@@ -285,14 +314,14 @@ header {
     position: relative;
     padding: 40px 0;
     background: #000;
-    overflow: hidden; /* important */
+    overflow: hidden; 
 }
 
 .video-bg {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120%;          /* reduce stretch */
+    width: 120%;          
     height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
@@ -383,27 +412,6 @@ header {
     width: 100%; 
     height: 100%; 
     object-fit: contain; 
-}
-
-.slide-overlay { 
-    position: absolute; 
-    bottom: 30px; 
-    left: 15px; 
-    right: 15px; 
-    padding: 15px 20px; 
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(15px); 
-    -webkit-backdrop-filter: blur(15px); 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    border-radius: 20px; 
-    color: white; 
-    z-index: 2; 
-}
-
-.slide-overlay h3 { 
-    font-size: clamp(16px, 4vw, 36px); 
-    font-weight: 800; 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
 }
 
 /* --- DOWNLOAD SECTION --- */
@@ -524,8 +532,10 @@ header {
     .company-name { font-size: 14px; }
     .tagline { font-size: 8px; }
     .hero { padding: 120px 5% 40px; }
-    .hero-title { gap: 10px; flex-wrap: wrap; }
+    .hero-title { gap: 0px; flex-wrap: wrap; }
+    .title-main-row { gap: 10px; }
     .hero-icon { width: 45px; }
+    .side-icon-left { height: 0.8em; } 
     .hero-content { flex-direction: column; gap: 40px; }
     .hero-text { text-align: center; }
     .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
@@ -534,9 +544,9 @@ header {
     .bg-book { align-items:center ; top: 20%;width: 280px;}
     .video-frames {
         flex-direction: column;
-        align-items: center;   /* center horizontally */
+        align-items: center;   
         justify-content: center;
-        gap: px;
+        gap: 0px;
     }
 
     .video-frame {
@@ -565,7 +575,7 @@ header {
     <div class="menu-btn" id="menuToggle">☰</div>
     <div class="dropdown" id="menuDropdown">
         <a href="#about">How it Works</a>
-        <a href="#downad">Download App</a>
+        <a href="#download">Download App</a>
         <button id="settings-btn">Appearance Settings ⚙️</button>
         <div id="theme-options" style="display:none; flex-direction:column; background:rgba(0,0,0,0.05);">
             <button id="light-mode">☀️ Light</button>
@@ -576,11 +586,15 @@ header {
 
 <section class="hero">
     <div class="hero-title">
-        UNGAA
-        <div class="hero-icon-container">
-            <img src="anio1.png" alt="Theme Icon" class="hero-icon" id="dynamicIcon">
-            <img src="anio2.png" alt="Icon 2" class="hero-icon">
+        <div class="title-main-row">
+            <img src="icon.png" alt="UNGAA Icon" class="side-icon-left">
+            UNGAA
+            <div class="hero-icon-container">
+                <img src="anio1.png" alt="Theme Icon" class="hero-icon" id="dynamicIcon">
+                <img src="anio2.png" alt="Icon 2" class="hero-icon">
+            </div>
         </div>
+        <div class="ungaa-tagline">Feed your brain</div>
     </div>
     <div class="hero-content">
         <div class="hero-text">
@@ -665,11 +679,18 @@ header {
     </div>
 </section>
 
-<footer style="padding: 0px; text-align: center; opacity: 0.5;"> 
-    Our tech partner zettaone
+<footer style="padding: 20px; text-align: center; background: cyan; border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;"> 
+    <span style="opacity: 0.7; font-weight: 600;">Our &nbsp;technology &nbsp;partner &nbsp;Zettaone</span>
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <img src="zetta.png" alt="Zettaone Icon" style="height: 40px; width: auto;">
+        <span style="font-weight: 800; color: var(--text);"></span>
+    </div>
 </footer>
-<footer style="padding: 50px; text-align: center; opacity: 0.5;"> 
-    © 2026 Vsynap Technologies. All Rights Reserved.
+
+<footer style="padding: 40px 20px; text-align: center; background: var(--footer-bg); border-top: 1px solid var(--glass-border);"> 
+    <p style="opacity: 0.6; font-size: 14px; font-weight: 500;">
+        © 2026 Vsynap Technologies. All Rights Reserved.
+    </p>
 </footer>
 
 <script>
