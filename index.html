@@ -516,17 +516,137 @@ header {
     border-radius: 10px; 
 }
 
-@media (max-width: 768px) {
-    header { padding: 10px 20px; }
-    .logo-img { width: 45px; }
-    .company-name { font-size: 16px; }
-    .hero { padding: 100px 5% 40px; }
-    .hero-content { flex-direction: column; gap: 40px; }
-    .hero-text { text-align: center; }
-    .main-img-box { height: 476px; }
-    .video-frame { width: 280px; height: 580px; }
-    .hero-slider-container { width: 95%; aspect-ratio: 9 / 16; max-height: 600px; }
+@media (max-width: 600px) {
+
+  /* Header */
+  header {
+    padding: 10px 15px;
+  }
+
+  .company-name {
+    font-size: 14px;
+  }
+
+  .tagline {
+    font-size: 8px;
+  }
+
+  .menu-btn {
+    font-size: 22px;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    padding: 100px 5% 40px;
+  }
+
+  .hero-title {
+    flex-direction: column;
+    font-size: 42px;
+    gap: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    gap: 35px;
+    text-align: center;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-points li {
+    font-size: 15px;
+    padding-left: 20px;
+  }
+
+  .hero-img-container {
+    width: 100%;
+  }
+
+  .main-img-box {
+    width: 230px;
+    height: 460px;
+  }
+
+  .bg-book {
+    width: 400px;
+  }
+
+  .support-text {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* HOW IT WORKS */
+  .section-header h2 {
+    font-size: 26px;
+  }
+
+  .video-frames {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .video-frame {
+    width: 240px;
+    height: 500px;
+  }
+
+  /* SLIDER */
+  .hero-slider-container {
+    width: 95%;
+    aspect-ratio: 9 / 16;
+    max-height: 550px;
+    border-radius: 25px;
+  }
+
+  .slide-overlay h3 {
+    font-size: 16px;
+  }
+
+  .nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .slider-dots {
+    bottom: 60px;
+  }
+
+  /* DOWNLOAD SECTION */
+  .download-section {
+    padding: 60px 5%;
+  }
+
+  .download-title {
+    font-size: 24px;
+  }
+
+  .download-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .download-card {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .download-card .big-text {
+    font-size: 14px;
+  }
+
+  /* Dropdown fix */
+  .dropdown {
+    right: 15px;
+    width: 90%;
+  }
+
 }
+
 </style>
 </head>
 <body>
