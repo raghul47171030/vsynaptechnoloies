@@ -12,9 +12,9 @@
 <style>
 :root {
     --primary: #5b9aff; 
-    --bg: #F5F5F7;
-    --text: #1d1d1f; 
-    --header-bg: rgba(139, 222, 255, 0.15);
+    --bg: #ffffff;
+    --text: #000000; 
+    --header-bg: rgba(0, 0, 0, 0.719);
     --card-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(0, 0, 0, 0.08);
     --glow-color: rgba(0, 122, 255, 0.12);
@@ -86,7 +86,7 @@ header {
 }
 
 .logo-img { 
-    width: 55px; 
+    width: 37px; 
     display: block;
     opacity: 1 !important;
     transition: var(--transition); 
@@ -110,7 +110,7 @@ header {
 .tagline { 
     font-size: 9px; 
     font-weight: 500; 
-    color: var(--text); 
+    color: #ffffff; /* Changed this to white */
     opacity: 0.8; 
     transition: var(--transition); 
     white-space: nowrap;
@@ -120,7 +120,7 @@ header {
 .menu-btn { 
     font-size: 24px; 
     cursor: pointer; 
-    color: var(--text); 
+    color: #ffffff; /* Changed to white */
     z-index: 1002; 
 }
 
@@ -144,7 +144,7 @@ header {
 .dropdown button, .dropdown a { 
     padding: 15px 20px; 
     text-decoration: none; 
-    color: var(--text); 
+    color: #ffffff; /* Changed to white */
     background: none; 
     border: none; 
     text-align: left; 
@@ -157,7 +157,7 @@ header {
 }
 
 .dropdown button:hover, .dropdown a:hover { 
-    background: rgba(0,0,0,0.05); 
+    background: rgba(255,255,255,0.1); 
 }
 
 /* --- HERO SECTION --- */
@@ -538,13 +538,13 @@ header {
         <img src="logo.png" alt="Logo" class="logo-img">
         <div class="company-info">
             <div class="company-name">Vsynap Technologies</div>
-            <div class="tagline">We connect to the world</div>
+            <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
         </div>
     </div>
     <div class="menu-btn" id="menuToggle">☰</div>
     <div class="dropdown" id="menuDropdown">
         <a href="#about">How it Works</a>
-        <a href="#download">Download App</a>
+        <a href="#downad">Download App</a>
         <button id="settings-btn">Appearance Settings ⚙️</button>
         <div id="theme-options" style="display:none; flex-direction:column; background:rgba(0,0,0,0.05);">
             <button id="light-mode">☀️ Light</button>
@@ -644,7 +644,10 @@ header {
     </div>
 </section>
 
-<footer style="padding: 60px; text-align: center; opacity: 0.5;">
+<footer style="padding: 60px; text-align: center; opacity: 0.5;"> 
+    Our tech partner zettaone
+</footer>
+<footer style="padding: 50px; text-align: center; opacity: 0.5;"> 
     © 2026 Vsynap Technologies. All Rights Reserved.
 </footer>
 
