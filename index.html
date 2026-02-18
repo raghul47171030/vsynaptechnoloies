@@ -110,7 +110,7 @@ header {
 .tagline { 
     font-size: 9px; 
     font-weight: 500; 
-    color: #ffffff; /* Changed this to white */
+    color: #ffffff; 
     opacity: 0.8; 
     transition: var(--transition); 
     white-space: nowrap;
@@ -120,7 +120,7 @@ header {
 .menu-btn { 
     font-size: 24px; 
     cursor: pointer; 
-    color: #ffffff; /* Changed to white */
+    color: #ffffff; 
     z-index: 1002; 
 }
 
@@ -144,7 +144,7 @@ header {
 .dropdown button, .dropdown a { 
     padding: 15px 20px; 
     text-decoration: none; 
-    color: #ffffff; /* Changed to white */
+    color: var(--text); /* Changed to var(--text) for adaptive color */
     background: none; 
     border: none; 
     text-align: left; 
@@ -157,7 +157,7 @@ header {
 }
 
 .dropdown button:hover, .dropdown a:hover { 
-    background: rgba(255,255,255,0.1); 
+    background: rgba(128, 128, 128, 0.1); 
 }
 
 /* --- HERO SECTION --- */
@@ -280,21 +280,22 @@ header {
 }
 
 /* --- HOW IT WORKS --- */
-#about { 
-    position: relative; 
-    padding: 120px 0; 
-    background: #000; 
+#about {
+    position: relative;
+    padding: 120px 0;
+    background: #000;
+    overflow: hidden; /* important */
 }
 
-.video-bg { 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    min-width: 100%; 
-    min-height: 100%; 
-    transform: translate(-50%, -50%); 
-    object-fit: cover; 
-    z-index: 0; 
+.video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;          /* reduce stretch */
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
 }
 
 .video-overlay { 
@@ -516,137 +517,36 @@ header {
     border-radius: 10px; 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    header { padding: 10px 15px; }
+    .logo-img { width: 30px; }
+    .company-name { font-size: 14px; }
+    .tagline { font-size: 8px; }
+    .hero { padding: 120px 5% 40px; }
+    .hero-title { gap: 10px; flex-wrap: wrap; }
+    .hero-icon { width: 45px; }
+    .hero-content { flex-direction: column; gap: 40px; }
+    .hero-text { text-align: center; }
+    .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
+    .hero-img-container { width: 100%; max-width: 280px; }
+    .main-img-box { height: 480px; width: 100%; }
+    .bg-book { width: 450px; }
+    .video-frames {
+        flex-direction: column;
+        align-items: center;   /* center horizontally */
+        justify-content: center;
+        gap: 30px;
+    }
 
-  /* Header */
-  header {
-    padding: 10px 15px;
-  }
-
-  .company-name {
-    font-size: 14px;
-  }
-
-  .tagline {
-    font-size: 8px;
-  }
-
-  .menu-btn {
-    font-size: 22px;
-  }
-
-  /* HERO SECTION */
-  .hero {
-    padding: 100px 5% 40px;
-  }
-
-  .hero-title {
-    flex-direction: column;
-    font-size: 42px;
-    gap: 10px;
-  }
-
-  .hero-content {
-    flex-direction: column;
-    gap: 35px;
-    text-align: center;
-  }
-
-  .hero-text {
-    text-align: center;
-  }
-
-  .hero-points li {
-    font-size: 15px;
-    padding-left: 20px;
-  }
-
-  .hero-img-container {
-    width: 100%;
-  }
-
-  .main-img-box {
-    width: 230px;
-    height: 460px;
-  }
-
-  .bg-book {
-    width: 400px;
-  }
-
-  .support-text {
-    font-size: 14px;
-    text-align: center;
-  }
-
-  /* HOW IT WORKS */
-  .section-header h2 {
-    font-size: 26px;
-  }
-
-  .video-frames {
-    flex-direction: column;
-    gap: 25px;
-  }
-
-  .video-frame {
-    width: 240px;
-    height: 500px;
-  }
-
-  /* SLIDER */
-  .hero-slider-container {
-    width: 95%;
-    aspect-ratio: 9 / 16;
-    max-height: 550px;
-    border-radius: 25px;
-  }
-
-  .slide-overlay h3 {
-    font-size: 16px;
-  }
-
-  .nav-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
-  }
-
-  .slider-dots {
-    bottom: 60px;
-  }
-
-  /* DOWNLOAD SECTION */
-  .download-section {
-    padding: 60px 5%;
-  }
-
-  .download-title {
-    font-size: 24px;
-  }
-
-  .download-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .download-card {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .download-card .big-text {
-    font-size: 14px;
-  }
-
-  /* Dropdown fix */
-  .dropdown {
-    right: 15px;
-    width: 90%;
-  }
-
+    .video-frame {
+        width: 85%;
+        max-width: 280px;
+        height: 520px;
+        margin: 0 auto;
+    }
+    .hero-slider-container { width: 95%; aspect-ratio: 9 / 16; max-height: 550px; }
+    .dropdown { right: 15px; top: 65px; min-width: 200px; }
 }
-
 </style>
 </head>
 <body>
