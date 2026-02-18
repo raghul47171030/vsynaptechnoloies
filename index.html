@@ -220,6 +220,7 @@ header {
 
 .bg-book {
     position: absolute;
+    top: 20%;
     width: 650px; 
     z-index: -1; 
     opacity: 0.35; 
@@ -282,7 +283,7 @@ header {
 /* --- HOW IT WORKS --- */
 #about {
     position: relative;
-    padding: 120px 0;
+    padding: 40px 0;
     background: #000;
     overflow: hidden; /* important */
 }
@@ -348,7 +349,7 @@ header {
 /* --- FLIPPING SLIDER --- */
 .hero-slider-container { 
     position: relative; 
-    width: 92%; 
+    width: 91%; 
     margin: 60px auto; 
     aspect-ratio: 16 / 9; 
     max-height: 85vh; 
@@ -381,7 +382,7 @@ header {
 .hero-slide video { 
     width: 100%; 
     height: 100%; 
-    object-fit: cover; 
+    object-fit: contain; 
 }
 
 .slide-overlay { 
@@ -529,13 +530,13 @@ header {
     .hero-text { text-align: center; }
     .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
     .hero-img-container { width: 100%; max-width: 280px; }
-    .main-img-box { height: 480px; width: 100%; }
-    .bg-book { width: 450px; }
+    .main-img-box { height: 480px; width: 90%; }
+    .bg-book { align-items:center ; top: 20%;width: 280px;}
     .video-frames {
         flex-direction: column;
         align-items: center;   /* center horizontally */
         justify-content: center;
-        gap: 30px;
+        gap: px;
     }
 
     .video-frame {
@@ -544,7 +545,7 @@ header {
         height: 520px;
         margin: 0 auto;
     }
-    .hero-slider-container { width: 95%; aspect-ratio: 9 / 16; max-height: 550px; }
+    .hero-slider-container { width: 85%; aspect-ratio: 9 / 16; max-height: 129px; }
     .dropdown { right: 15px; top: 65px; min-width: 200px; }
 }
 </style>
@@ -664,7 +665,7 @@ header {
     </div>
 </section>
 
-<footer style="padding: 60px; text-align: center; opacity: 0.5;"> 
+<footer style="padding: 0px; text-align: center; opacity: 0.5;"> 
     Our tech partner zettaone
 </footer>
 <footer style="padding: 50px; text-align: center; opacity: 0.5;"> 
