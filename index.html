@@ -187,11 +187,11 @@ header {
 }
 
 .side-icon-left {
-    height: 0.77em; 
+    height: 0.78em; 
     width: auto;
     object-fit: contain;
     display: block;
-    margin-top: 7.2px;
+    margin-top: 7.3px;
 }
 
 .ungaa-tagline {
@@ -354,8 +354,8 @@ header {
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    gap: 30px; 
-    margin-bottom: 40px; 
+    gap: 45px; 
+    margin-bottom: 100px; 
     flex-wrap: wrap; 
 }
 
@@ -378,10 +378,9 @@ header {
 /* --- FLIPPING SLIDER --- */
 .hero-slider-container { 
     position: relative; 
-    width: 91%; 
+    width: 95%; 
     margin: 60px auto; 
-    aspect-ratio: 16 / 9; 
-    max-height: 85vh; 
+    aspect-ratio: 19.1 / 9; 
     border-radius: 40px; 
     overflow: hidden; 
     box-shadow: 0 40px 100px rgba(0,0,0,0.2); 
@@ -411,7 +410,7 @@ header {
 .hero-slide video { 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; 
+    object-fit: contain; /* Keeps the full video visible without cropping */
 }
 
 /* --- DOWNLOAD SECTION --- */
@@ -535,7 +534,7 @@ header {
     .hero-title { gap: 0px; flex-wrap: wrap; }
     .title-main-row { gap: 10px; }
     .hero-icon { width: 45px; }
-    .side-icon-left { height: 0.8em; } 
+    .side-icon-left { height: 0.88em;margin-top: 4.1px; } 
     .hero-content { flex-direction: column; gap: 40px; }
     .hero-text { text-align: center; }
     .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
@@ -546,7 +545,7 @@ header {
         flex-direction: column;
         align-items: center;   
         justify-content: center;
-        gap: 0px;
+        gap: 5px;
     }
 
     .video-frame {
@@ -555,8 +554,45 @@ header {
         height: 520px;
         margin: 0 auto;
     }
-    .hero-slider-container { width: 85%; aspect-ratio: 9 / 16; max-height: 129px; }
+
+    /* Video slider responsive fixes - Height adjusted to content */
+    .hero-slider-container { 
+        width: 91%; 
+        aspect-ratio: auto; 
+        height: auto; 
+    }
+    
+    .hero-slide {
+        position: relative;
+        opacity: 0;
+        display: none;
+    }
+    
+    .hero-slide.active {
+        display: block;
+        opacity: 1;
+        position: relative;
+    }
+
+    .hero-slide video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
     .dropdown { right: 15px; top: 65px; min-width: 200px; }
+}
+
+/* Tablet/iPad specific tweaks */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-slider-container {
+        width: 90%;
+        height: auto;
+        aspect-ratio: auto;
+    }
+    .hero-slide video {
+        height: auto;
+    }
 }
 </style>
 </head>
@@ -679,16 +715,16 @@ header {
     </div>
 </section>
 
-<footer style="padding: 20px; text-align: center; background: cyan; border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;"> 
-    <span style="opacity: 0.7; font-weight: 600;">Our &nbsp;technology &nbsp;partner &nbsp;Zettaone</span>
+<footer style="padding: 20px; text-align: center; background: rgb(175, 231, 255); border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;"> 
+    <span style="opacity: 100; font-weight: 700;color: white;">Our &nbsp;technology &nbsp;partner &nbsp;Zettaone</span>
     <div style="display: flex; align-items: center; gap: 8px;">
-        <img src="zetta.png" alt="Zettaone Icon" style="height: 40px; width: auto;">
+        <img src="zetta.png" alt="Zettaone Icon" style="height: 60px; width: auto;">
         <span style="font-weight: 800; color: var(--text);"></span>
     </div>
 </footer>
 
-<footer style="padding: 40px 20px; text-align: center; background: var(--footer-bg); border-top: 1px solid var(--glass-border);"> 
-    <p style="opacity: 0.6; font-size: 14px; font-weight: 500;">
+<footer style="padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, 0.719); border-top: 1px solid var(--glass-border);"> 
+    <p style="opacity: 0.6; font-size: 15px; font-weight: 750;color: white ; ">
         © 2026 Vsynap Technologies. All Rights Reserved.
     </p>
 </footer>
@@ -707,7 +743,13 @@ function moveSlide(direction) {
     videos[currentIdx].currentTime = 0;
     slides[currentIdx].classList.remove('active');
     dots[currentIdx].classList.remove('active');
+    
+    // For mobile transition smoothness
+    slides[currentIdx].style.display = 'none';
+
     currentIdx = (currentIdx + direction + slides.length) % slides.length;
+    
+    slides[currentIdx].style.display = 'block';
     slides[currentIdx].classList.add('active');
     dots[currentIdx].classList.add('active');
     videos[currentIdx].play().catch(e => {});
@@ -719,7 +761,11 @@ function currentSlide(n) {
     videos[currentIdx].currentTime = 0;
     slides[currentIdx].classList.remove('active');
     dots[currentIdx].classList.remove('active');
+    slides[currentIdx].style.display = 'none';
+
     currentIdx = n;
+    
+    slides[currentIdx].style.display = 'block';
     slides[currentIdx].classList.add('active');
     dots[currentIdx].classList.add('active');
     videos[currentIdx].play();
