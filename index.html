@@ -22,7 +22,7 @@
     --btn-bg: #000000;
     --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     --lang-gradient: linear-gradient(90deg, #0061fd, #ff007a, #00c6ff);
-    --footer-bg: rgba(0, 0, 0, 0.03);
+    --footer-bg: rgb(187, 234, 255); 
 }
 
 body.dark-mode {
@@ -36,7 +36,7 @@ body.dark-mode {
     --cta-text: #000000;
     --btn-bg: #ffffff;
     --lang-gradient: linear-gradient(90deg, #00f2ff, #bc00ff, #0061fd);
-    --footer-bg: rgba(255, 255, 255, 0.05);
+    --footer-bg: rgb(187, 234, 255); 
 }
 
 * { 
@@ -117,6 +117,7 @@ header {
     transition: var(--transition); 
     white-space: nowrap;
     margin-top: 2px;
+    margin-right: 95px;
 }
 
 .menu-btn { 
@@ -309,10 +310,76 @@ header {
     font-weight: 800; 
 }
 
+/* --- PROVIDERS SECTION --- */
+.providers-section {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.providers-text {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 700;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+.providers-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.provider-icon {
+    height: clamp(35px, 6vw, 55px);
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.provider-icon:hover {
+    transform: scale(1.1);
+}
+
+/* --- SEPARATE AWS ICON SIZES --- */
+#awsIcon {
+    height: clamp(25px, 4vw, 50px);
+}
+
+body.dark-mode #awsIcon {
+    height: clamp(35px, 5vw, 30px);
+}
+
+/* --- EXPLORE BUTTON STYLE --- */
+.explore-btn-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.explore-more-btn {
+    display: inline-block;
+    padding: 15px 45px;
+    background: var(--btn-bg);
+    color: var(--cta-text);
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.explore-more-btn:hover {
+    transform: translateY(-3px);
+    background: var(--primary);
+    color: white;
+}
+
 /* --- HOW IT WORKS --- */
 #about {
     position: relative;
-    padding: 40px 0;
+    padding: 40px 0 80px; 
     background: #000;
     overflow: hidden; 
 }
@@ -355,7 +422,7 @@ header {
     justify-content: center; 
     align-items: center; 
     gap: 45px; 
-    margin-bottom: 100px; 
+    margin-bottom: 20px; 
     flex-wrap: wrap; 
 }
 
@@ -379,7 +446,7 @@ header {
 .hero-slider-container { 
     position: relative; 
     width: 95%; 
-    margin: 60px auto; 
+    margin: 60px auto 20px; /* Reduced bottom margin for dots */
     aspect-ratio: 19.1 / 9; 
     border-radius: 40px; 
     overflow: hidden; 
@@ -410,7 +477,7 @@ header {
 .hero-slide video { 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; /* Keeps the full video visible without cropping */
+    object-fit: contain; 
 }
 
 /* --- DOWNLOAD SECTION --- */
@@ -500,12 +567,12 @@ header {
 .nav-btn.prev { left: 15px; } 
 .nav-btn.next { right: 15px; }
 
+/* MOVED DOTS TO BOTTOM OUTSIDE VIDEO */
 .slider-dots { 
-    position: absolute; 
-    bottom: 80px; 
-    left: 50%; 
-    transform: translateX(-50%); 
+    position: relative; 
+    margin-top: 20px; 
     display: flex; 
+    justify-content: center; 
     gap: 10px; 
     z-index: 50; 
 }
@@ -514,9 +581,13 @@ header {
     width: 8px; 
     height: 8px; 
     border-radius: 50%; 
-    background: rgba(255,255,255,0.3); 
+    background: rgba(128,128,128,0.3); 
     cursor: pointer; 
     transition: 0.4s; 
+}
+
+body.dark-mode .dot {
+    background: rgba(255,255,255,0.2);
 }
 
 .dot.active { 
@@ -528,71 +599,33 @@ header {
 @media (max-width: 768px) {
     header { padding: 10px 15px; }
     .logo-img { width: 30px; }
-    .company-name { font-size: 14px; }
-    .tagline { font-size: 8px; }
+    .company-name { font-size: 14px;margin-right: 30px; }
+    .tagline { font-size: 8px;margin-left: 5px; }
     .hero { padding: 120px 5% 40px; }
     .hero-title { gap: 0px; flex-wrap: wrap; }
     .title-main-row { gap: 10px; }
     .hero-icon { width: 45px; }
-    .side-icon-left { height: 0.88em;margin-top: 4.1px; } 
+    .side-icon-left { height: 0.9em;margin-top: 4.1px; } 
+    .ungaa-tagline { font-size: 14px !important; letter-spacing: 2px; margin-top: 5px;margin-right: 40px;}
     .hero-content { flex-direction: column; gap: 40px; }
     .hero-text { text-align: center; }
     .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
     .hero-img-container { width: 100%; max-width: 280px; }
     .main-img-box { height: 480px; width: 90%; }
     .bg-book { align-items:center ; top: 20%;width: 280px;}
-    .video-frames {
-        flex-direction: column;
-        align-items: center;   
-        justify-content: center;
-        gap: 5px;
-    }
-
-    .video-frame {
-        width: 85%;
-        max-width: 280px;
-        height: 520px;
-        margin: 0 auto;
-    }
-
-    /* Video slider responsive fixes - Height adjusted to content */
-    .hero-slider-container { 
-        width: 91%; 
-        aspect-ratio: auto; 
-        height: auto; 
-    }
-    
-    .hero-slide {
-        position: relative;
-        opacity: 0;
-        display: none;
-    }
-    
-    .hero-slide.active {
-        display: block;
-        opacity: 1;
-        position: relative;
-    }
-
-    .hero-slide video {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
+    .video-frames { flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+    .video-frame { width: 85%; max-width: 280px; height: 520px; margin: 0 auto; }
+    .hero-slider-container { width: 91%; aspect-ratio: auto; height: auto; margin-bottom: 10px; }
+    .hero-slide { position: relative; opacity: 0; display: none; }
+    .hero-slide.active { display: block; opacity: 1; position: relative; }
+    .hero-slide video { width: 100%; height: auto; display: block; }
     .dropdown { right: 15px; top: 65px; min-width: 200px; }
+    body.dark-mode #awsIcon { height: 20px !important; width: auto; }
 }
 
-/* Tablet/iPad specific tweaks */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .hero-slider-container {
-        width: 90%;
-        height: auto;
-        aspect-ratio: auto;
-    }
-    .hero-slide video {
-        height: auto;
-    }
+    .hero-slider-container { width: 90%; height: auto; aspect-ratio: auto; }
+    .hero-slide video { height: auto; }
 }
 </style>
 </head>
@@ -604,7 +637,7 @@ header {
     <div class="header-left">
         <img src="logo.png" alt="Logo" class="logo-img">
         <div class="company-info">
-            <div class="company-name">Vsynap Technologies</div>
+            <div class="company-name">V-Synap Technologies</div>
             <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
         </div>
     </div>
@@ -651,6 +684,15 @@ header {
     </div>
 </section>
 
+<section class="providers-section">
+    <p class="providers-text">Thanks to our AI and Cloud Service Providers</p>
+    <div class="providers-icons">
+        <img src="chaticon.png" alt="AI Chat Icon" class="provider-icon" id="chatIcon">
+        <img src="googlecloud.png" alt="Google Cloud Icon" class="provider-icon">
+        <img src="awsicon.png" alt="AWS Icon" class="provider-icon" id="awsIcon">
+    </div>
+</section>
+
 <section class="section" id="about">
     <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
     <div class="video-overlay"></div>
@@ -661,6 +703,10 @@ header {
             <div class="video-frame"><video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video></div>
             <div class="video-frame"><video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video></div>
             <div class="video-frame"><video autoplay muted loop playsinline><source src="video3.mp4" type="video/mp4"></video></div>
+        </div>
+
+        <div class="explore-btn-container">
+            <a href="more.html" class="explore-more-btn">Explore More</a>
         </div>
     </div>
 </section>
@@ -680,23 +726,22 @@ header {
         </div>
         <div class="hero-slide">
             <video muted playsinline class="sync-video"><source src="aspiring.mp4" type="video/mp4"></video>
-
         </div>
         <div class="hero-slide">
             <video muted playsinline class="sync-video"><source src="profession.mp4" type="video/mp4"></video>
         </div>
     </div>
-    <div class="slider-dots">
-        <span class="dot active" onclick="currentSlide(0)"></span>
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-    </div>
+</div>
+<div class="slider-dots">
+    <span class="dot active" onclick="currentSlide(0)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
 </div>
 
 <section class="download-section" id="download">
-    <h2 class="download-title">Download UNGAA</h2>
+    <h2 class="download-title">Download  UNGAA</h2>
     <div class="download-container">
         <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank" rel="noopener" class="download-card">
             <img src="anio3.png" alt="iOS" class="dl-icon-img" id="iosIcon">
@@ -715,16 +760,18 @@ header {
     </div>
 </section>
 
-<footer style="padding: 20px; text-align: center; background: rgb(175, 231, 255); border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;"> 
-    <span style="opacity: 100; font-weight: 700;color: white;">Our &nbsp;technology &nbsp;partner &nbsp;Zettaone</span>
-    <div style="display: flex; align-items: center; gap: 8px;">
-        <img src="zetta.png" alt="Zettaone Icon" style="height: 60px; width: auto;">
-        <span style="font-weight: 800; color: var(--text);"></span>
+<footer style="padding: 20px 40px; text-align: center; background: var(--footer-bg); border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative;"> 
+    <span style="opacity: 100; font-weight: 700; font-size: larger; color: rgb(0, 0, 0);">Thanks &nbsp;to &nbsp;your &nbsp;Technology &nbsp;Partner</span>
+    <div style="display: flex; align-items: center;">
+        <a href="https://www.zettaone.com/" target="_blank">
+            <img src="zetta.png" alt="Zettaone Icon" style="height: 60px; width: auto; cursor: pointer;">
+        </a>
     </div>
+    <a href="https://www.zettaone.com/" target="_blank" style="position: absolute; bottom: 10px; right: 20px; font-size: 12px; font-weight: 600; text-decoration: none; color: var(--text); opacity: 0.8;">www.zettaone.com</a>
 </footer>
 
 <footer style="padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, 0.719); border-top: 1px solid var(--glass-border);"> 
-    <p style="opacity: 0.6; font-size: 15px; font-weight: 750;color: white ; ">
+    <p style="opacity: 0.6; font-size: 15px; font-weight: 750; color: white;">
         © 2026 Vsynap Technologies. All Rights Reserved.
     </p>
 </footer>
@@ -743,12 +790,8 @@ function moveSlide(direction) {
     videos[currentIdx].currentTime = 0;
     slides[currentIdx].classList.remove('active');
     dots[currentIdx].classList.remove('active');
-    
-    // For mobile transition smoothness
     slides[currentIdx].style.display = 'none';
-
     currentIdx = (currentIdx + direction + slides.length) % slides.length;
-    
     slides[currentIdx].style.display = 'block';
     slides[currentIdx].classList.add('active');
     dots[currentIdx].classList.add('active');
@@ -762,9 +805,7 @@ function currentSlide(n) {
     slides[currentIdx].classList.remove('active');
     dots[currentIdx].classList.remove('active');
     slides[currentIdx].style.display = 'none';
-
     currentIdx = n;
-    
     slides[currentIdx].style.display = 'block';
     slides[currentIdx].classList.add('active');
     dots[currentIdx].classList.add('active');
@@ -807,16 +848,22 @@ document.getElementById('settings-btn').onclick = (e) => {
 
 const iosIcon = document.getElementById('iosIcon');
 const dynamicIcon = document.getElementById('dynamicIcon');
+const chatIcon = document.getElementById('chatIcon');
+const awsIcon = document.getElementById('awsIcon');
 
 document.getElementById('light-mode').onclick = () => { 
     document.body.classList.remove('dark-mode'); 
     iosIcon.src = 'anio3.png'; 
     dynamicIcon.src = 'anio1.png'; 
+    chatIcon.src = 'chaticon.png';
+    awsIcon.src = 'awsicon.png';
 };
 document.getElementById('dark-mode').onclick = () => { 
     document.body.classList.add('dark-mode'); 
     iosIcon.src = 'anio1.png'; 
     dynamicIcon.src = 'anio3.png'; 
+    chatIcon.src = 'chaticon2.png';
+    awsIcon.src = 'awsicon1.png';
 };
 
 window.onclick = () => {
