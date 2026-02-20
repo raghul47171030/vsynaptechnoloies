@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNGAA | Platform Features</title>
+<link rel="icon" href="iconNew.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #5b9aff; 
+    --bg: #ffffff;
+    --text: #000000;
+    --text-light: #555555;
+    --header-bg: rgba(0, 0, 0, 0.719);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glow-color: rgba(0, 122, 255, 0.12);
+    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.dark-mode {
+    --primary: #00f2ff;
+    --bg: #050505;
+    --text: #ffffff;
+    --text-light: #bbbbbb;
+    --header-bg: rgba(0, 242, 255, 0.12);
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(0, 242, 255, 0.18);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body { background: var(--bg); color: var(--text); overflow-x: hidden; transition: var(--transition); }
+
+#antigravityCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+#glow { 
+    position: fixed; width: 600px; height: 600px; 
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%); 
+    border-radius: 50%; pointer-events: none; z-index: 0; 
+    transform: translate(-50%, -50%); transition: 0.1s linear; 
+}
+
+header { 
+    position: fixed; top: 0; left: 0; width: 100%; padding: 10px 40px; 
+    background: var(--header-bg); backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid var(--glass-border); 
+    z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
+}
+
+.header-left { display: flex; align-items: center; gap: 0px; }
+.logo-img { width: 37px; display: block; }
+.company-info { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.company-name { font-size: 18px; font-weight: 800; color: var(--primary); line-height: 1.1; white-space: nowrap; }
+.tagline { font-size: 9px; font-weight: 500; color: #ffffff; opacity: 0.8; white-space: nowrap; margin-top: 2px; margin-right: 95px; }
+
+.main-content { padding-top: 140px; position: relative; z-index: 1; }
+
+.hero-title { 
+    padding: 140px 8% 80px; text-align: center; 
+    font-size: clamp(45px, 9vw, 95px); 
+    font-weight: 800; 
+    background: linear-gradient(90deg, var(--text), var(--primary), var(--text)); 
+    background-size: 200% auto; -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; 
+}
+
+@keyframes shine { to { background-position: 200% center; } }
+
+.feature-section { 
+    padding: 100px 8%; 
+    display: flex; align-items: center; justify-content: center; 
+    gap: 80px; 
+    opacity: 0; transform: translateY(60px); 
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.feature-section.active { opacity: 1; transform: translateY(0); }
+.feature-section:nth-child(even) { flex-direction: row-reverse; }
+
+/* IMAGE SIZE UPGRADE */
+.image-container { 
+    flex: 0 0 340px; /* Increased from 280px */
+    background: var(--card-bg); border-radius: 25px; 
+    padding: 0; 
+    border: 1px solid var(--glass-border); 
+    box-shadow: 0 40px 80px rgba(0,0,0,0.2); 
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.image-container img { width: 100%; height: 720px; /* Increased from 606px */ object-fit: cover; display: block; transition: 0.6s ease; }
+
+.text-container { flex: 1; max-width: 750px; text-align: left; }
+
+.badge { 
+    display: inline-block; padding: 6px 16px; background: var(--primary); 
+    color: white; border-radius: 50px; font-size: 11px; font-weight: 800; 
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; 
+}
+
+.text-container h2 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin-bottom: 25px; line-height: 1.1; color: var(--primary); }
+.text-container p { font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5; color: var(--text); font-weight: 500; }
+
+footer { padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, 0.719); border-top: 1px solid var(--glass-border); }
+footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: white; }
+
+@media (max-width: 768px) { 
+    header { padding: 10px 15px; }
+    .company-name { font-size: 14px; margin-right: 30px; }
+    .tagline { font-size: 8px; margin-left: 5px; }
+    .feature-section { flex-direction: column !important; text-align: center; padding: 60px 5%; gap: 40px; } 
+    .image-container { flex: 0 0 auto; width: 95%; max-width: 320px; height: 580px; } 
+    .image-container img { height: 100%; }
+    .text-container { max-width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="antigravityCanvas"></canvas>
+<div id="glow"></div>
+
+<header>
+    <div class="header-left">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <div class="company-info">
+            <div class="company-name">V-Synap Technologies</div>
+            <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
+        </div>
+    </div>
+    <a href="index.html" style="text-decoration: none; color: #fff; font-weight: 700; font-size: 13px; opacity: 0.8;">← HOME</a>
+</header>
+
+<div class="main-content">
+    <h1 class="hero-title">Platform Features</h1>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i1.jpeg" alt="Smart Capture"></div>
+        <div class="text-container">
+            <span class="badge">AI RECOGNITION</span>
+            <h2>Smart Capture</h2>
+            <p>Capture and identify words instantly using advanced neural processing. UNGAA understands the context of your environment in real-time.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i2.jpeg" alt="Visual Learning"></div>
+        <div class="text-container">
+            <span class="badge">IMMERSIVE</span>
+            <h2>Visual Learning</h2>
+            <p>Go beyond text. Deep dive with curated educational media and short-form videos designed for multi-sensory understanding.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i3.jpeg" alt="Personalized"></div>
+        <div class="text-container">
+            <span class="badge">ADAPTIVE</span>
+            <h2>Personalized Path</h2>
+            <p>Your brain is unique. UNGAA learns your pace and preferences to deliver a tailored educational experience that evolves with you.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i4.jpeg" alt="Social Sync"></div>
+        <div class="text-container">
+            <span class="badge">CONNECTED</span>
+            <h2>Social Integration</h2>
+            <p>Share your discoveries with a global community. Collaborative learning features allow you to capture insights and share them instantly.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i5.jpeg" alt="Global Support"></div>
+        <div class="text-container">
+            <span class="badge">UNIVERSAL</span>
+            <h2>100+ Languages</h2>
+            <p>Break every barrier. Native support for over 100 languages ensures that you can learn and communicate in your mother tongue.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i6.jpeg" alt="Expert Mode"></div>
+        <div class="text-container">
+            <span class="badge">ADVANCED</span>
+            <h2>Expert Analysis</h2>
+            <p>Transition from beginner to champion. Unlock deep etymology, complex sentence structures, and professional terminology.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i7.jpeg" alt="Cloud Sync"></div>
+        <div class="text-container">
+            <span class="badge">SECURE</span>
+            <h2>Seamless Cloud Sync</h2>
+            <p>Access your library anywhere. Real-time synchronization across mobile and web interfaces powered by robust cloud architecture.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i8.jpeg" alt="Voice Engine"></div>
+        <div class="text-container">
+            <span class="badge">DYNAMIC</span>
+            <h2>Natural Voice Engine</h2>
+            <p>Speak naturally. Our AI-driven voice integration allows for hands-free learning and high-fidelity pronunciation practice.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i9.jpeg" alt="Notes"></div>
+        <div class="text-container">
+            <span class="badge">CREATIVE</span>
+            <h2>Interactive Notes</h2>
+            <p>Create rich, multimedia notes. Attach voice clips, images, and videos to your vocabulary to create a truly personal knowledge base.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i10.jpeg" alt="Insights"></div>
+        <div class="text-container">
+            <span class="badge">DATA-DRIVEN</span>
+            <h2>Cognitive Insights</h2>
+            <p>Visualize your progress. Detailed analytics show your learning heatmaps, retention rates, and daily consistency metrics.</p>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <div class="image-container"><img src="i11.jpeg" alt="Motivation"></div>
+        <div class="text-container">
+            <span class="badge">CHAMPION</span>
+            <h2>Gamified Mastery</h2>
+            <p>Stay motivated with rewards and ranking. Level up your profile as you master new domains and compete with friends.</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Vsynap Technologies. All Rights Reserved.</p>
+</footer>
+
+<script>
+const aniCanvas = document.getElementById('antigravityCanvas');
+const aniCtx = aniCanvas.getContext('2d');
+let dots = [];
+const dotCount = 85; 
+const connectionDistance = 150;
+const mouse = { x: null, y: null, radius: 180 };
+
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+class Dot {
+    constructor() { this.init(); }
+    init() {
+        this.x = Math.random() * aniCanvas.width;
+        this.y = Math.random() * aniCanvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x > aniCanvas.width) this.x = 0; else if (this.x < 0) this.x = aniCanvas.width;
+        if (this.y > aniCanvas.height) this.y = 0; else if (this.y < 0) this.y = aniCanvas.height;
+
+        if (mouse.x != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+                const force = (mouse.radius - distance) / mouse.radius;
+                this.x -= dx * force * 0.03;
+                this.y -= dy * force * 0.03;
+            }
+        }
+    }
+    draw() {
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+        aniCtx.beginPath();
+        aniCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        aniCtx.fillStyle = primaryColor;
+        aniCtx.globalAlpha = 0.4;
+        aniCtx.fill();
+    }
+}
+
+function initAni() {
+    aniCanvas.width = window.innerWidth;
+    aniCanvas.height = window.innerHeight;
+    dots = [];
+    for (let i = 0; i < dotCount; i++) dots.push(new Dot());
+}
+
+function runAni() {
+    aniCtx.clearRect(0, 0, aniCanvas.width, aniCanvas.height);
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].update();
+        dots[i].draw();
+        for (let j = i + 1; j < dots.length; j++) {
+            const dx = dots[i].x - dots[j].x;
+            const dy = dots[i].y - dots[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < connectionDistance) {
+                aniCtx.strokeStyle = primaryColor;
+                aniCtx.globalAlpha = (1 - (distance / connectionDistance)) * 0.15;
+                aniCtx.lineWidth = 0.8;
+                aniCtx.beginPath();
+                aniCtx.moveTo(dots[i].x, dots[i].y);
+                aniCtx.lineTo(dots[j].x, dots[j].y);
+                aniCtx.stroke();
+            }
+        }
+    }
+    requestAnimationFrame(runAni);
+}
+
+window.addEventListener('resize', initAni);
+initAni();
+runAni();
+
+const glow = document.getElementById('glow');
+window.onmousemove = (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-section').forEach(s => observer.observe(s));
+
+const savedTheme = localStorage.getItem('ungaa-theme');
+if (savedTheme === 'dark') document.body.classList.add('dark-mode');
+</script>
+
+</body>
+</html>
