@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNGAA | Platform Features</title>
-<link rel="icon" href="iconNew.png">
+<link rel="icon" href="s.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,27 +15,30 @@
     --bg: #ffffff;
     --text: #000000;
     --text-light: #555555;
-    --header-bg: rgba(0, 0, 0, 0.719);
+    --header-bg: rgba(255, 255, 255, 0.8);
     --card-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(0, 0, 0, 0.08);
-    --glow-color: rgba(0, 122, 255, 0.12);
+    --glow-color: rgba(91, 154, 255, 0.15);
     --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --footer-bg: rgba(0, 0, 0, 0.05);
 }
 
+/* DARK MODE OVERRIDES */
 body.dark-mode {
-    --primary: #00f2ff;
-    --bg: #050505;
+    --primary: #5b9aff;
+    --bg: #0a0a0a;
     --text: #ffffff;
     --text-light: #bbbbbb;
-    --header-bg: rgba(0, 242, 255, 0.12);
-    --card-bg: rgba(255, 255, 255, 0.04);
+    --header-bg: rgba(10, 10, 10, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --glow-color: rgba(0, 242, 255, 0.18);
+    --glow-color: rgba(91, 154, 255, 0.2);
+    --footer-bg: rgba(0, 0, 0, 0.8);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-body { background: var(--bg); color: var(--text); overflow-x: hidden; transition: var(--transition); }
+body { background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.5s ease, color 0.5s ease; }
 
 #antigravityCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
@@ -58,7 +61,21 @@ header {
 .logo-img { width: 37px; display: block; }
 .company-info { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .company-name { font-size: 18px; font-weight: 800; color: var(--primary); line-height: 1.1; white-space: nowrap; }
-.tagline { font-size: 9px; font-weight: 500; color: #ffffff; opacity: 0.8; white-space: nowrap; margin-top: 2px; margin-right: 95px; }
+.tagline { font-size: 9px; font-weight: 500; color: var(--text); opacity: 0.8; white-space: nowrap; margin-top: 2px; margin-right: 95px; }
+
+.header-right { display: flex; align-items: center; gap: 20px; }
+
+.theme-toggle {
+    background: var(--glass-border);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: var(--transition);
+}
 
 .main-content { padding-top: 140px; position: relative; z-index: 1; }
 
@@ -83,18 +100,36 @@ header {
 .feature-section.active { opacity: 1; transform: translateY(0); }
 .feature-section:nth-child(even) { flex-direction: row-reverse; }
 
-/* IMAGE SIZE UPGRADE */
 .image-container { 
-    flex: 0 0 340px; /* Increased from 280px */
+    flex: 0 0 340px; 
     background: var(--card-bg); border-radius: 25px; 
     padding: 0; 
     border: 1px solid var(--glass-border); 
-    box-shadow: 0 40px 80px rgba(0,0,0,0.2); 
+    box-shadow: 0 40px 80px rgba(0,0,0,0.1); 
     overflow: hidden;
     transition: var(--transition);
+    cursor: pointer;
 }
 
-.image-container img { width: 100%; height: 720px; /* Increased from 606px */ object-fit: cover; display: block; transition: 0.6s ease; }
+/* IMAGE HOVER EFFECT */
+.image-container:hover {
+    transform: scale(1.03) translateY(-15px);
+    box-shadow: 0 50px 100px rgba(91, 154, 255, 0.3);
+    border-color: var(--primary);
+}
+
+.image-container img { 
+    width: 100%; 
+    height: 720px; 
+    object-fit: cover; 
+    display: block; 
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+/* ZOOM EFFECT ON HOVER */
+.image-container:hover img {
+    transform: scale(1.12);
+}
 
 .text-container { flex: 1; max-width: 750px; text-align: left; }
 
@@ -107,8 +142,8 @@ header {
 .text-container h2 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin-bottom: 25px; line-height: 1.1; color: var(--primary); }
 .text-container p { font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5; color: var(--text); font-weight: 500; }
 
-footer { padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, 0.719); border-top: 1px solid var(--glass-border); }
-footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: white; }
+footer { padding: 60px 20px; text-align: center; background: var(--footer-bg); border-top: 1px solid var(--glass-border); }
+footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: var(--text); }
 
 @media (max-width: 768px) { 
     header { padding: 10px 15px; }
@@ -134,7 +169,10 @@ footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: white; }
             <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
         </div>
     </div>
-    <a href="index.html" style="text-decoration: none; color: #fff; font-weight: 700; font-size: 13px; opacity: 0.8;">← HOME</a>
+    <div class="header-right">
+        <button class="theme-toggle" id="themeToggle">🌓 MODE</button>
+        <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 700; font-size: 13px; opacity: 0.8;">← HOME</a>
+    </div>
 </header>
 
 <div class="main-content">
@@ -238,7 +276,6 @@ footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: white; }
             <p>Stay motivated with rewards and ranking. Level up your profile as you master new domains and compete with friends.</p>
         </div>
     </div>
-
 </div>
 
 <footer>
@@ -246,6 +283,20 @@ footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: white; }
 </footer>
 
 <script>
+// Theme Toggle Logic
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    localStorage.setItem('ungaa-theme', isDark ? 'dark' : 'light');
+});
+
+const savedTheme = localStorage.getItem('ungaa-theme');
+if (savedTheme === 'dark') body.classList.add('dark-mode');
+
+// Background Animation Logic
 const aniCanvas = document.getElementById('antigravityCanvas');
 const aniCtx = aniCanvas.getContext('2d');
 let dots = [];
@@ -342,9 +393,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.feature-section').forEach(s => observer.observe(s));
-
-const savedTheme = localStorage.getItem('ungaa-theme');
-if (savedTheme === 'dark') document.body.classList.add('dark-mode');
 </script>
 
 </body>
