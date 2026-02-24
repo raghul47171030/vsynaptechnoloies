@@ -26,17 +26,16 @@
     }
 
     body.dark-mode {
-        /* Colors adjusted to match Light Mode primary colors */
         --primary: #5b9aff; 
         --bg: #050505;
         --text: #ffffff; 
         --header-bg: rgba(0, 0, 0, 0.8);
         --card-bg: rgba(255, 255, 255, 0.04);
         --glass-border: rgba(255, 255, 255, 0.1);
-        --glow-color: rgba(0, 122, 255, 0.15); /* Match Light Mode blue glow */
+        --glow-color: rgba(0, 122, 255, 0.15); 
         --cta-text: #000000;
         --btn-bg: #ffffff;
-        --lang-gradient: linear-gradient(90deg, #0061fd, #ff007a, #00c6ff); /* Match Light Mode gradient */
+        --lang-gradient: linear-gradient(90deg, #0061fd, #ff007a, #00c6ff); 
     }
 
     * { 
@@ -64,9 +63,18 @@
         50% { transform: translateY(-8px); }
     }
 
-    /* Targeted class for the text "UNGAA" - Movement removed, Shine kept */
     .ungaa-text-animation {
         background: linear-gradient(90deg, var(--text) 0%, var(--primary) 50%, var(--text) 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 5s linear infinite; 
+        display: inline-block;
+    }
+
+    /* SPECIFIC WHITE SHINE FOR "HOW UNGAA WORKS" */
+    .how-ungaa-works-shine {
+        background: linear-gradient(90deg, #ffffff 0%, var(--primary) 50%, #ffffff 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -154,7 +162,7 @@
     .tagline { 
         font-size: 9px; 
         font-weight: 500; 
-        color: #ffffff; 
+        color: #000000; 
         opacity: 0.8; 
         transition: var(--transition); 
         white-space: nowrap;
@@ -482,7 +490,6 @@
     .section-header h2 { 
         font-size: 42px; 
         font-weight: 800; 
-        color: var(--primary); 
         text-align: center; 
         margin-bottom: 60px; 
     }
@@ -751,7 +758,9 @@
     <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
     <div class="video-overlay"></div>
     <div class="container">
-        <div class="section-header"><h2>How UNGAA Works</h2></div>
+        <div class="section-header" style="text-align: center;">
+            <h2 class="how-ungaa-works-shine">How UNGAA Works</h2>
+        </div>
         
         <div class="video-frames">
             <div class="video-frame"><video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video></div>
@@ -818,10 +827,10 @@
 </footer>
 
 <footer style="padding: 40px 20px; text-align: center; background: rgba(0, 0, 0, 0.719); border-top: 1px solid var(--glass-border);"> 
-    <p style="opacity: 0.6; font-size: 15px; font-weight: 750; color: white;">
+    <p style="opacity: 0.6; font-size: 15px; font-weight: 750; color: rgb(255, 255, 255);">
         © 2026 Vsynap Technologies. All Rights Reserved.
     </p>
-    <a href="privacyandpolicy.html" style="color: rgb(255, 255, 255); text-decoration: none; font-size: 12px; display: block; margin-top: 10px;">Privacy and Policy</a>
+    <a href="privacyandpolicy.html" style="color: rgb(255, 255, 255); text-decoration: none; font-size: 12px; display: block; margin-top: 10px;">Privacy Policy & Terms of Use</a>
 </footer>
 
 <script>
