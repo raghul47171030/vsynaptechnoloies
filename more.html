@@ -293,8 +293,14 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('ungaa-theme', isDark ? 'dark' : 'light');
 });
 
+/* --- THEME SYNC FOR SUBPAGES --- */
 const savedTheme = localStorage.getItem('ungaa-theme');
-if (savedTheme === 'dark') body.classList.add('dark-mode');
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    // If these pages have the theme toggle button too, update it here:
+    const themeBtn = document.getElementById('themeToggle');
+    if(themeBtn) themeBtn.innerText = "Theme"; 
+}
 
 // Background Animation Logic
 const aniCanvas = document.getElementById('antigravityCanvas');

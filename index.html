@@ -816,7 +816,7 @@
 </section>
 
 <footer style="padding: 20px 40px; text-align: center; background: var(--footer-bg); border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative;"> 
-    <span style="opacity: 100; font-weight: 700; font-size: larger; color: rgb(0, 0, 0);">Thanks &nbsp;to &nbsp;your &nbsp;Technology &nbsp;Partner</span>
+    <span style="opacity: 100; font-weight: 700; font-size: larger; color: rgb(0, 0, 0);">Thanks &nbsp;to &nbsp;our &nbsp;Technology &nbsp;Partner</span>
     <div style="display: flex; align-items: center;">
         <a href="https://www.zettaone.com/" target="_blank">
             <img src="zetta.png" alt="Zettaone Icon" style="height: 60px; width: auto; cursor: pointer;">
@@ -990,25 +990,40 @@ document.getElementById('settings-btn').onclick = (e) => {
     subOptions.style.display = (subOptions.style.display === 'flex') ? 'none' : 'flex';
 };
 
+/* --- IMPROVED THEME SYNC LOGIC --- */
 const iosIcon = document.getElementById('iosIcon');
 const dynamicIcon = document.getElementById('dynamicIcon');
 const chatIcon = document.getElementById('chatIcon');
 const awsIcon = document.getElementById('awsIcon');
 
-document.getElementById('light-mode').onclick = () => { 
-    document.body.classList.remove('dark-mode'); 
-    iosIcon.src = 'apple.svg'; 
-    dynamicIcon.src = 'anio1.png'; 
-    chatIcon.src = 'chaticon.png';
-    awsIcon.src = 'awsicon.png';
-};
-document.getElementById('dark-mode').onclick = () => { 
-    document.body.classList.add('dark-mode'); 
-    iosIcon.src = 'apple2.svg'; 
-    dynamicIcon.src = 'anio3.png'; 
-    chatIcon.src = 'chaticon2.png';
-    awsIcon.src = 'awsicon1.png';
-};
+// Function to apply theme assets
+function applyThemeAssets(isDark) {
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+        if(iosIcon) iosIcon.src = 'apple2.svg';
+        if(dynamicIcon) dynamicIcon.src = 'anio3.png';
+        if(chatIcon) chatIcon.src = 'chaticon2.png';
+        if(awsIcon) awsIcon.src = 'awsicon1.png';
+        localStorage.setItem('ungaa-theme', 'dark');
+    } else {
+        document.body.classList.remove('dark-mode');
+        if(iosIcon) iosIcon.src = 'apple.svg';
+        if(dynamicIcon) dynamicIcon.src = 'anio1.png';
+        if(chatIcon) chatIcon.src = 'chaticon.png';
+        if(awsIcon) awsIcon.src = 'awsicon.png';
+        localStorage.setItem('ungaa-theme', 'light');
+    }
+}
+
+// 1. Check for saved theme on page load
+const savedTheme = localStorage.getItem('ungaa-theme');
+if (savedTheme === 'dark') {
+    applyThemeAssets(true);
+}
+
+// 2. Button Click Listeners
+document.getElementById('light-mode').onclick = () => applyThemeAssets(false);
+document.getElementById('dark-mode').onclick = () => applyThemeAssets(true);
 
 window.onclick = () => { menuDropdown.style.display = 'none'; };
 </script>
