@@ -112,7 +112,7 @@
         </div>
     </div>
     <div class="header-right">
-        <button class="theme-toggle" id="themeToggle">🌓 MODE</button>
+        <button class="theme-toggle" id="themeToggle">Theme</button>
         <a href="index.html" style="text-decoration: none; color: #fff; font-weight: 700; font-size: 13px; opacity: 0.8;">← HOME</a>
     </div>
 </header>
@@ -142,18 +142,19 @@
 </div>
 
 <script>
-/* --- THEME SYNC LOGIC --- */
+/* --- ACCURATE INTER-PAGE SYNCHRONIZED THEME LOGIC --- */
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
-/* --- THEME SYNC FOR SUBPAGES --- */
-const savedTheme = localStorage.getItem('ungaa-theme');
-if (savedTheme === 'dark') {
-    document.body.classList.add('Dark-mode');
-    // If these pages have the theme toggle button too, update it here:
-    const themeBtn = document.getElementById('themeToggle');
-    if(themeBtn) themeBtn.innerText = "Theme"; 
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('ungaa-theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+    }
 }
+applySavedTheme();
 
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');

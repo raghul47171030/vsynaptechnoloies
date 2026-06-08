@@ -3,162 +3,465 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNGAA | Platform Features</title>
+<title>UNGAA | Features</title>
 <link rel="icon" href="s.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --primary: #5b9aff; 
-    --bg: #ffffff;
-    --text: #000000;
-    --text-light: #555555;
-    --header-bg: rgba(255, 255, 255, 0.8);
-    --card-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --glow-color: rgba(91, 154, 255, 0.15);
-    --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    --footer-bg: rgba(0, 0, 0, 0.05);
-}
-
-/* DARK MODE OVERRIDES */
-body.dark-mode {
     --primary: #5b9aff;
-    --bg: #0a0a0a;
-    --text: #ffffff;
-    --text-light: #bbbbbb;
-    --header-bg: rgba(10, 10, 10, 0.8);
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glow-color: rgba(91, 154, 255, 0.2);
-    --footer-bg: rgba(0, 0, 0, 0.8);
+    --primary-glow: rgba(91,154,255,0.25);
+    --bg: #ffffff;
+    --text: #0a0a0a;
+    --text-muted: #6b7280;
+    --card-bg: rgba(255,255,255,0.7);
+    --card-border: rgba(0,0,0,0.07);
+    --header-bg: rgba(255,255,255,0.85);
+    --glass-border: rgba(0,0,0,0.08);
+    --section-alt: #f7f9ff;
+    --pill-bg: rgba(91,154,255,0.08);
+    --tag-border: rgba(91,154,255,0.3);
+    --footer-bg: #0a0a0a;
+    --transition: all 0.55s cubic-bezier(0.16,1,0.3,1);
+    --shine-1: #0a0a0a;
+    --shine-2: #5b9aff;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-
-body { background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.5s ease, color 0.5s ease; }
-
-#antigravityCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-
-#glow { 
-    position: fixed; width: 600px; height: 600px; 
-    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%); 
-    border-radius: 50%; pointer-events: none; z-index: 0; 
-    transform: translate(-50%, -50%); transition: 0.1s linear; 
+body.dark-mode {
+    --bg: #060608;
+    --text: #f0f0f0;
+    --text-muted: #8b8fa8;
+    --card-bg: rgba(255,255,255,0.035);
+    --card-border: rgba(255,255,255,0.08);
+    --header-bg: rgba(6,6,8,0.9);
+    --glass-border: rgba(255,255,255,0.08);
+    --section-alt: #0d0d12;
+    --pill-bg: rgba(91,154,255,0.1);
+    --tag-border: rgba(91,154,255,0.4);
+    --shine-1: #f0f0f0;
+    --shine-2: #5b9aff;
 }
 
-header { 
-    position: fixed; top: 0; left: 0; width: 100%; padding: 10px 40px; 
-    background: var(--header-bg); backdrop-filter: blur(25px); 
-    -webkit-backdrop-filter: blur(25px);
-    border-bottom: 1px solid var(--glass-border); 
-    z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; transition:background 0.5s ease,color 0.5s ease; }
+
+/* CURSOR GLOW */
+#glow {
+    position:fixed; width:700px; height:700px;
+    background:radial-gradient(circle,var(--primary-glow) 0%,transparent 65%);
+    border-radius:50%; pointer-events:none; z-index:0;
+    transform:translate(-50%,-50%); transition:left 0.08s linear,top 0.08s linear;
 }
 
-.header-left { display: flex; align-items: center; gap: 0px; }
-.logo-img { width: 37px; display: block; }
-.company-info { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.company-name { font-size: 18px; font-weight: 800; color: var(--primary); line-height: 1.1; white-space: nowrap; }
-.tagline { font-size: 9px; font-weight: 500; color: var(--text); opacity: 0.8; white-space: nowrap; margin-top: 2px; margin-right: 95px; }
+/* HEADER */
+header {
+    position:fixed; top:0; left:0; width:100%; padding:12px 44px;
+    background:var(--header-bg); backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    border-bottom:1px solid var(--glass-border); z-index:1000;
+    display:flex; justify-content:space-between; align-items:center;
+}
+.header-left { display:flex; align-items:center; gap:0; }
+.logo-img { width:36px; display:block; }
+.company-info { display:flex; flex-direction:column; align-items:center; }
+.company-name { font-size:17px; font-weight:800; color:var(--primary); line-height:1.1; white-space:nowrap; }
+.tagline { font-size:9px; font-weight:500; color:var(--text); opacity:0.7; white-space:nowrap; margin-top:2px; margin-right:90px; }
+.header-right { display:flex; align-items:center; gap:18px; }
+.theme-btn {
+    background:transparent; border:1px solid var(--glass-border); color:var(--text);
+    padding:7px 16px; border-radius:50px; cursor:pointer; font-size:12px; font-weight:700;
+    font-family:'Plus Jakarta Sans',sans-serif; transition:var(--transition);
+}
+.theme-btn:hover { border-color:var(--primary); color:var(--primary); }
+.home-link {
+    text-decoration:none; color:var(--text); font-weight:700; font-size:13px; opacity:0.7;
+    padding:7px 16px; border-radius:50px; border:1px solid var(--glass-border); transition:var(--transition);
+}
+.home-link:hover { opacity:1; border-color:var(--primary); color:var(--primary); }
 
-.header-right { display: flex; align-items: center; gap: 20px; }
+/* PAGE WRAPPER */
+.page { padding-top:80px; position:relative; z-index:1; }
 
-.theme-toggle {
-    background: var(--glass-border);
-    border: 1px solid var(--glass-border);
-    color: var(--text);
-    padding: 8px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 700;
-    transition: var(--transition);
+/* ───── HERO ───── */
+.hero-section {
+    min-height:92vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:60px 8% 80px; position:relative; overflow:hidden;
 }
 
-.main-content { padding-top: 140px; position: relative; z-index: 1; }
-
-.hero-title { 
-    padding: 140px 8% 80px; text-align: center; 
-    font-size: clamp(45px, 9vw, 95px); 
-    font-weight: 800; 
-    background: linear-gradient(90deg, var(--text), var(--primary), var(--text)); 
-    background-size: 200% auto; -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; 
+/* Background grid lines */
+.hero-section::before {
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+        linear-gradient(rgba(91,154,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,154,255,0.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
 }
 
-@keyframes shine { to { background-position: 200% center; } }
-
-.feature-section { 
-    padding: 100px 8%; 
-    display: flex; align-items: center; justify-content: center; 
-    gap: 80px; 
-    opacity: 0; transform: translateY(60px); 
-    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+.hero-pill {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--pill-bg); border:1px solid var(--tag-border);
+    border-radius:50px; padding:7px 18px; margin-bottom:32px;
+    font-size:12px; font-weight:700; color:var(--primary); letter-spacing:2px; text-transform:uppercase;
+    animation:fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
 }
-.feature-section.active { opacity: 1; transform: translateY(0); }
-.feature-section:nth-child(even) { flex-direction: row-reverse; }
+.hero-pill span { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:pulse 2s ease-in-out infinite; display:inline-block; }
 
-.image-container { 
-    flex: 0 0 340px; 
-    background: var(--card-bg); border-radius: 25px; 
-    padding: 0; 
-    border: 1px solid var(--glass-border); 
-    box-shadow: 0 40px 80px rgba(0,0,0,0.1); 
-    overflow: hidden;
-    transition: var(--transition);
-    cursor: pointer;
+@keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); box-shadow:0 0 0 0 var(--primary-glow); }
+    50% { opacity:0.7; transform:scale(1.3); box-shadow:0 0 0 6px transparent; }
 }
 
-/* IMAGE HOVER EFFECT */
-.image-container:hover {
-    transform: scale(1.03) translateY(-15px);
-    box-shadow: 0 50px 100px rgba(91, 154, 255, 0.3);
-    border-color: var(--primary);
+.hero-heading {
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:clamp(38px,6.5vw,82px);
+    font-weight:800; line-height:1.1; letter-spacing:-1px;
+    margin-bottom:28px;
+    animation:fadeSlideUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) both;
 }
 
-.image-container img { 
-    width: 100%; 
-    height: 720px; 
-    object-fit: cover; 
-    display: block; 
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+.hero-heading .line1 { display:block; color:var(--text); }
+.hero-heading .line2 {
+    display:block;
+    background:linear-gradient(100deg,var(--shine-1) 0%,var(--primary) 45%,var(--shine-2) 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    animation:fadeSlideUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) both, shine 4s 1s linear infinite;
 }
 
-/* ZOOM EFFECT ON HOVER */
-.image-container:hover img {
-    transform: scale(1.12);
+@keyframes shine { to { background-position:200% center; } }
+
+.hero-sub {
+    max-width:560px; font-size:clamp(15px,1.8vw,20px); line-height:1.65;
+    color:var(--text-muted); font-weight:500; margin-bottom:44px;
+    animation:fadeSlideUp 0.9s 0.2s cubic-bezier(0.16,1,0.3,1) both;
 }
 
-.text-container { flex: 1; max-width: 750px; text-align: left; }
+.hero-cta-group {
+    display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
+    animation:fadeSlideUp 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+}
+.btn-primary {
+    padding:14px 38px; background:var(--primary); color:#fff;
+    font-weight:800; font-size:15px; border-radius:50px; text-decoration:none;
+    transition:var(--transition); box-shadow:0 8px 24px var(--primary-glow);
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 40px var(--primary-glow); }
+.btn-outline {
+    padding:14px 38px; background:transparent; color:var(--text);
+    font-weight:700; font-size:15px; border-radius:50px; text-decoration:none;
+    border:1px solid var(--glass-border); transition:var(--transition);
+}
+.btn-outline:hover { border-color:var(--primary); color:var(--primary); transform:translateY(-3px); }
 
-.badge { 
-    display: inline-block; padding: 6px 16px; background: var(--primary); 
-    color: white; border-radius: 50px; font-size: 11px; font-weight: 800; 
-    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; 
+/* Scroll hint */
+.scroll-hint {
+    position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--text-muted); animation:fadeSlideUp 1s 0.6s both;
+}
+.scroll-arrow { width:18px; height:18px; border-right:2px solid var(--text-muted); border-bottom:2px solid var(--text-muted); transform:rotate(45deg); animation:bounce 1.8s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+
+/* ───── STATS STRIP ───── */
+.stats-strip {
+    display:flex; justify-content:center; gap:0;
+    background:var(--section-alt); border-top:1px solid var(--glass-border); border-bottom:1px solid var(--glass-border);
+    padding:0; overflow:hidden; flex-wrap:wrap;
+}
+.stat-item {
+    flex:1; min-width:180px; padding:40px 30px; text-align:center;
+    border-right:1px solid var(--glass-border); position:relative;
+    opacity:0; transform:translateY(20px); transition:var(--transition);
+}
+.stat-item.revealed { opacity:1; transform:translateY(0); }
+.stat-item:last-child { border-right:none; }
+.stat-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(30px,4vw,48px); font-weight:800; color:var(--primary); line-height:1; margin-bottom:6px; }
+.stat-label { font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1.5px; }
+
+/* ───── FEATURE CARDS GRID ───── */
+.features-section { padding:100px 7%; }
+.section-label {
+    display:flex; align-items:center; gap:12px; margin-bottom:16px;
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--primary);
+}
+.section-label::before { content:''; width:30px; height:2px; background:var(--primary); border-radius:2px; }
+.section-title {
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(26px,3.5vw,44px);
+    font-weight:800; line-height:1.15; letter-spacing:-0.5px;
+    max-width:580px; margin-bottom:60px;
 }
 
-.text-container h2 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin-bottom: 25px; line-height: 1.1; color: var(--primary); }
-.text-container p { font-size: clamp(18px, 2.5vw, 24px); line-height: 1.5; color: var(--text); font-weight: 500; }
+.features-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+}
 
-footer { padding: 60px 20px; text-align: center; background: var(--footer-bg); border-top: 1px solid var(--glass-border); }
-footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: var(--text); }
+.feature-card {
+    background:var(--card-bg); border:1px solid var(--card-border);
+    border-radius:24px; padding:36px 30px;
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    position:relative; overflow:hidden;
+    transition:transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease, border-color 0.4s ease;
+    opacity:0; transform:translateY(30px);
+}
+.feature-card.revealed { opacity:1; transform:translateY(0); }
+.feature-card:hover {
+    transform:translateY(-6px);
+    box-shadow:0 20px 50px rgba(91,154,255,0.12);
+    border-color:rgba(91,154,255,0.3);
+}
 
-@media (max-width: 768px) { 
-    header { padding: 10px 15px; }
-    .company-name { font-size: 14px; margin-right: 30px; }
-    .tagline { font-size: 8px; margin-left: 5px; }
-    .feature-section { flex-direction: column !important; text-align: center; padding: 60px 5%; gap: 40px; } 
-    .image-container { flex: 0 0 auto; width: 95%; max-width: 320px; height: 580px; } 
-    .image-container img { height: 100%; }
-    .text-container { max-width: 100%; text-align: center; }
+/* Hover glow background */
+.feature-card::before {
+    content:''; position:absolute; inset:0; border-radius:24px;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(91,154,255,0.07) 0%, transparent 60%);
+    opacity:0; transition:opacity 0.3s ease;
+}
+.feature-card:hover::before { opacity:1; }
+
+/* Large card spans */
+.feature-card.large { grid-column:span 2; }
+.feature-card.tall { grid-row:span 2; }
+
+.card-icon {
+    width:52px; height:52px; border-radius:16px;
+    background:var(--pill-bg); border:1px solid var(--tag-border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; margin-bottom:22px;
+    transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.feature-card:hover .card-icon { transform:scale(1.1) rotate(-5deg); }
+
+.card-tag {
+    display:inline-block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--primary); background:var(--pill-bg); border:1px solid var(--tag-border);
+    padding:3px 10px; border-radius:20px; margin-bottom:14px;
+}
+.card-title {
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(16px,1.5vw,20px);
+    font-weight:800; letter-spacing:-0.3px; margin-bottom:12px; line-height:1.25;
+}
+.card-desc {
+    font-size:14px; line-height:1.7; color:var(--text-muted); font-weight:500;
+}
+.card-desc strong { color:var(--text); font-weight:700; }
+
+/* ───── INTERACTIVE SHOWCASE ───── */
+.showcase-section {
+    padding:100px 7%; background:var(--section-alt);
+    border-top:1px solid var(--glass-border); border-bottom:1px solid var(--glass-border);
+}
+.showcase-inner {
+    max-width:1100px; margin:0 auto;
+    display:flex; align-items:center; gap:70px;
+}
+.showcase-left { flex:1.1; }
+.showcase-steps { margin-top:36px; display:flex; flex-direction:column; gap:0; }
+
+.step-item {
+    display:flex; gap:22px; padding:22px 0;
+    border-bottom:1px solid var(--glass-border); cursor:pointer;
+    position:relative; transition:var(--transition);
+    opacity:0; transform:translateX(-20px);
+}
+.step-item.revealed { opacity:1; transform:translateX(0); }
+.step-item:last-child { border-bottom:none; }
+.step-item.active .step-num { background:var(--primary); color:#fff; border-color:var(--primary); }
+.step-item.active .step-text-title { color:var(--primary); }
+
+.step-num {
+    min-width:42px; height:42px; border-radius:50%;
+    border:2px solid var(--glass-border); display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:800; flex-shrink:0;
+    transition:var(--transition);
+}
+.step-content { flex:1; }
+.step-text-title { font-size:16px; font-weight:800; margin-bottom:6px; transition:color 0.3s; }
+.step-text-desc { font-size:13.5px; line-height:1.65; color:var(--text-muted); font-weight:500;
+    max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+.step-item.active .step-text-desc { max-height:100px; }
+
+/* Right phone display */
+.showcase-right {
+    flex:0.9; display:flex; align-items:center; justify-content:center;
+    position:relative; height:520px;
+}
+.phone-frame {
+    width:220px; height:460px; border-radius:38px; overflow:hidden;
+    background:#000; border:6px solid #222;
+    box-shadow:0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05);
+    position:relative; z-index:2;
+    opacity:0; transform:translateY(30px) scale(0.95); transition:var(--transition);
+}
+.phone-frame.revealed { opacity:1; transform:translateY(0) scale(1); }
+.phone-frame::after {
+    content:''; position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    width:70px; height:18px; background:#000; border-radius:12px; z-index:10;
+}
+.phone-screen {
+    width:100%; height:100%; object-fit:cover;
+    transition:opacity 0.6s ease;
+}
+
+/* Floating deco behind phone */
+.phone-glow {
+    position:absolute; width:260px; height:260px; border-radius:50%;
+    background:radial-gradient(circle,var(--primary-glow) 0%,transparent 70%);
+    z-index:1; top:50%; left:50%; transform:translate(-50%,-50%);
+    animation:glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse { 0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)} }
+
+/* ───── HOW IT WORKS TIMELINE ───── */
+.timeline-section { padding:100px 7%; }
+.timeline-grid {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    position:relative; margin-top:60px;
+}
+.timeline-grid::before {
+    content:''; position:absolute; top:32px; left:calc(12.5% + 0px); right:calc(12.5% + 0px);
+    height:2px; background:linear-gradient(90deg,var(--primary),rgba(91,154,255,0.2));
+    z-index:0;
+}
+.timeline-step {
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    padding:0 20px; position:relative; z-index:1;
+    opacity:0; transform:translateY(20px); transition:var(--transition);
+}
+.timeline-step.revealed { opacity:1; transform:translateY(0); }
+.t-dot {
+    width:64px; height:64px; border-radius:50%; background:var(--bg);
+    border:2px solid var(--primary); display:flex; align-items:center; justify-content:center;
+    font-size:24px; margin-bottom:20px; position:relative;
+    box-shadow:0 0 0 6px var(--bg), 0 0 20px var(--primary-glow);
+    transition:var(--transition);
+}
+.timeline-step:hover .t-dot { background:var(--primary); transform:scale(1.1); }
+.t-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--primary); margin-bottom:8px; }
+.t-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:800; margin-bottom:8px; }
+.t-desc { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+/* ───── LANGUAGES MARQUEE ───── */
+.marquee-section { padding:60px 0; background:var(--section-alt); overflow:hidden; border-top:1px solid var(--glass-border); border-bottom:1px solid var(--glass-border); }
+.marquee-label { text-align:center; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted); margin-bottom:28px; }
+.marquee-track { display:flex; gap:0; white-space:nowrap; }
+.marquee-inner {
+    display:flex; gap:0; animation:marquee 22s linear infinite;
+}
+.marquee-inner2 { animation-direction:reverse; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.lang-pill {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 28px; margin:0 8px;
+    background:var(--card-bg); border:1px solid var(--card-border);
+    border-radius:50px; font-size:14px; font-weight:700; white-space:nowrap;
+    backdrop-filter:blur(8px);
+}
+.lang-pill span { font-size:20px; }
+
+/* ───── TESTIMONIAL / AUDIENCE ───── */
+.audience-section { padding:100px 7%; }
+.audience-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:60px; }
+.audience-card {
+    background:var(--card-bg); border:1px solid var(--card-border);
+    border-radius:24px; padding:36px 28px; text-align:center;
+    backdrop-filter:blur(12px); transition:var(--transition);
+    opacity:0; transform:translateY(20px);
+}
+.audience-card.revealed { opacity:1; transform:translateY(0); }
+.audience-card:hover { transform:translateY(-6px); border-color:rgba(91,154,255,0.3); box-shadow:0 16px 40px rgba(91,154,255,0.1); }
+.aud-emoji { font-size:42px; margin-bottom:18px; display:block; }
+.aud-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:800; margin-bottom:10px; }
+.aud-desc { font-size:14px; line-height:1.7; color:var(--text-muted); font-weight:500; }
+
+/* ───── DOWNLOAD CTA FINAL ───── */
+.cta-section {
+    padding:120px 7%; text-align:center;
+    background:linear-gradient(160deg, #000 0%, #0c1833 100%);
+    position:relative; overflow:hidden;
+}
+.cta-section::before {
+    content:''; position:absolute; top:-50%; left:50%; transform:translateX(-50%);
+    width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle,rgba(91,154,255,0.2) 0%,transparent 70%);
+    pointer-events:none;
+}
+.cta-pill {
+    display:inline-block; background:rgba(91,154,255,0.15); border:1px solid rgba(91,154,255,0.3);
+    border-radius:50px; padding:6px 18px; font-size:12px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--primary); margin-bottom:28px;
+}
+.cta-heading {
+    font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(28px,5vw,64px);
+    font-weight:800; color:#fff; line-height:1.1; letter-spacing:-0.5px; margin-bottom:22px;
+}
+.cta-heading em { font-style:normal; color:var(--primary); }
+.cta-sub { font-size:17px; color:rgba(255,255,255,0.5); font-weight:500; margin-bottom:50px; }
+.store-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.store-btn {
+    display:inline-flex; align-items:center; gap:14px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px; padding:14px 28px; text-decoration:none;
+    color:#fff; transition:var(--transition); backdrop-filter:blur(12px);
+}
+.store-btn:hover { background:rgba(91,154,255,0.2); border-color:rgba(91,154,255,0.5); transform:translateY(-3px); }
+.store-icon { font-size:28px; }
+.store-text { display:flex; flex-direction:column; text-align:left; }
+.store-text small { font-size:10px; font-weight:600; opacity:0.6; letter-spacing:1px; text-transform:uppercase; }
+.store-text strong { font-size:17px; font-weight:800; }
+
+/* ───── FOOTER ───── */
+footer {
+    padding:36px 44px; text-align:center; background:#060608;
+    border-top:1px solid rgba(255,255,255,0.05);
+    display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap;
+}
+footer p { font-size:13px; color:rgba(255,255,255,0.35); font-weight:600; }
+footer a { color:rgba(255,255,255,0.45); text-decoration:none; font-size:12px; font-weight:600; transition:color 0.3s; }
+footer a:hover { color:var(--primary); }
+
+/* ───── ANIMATIONS ───── */
+@keyframes fadeSlideUp {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* ───── RESPONSIVE ───── */
+@media (max-width:1024px) {
+    .features-grid { grid-template-columns:repeat(2,1fr); }
+    .feature-card.large { grid-column:span 1; }
+    .timeline-grid { grid-template-columns:repeat(2,1fr); gap:30px; }
+    .timeline-grid::before { display:none; }
+    .audience-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width:768px) {
+    header { padding:10px 16px; }
+    .company-name { font-size:14px; }
+    .tagline { font-size:8px; margin-right:0; }
+    .features-grid { grid-template-columns:1fr; }
+    .showcase-inner { flex-direction:column-reverse; gap:40px; }
+    .showcase-right { height:380px; }
+    .phone-frame { width:175px; height:360px; }
+    .audience-grid { grid-template-columns:1fr; }
+    .timeline-grid { grid-template-columns:1fr 1fr; }
+    .stats-strip { flex-wrap:wrap; }
+    .stat-item { border-right:none; border-bottom:1px solid var(--glass-border); min-width:50%; }
+}
+
+@media (max-width:480px) {
+    .hero-heading { letter-spacing:-1px; }
+    .timeline-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
-<body>
 
-<canvas id="antigravityCanvas"></canvas>
+<body>
 <div id="glow"></div>
 
 <header>
@@ -166,240 +469,399 @@ footer p { opacity: 0.6; font-size: 15px; font-weight: 750; color: var(--text); 
         <img src="logo.png" alt="Logo" class="logo-img">
         <div class="company-info">
             <div class="company-name">V-Synap Technologies</div>
-            <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
+            <div class="tagline">&nbsp;We &nbsp;connect &nbsp;your &nbsp;world</div>
         </div>
     </div>
     <div class="header-right">
-        <button class="theme-toggle" id="themeToggle">🌓 MODE</button>
-        <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 700; font-size: 13px; opacity: 0.8;">← HOME</a>
+        <button class="theme-btn" id="themeBtn">Theme</button>
+        <a href="index.html" class="home-link">← Home</a>
     </div>
 </header>
 
-<div class="main-content">
-    <h1 class="hero-title">Platform Features</h1>
+<div class="page">
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i1.jpeg" alt="Smart Capture"></div>
-        <div class="text-container">
-            <span class="badge">AI RECOGNITION</span>
-            <h2>Smart Capture</h2>
-            <p>Capture and identify words instantly using advanced neural processing. UNGAA understands the context of your environment in real-time.</p>
+    <!-- ═══ HERO ═══ -->
+    <section class="hero-section">
+        <div class="hero-pill"><span></span> Everything UNGAA Can Do</div>
+        <h1 class="hero-heading">
+            <span class="line1">Everything UNGAA</span>
+            <span class="line2">Can Do For You</span>
+        </h1>
+        <p class="hero-sub">Scan any word. Understand deeply. Save your way. Share with the world. UNGAA is your AI-powered vocabulary companion — built for curious minds.</p>
+        <div class="hero-cta-group">
+            <a href="features.mp4" target="_blank" class="btn-outline">▶ Watch Features Video</a>
+        </div>
+        <div class="scroll-hint">
+            <div class="scroll-arrow"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">AI</div>
+            <div class="stat-label">Powered Engine</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Words to Discover</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Platforms (iOS & Android)</div>
         </div>
     </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i2.jpeg" alt="Visual Learning"></div>
-        <div class="text-container">
-            <span class="badge">IMMERSIVE</span>
-            <h2>Visual Learning</h2>
-            <p>Go beyond text. Deep dive with curated educational media and short-form videos designed for multi-sensory understanding.</p>
-        </div>
-    </div>
+    <!-- ═══ FEATURE CARDS ═══ -->
+    <section class="features-section">
+        <div class="section-label">Core Features</div>
+        <h2 class="section-title">Built for how you actually learn</h2>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i3.jpeg" alt="Personalized"></div>
-        <div class="text-container">
-            <span class="badge">ADAPTIVE</span>
-            <h2>Personalized Path</h2>
-            <p>Your brain is unique. UNGAA learns your pace and preferences to deliver a tailored educational experience that evolves with you.</p>
-        </div>
-    </div>
+        <div class="features-grid">
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i4.jpeg" alt="Social Sync"></div>
-        <div class="text-container">
-            <span class="badge">CONNECTED</span>
-            <h2>Social Integration</h2>
-            <p>Share your discoveries with a global community. Collaborative learning features allow you to capture insights and share them instantly.</p>
-        </div>
-    </div>
+            <div class="feature-card large" style="transition-delay:0s">
+                <div class="card-icon">🔍</div>
+                <span class="card-tag">Discovery</span>
+                <h3 class="card-title">Instant AI Word Recognition</h3>
+                <p class="card-desc">Point your camera at any object, sign, or page. UNGAA's neural engine extracts meaning, context, and definition in real time — <strong>zero typing needed.</strong></p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i5.jpeg" alt="Global Support"></div>
-        <div class="text-container">
-            <span class="badge">UNIVERSAL</span>
-            <h2>100+ Languages</h2>
-            <p>Break every barrier. Native support for over 100 languages ensures that you can learn and communicate in your mother tongue.</p>
-        </div>
-    </div>
+            <div class="feature-card" style="transition-delay:0.08s">
+                <div class="card-icon">📖</div>
+                <span class="card-tag">Learning</span>
+                <h3 class="card-title">Deep Definitions & Examples</h3>
+                <p class="card-desc">Go far beyond a dictionary. Every word comes with rich examples, etymology, and usage in real-world sentences.</p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i6.jpeg" alt="Expert Mode"></div>
-        <div class="text-container">
-            <span class="badge">ADVANCED</span>
-            <h2>Expert Analysis</h2>
-            <p>Transition from beginner to champion. Unlock deep etymology, complex sentence structures, and professional terminology.</p>
-        </div>
-    </div>
+            <div class="feature-card" style="transition-delay:0.12s">
+                <div class="card-icon">🎬</div>
+                <span class="card-tag">Media</span>
+                <h3 class="card-title">Video Learning Cards</h3>
+                <p class="card-desc">Short, loopable video snippets reinforce meaning visually. <strong>See a word. Hear it. Feel it.</strong></p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i7.jpeg" alt="Cloud Sync"></div>
-        <div class="text-container">
-            <span class="badge">SECURE</span>
-            <h2>Seamless Cloud Sync</h2>
-            <p>Access your library anywhere. Real-time synchronization across mobile and web interfaces powered by robust cloud architecture.</p>
-        </div>
-    </div>
+            <div class="feature-card" style="transition-delay:0.16s">
+                <div class="card-icon">🗒️</div>
+                <span class="card-tag">Notes</span>
+                <h3 class="card-title">Personal Brain Storage</h3>
+                <p class="card-desc">Save words with your own text notes, voice recordings, or video memos. Your vocabulary vault, your way.</p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i8.jpeg" alt="Voice Engine"></div>
-        <div class="text-container">
-            <span class="badge">DYNAMIC</span>
-            <h2>Natural Voice Engine</h2>
-            <p>Speak naturally. Our AI-driven voice integration allows for hands-free learning and high-fidelity pronunciation practice.</p>
-        </div>
-    </div>
+            <div class="feature-card large" style="transition-delay:0.2s">
+                <div class="card-icon">🌐</div>
+                <span class="card-tag">Language</span>
+                <h3 class="card-title">100+ Language Cross-Bridges</h3>
+                <p class="card-desc">Instantly translate or explore any word across <strong>100+ native languages</strong>, with contextual alignment — not just word-for-word substitution.</p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i9.jpeg" alt="Notes"></div>
-        <div class="text-container">
-            <span class="badge">CREATIVE</span>
-            <h2>Interactive Notes</h2>
-            <p>Create rich, multimedia notes. Attach voice clips, images, and videos to your vocabulary to create a truly personal knowledge base.</p>
-        </div>
-    </div>
+            <div class="feature-card" style="transition-delay:0.24s">
+                <div class="card-icon">🔊</div>
+                <span class="card-tag">Audio</span>
+                <h3 class="card-title">Crystal-Clear Pronunciation</h3>
+                <p class="card-desc">High-fidelity AI voice generation helps you hear and mimic the right pronunciation every time.</p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i10.jpeg" alt="Insights"></div>
-        <div class="text-container">
-            <span class="badge">DATA-DRIVEN</span>
-            <h2>Cognitive Insights</h2>
-            <p>Visualize your progress. Detailed analytics show your learning heatmaps, retention rates, and daily consistency metrics.</p>
-        </div>
-    </div>
+            <div class="feature-card" style="transition-delay:0.28s">
+                <div class="card-icon">☁️</div>
+                <span class="card-tag">Sync</span>
+                <h3 class="card-title">Secure Cloud Backup</h3>
+                <p class="card-desc">Your entire word library stays safe and synced across all your devices automatically in the background.</p>
+            </div>
 
-    <div class="feature-section">
-        <div class="image-container"><img src="i11.jpeg" alt="Motivation"></div>
-        <div class="text-container">
-            <span class="badge">CHAMPION</span>
-            <h2>Gamified Mastery</h2>
-            <p>Stay motivated with rewards and ranking. Level up your profile as you master new domains and compete with friends.</p>
+            <div class="feature-card" style="transition-delay:0.32s">
+                <div class="card-icon">📈</div>
+                <span class="card-tag">Growth</span>
+                <h3 class="card-title">Adaptive Learning Paths</h3>
+                <p class="card-desc">UNGAA studies how you learn and adjusts pacing and content to <strong>match your personal growth tempo.</strong></p>
+            </div>
+
+            <div class="feature-card" style="transition-delay:0.36s">
+                <div class="card-icon">🤝</div>
+                <span class="card-tag">Community</span>
+                <h3 class="card-title">Share & Inspire</h3>
+                <p class="card-desc">Publish your word cards to friends and the UNGAA community. Collect likes and motivate others to learn.</p>
+            </div>
+
         </div>
-    </div>
+    </section>
+
+    <!-- ═══ INTERACTIVE SHOWCASE ═══ -->
+    <section class="showcase-section">
+        <div class="showcase-inner">
+            <div class="showcase-left">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title" style="max-width:420px">From one tap to deep understanding</h2>
+                <div class="showcase-steps" id="stepsList">
+
+                    <div class="step-item active">
+                        <div class="step-num">01</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Scan Anything</div>
+                            <div class="step-text-desc">Open UNGAA and point at any word, object, or text. The AI identifies it instantly — no manual searching required.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">02</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Explore Deeply</div>
+                            <div class="step-text-desc">Dive into rich definitions, example sentences, etymology, pronunciation, and curated videos — all in one card.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">03</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Save Your Way</div>
+                            <div class="step-text-desc">Capture words with your own notes in text, voice, or video — in any language you prefer.</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">04</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Share & Grow</div>
+                            <div class="step-text-desc">Share your creations with the community, get likes, and build a living personal dictionary together.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="showcase-right">
+                <div class="phone-glow"></div>
+                <div class="phone-frame" id="phoneFrame">
+                    <img src="unga1.jpg" alt="UNGAA App Screen" class="phone-screen" id="phoneScreen">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TIMELINE ═══ -->
+    <section class="timeline-section">
+        <div class="section-label">Your Journey</div>
+        <h2 class="section-title">One app. Every stage of growth.</h2>
+
+        <div class="timeline-grid">
+            <div class="timeline-step" style="transition-delay:0s">
+                <div class="t-dot">🎓</div>
+                <div class="t-label">Step 01</div>
+                <div class="t-title">Discover</div>
+                <p class="t-desc">Encounter new words in the wild — on a book, a billboard, or a screen.</p>
+            </div>
+            <div class="timeline-step" style="transition-delay:0.1s">
+                <div class="t-dot">🧠</div>
+                <div class="t-label">Step 02</div>
+                <div class="t-title">Understand</div>
+                <p class="t-desc">Get instant AI-powered context, definitions, and multimedia explanations.</p>
+            </div>
+            <div class="timeline-step" style="transition-delay:0.2s">
+                <div class="t-dot">💾</div>
+                <div class="t-label">Step 03</div>
+                <div class="t-title">Retain</div>
+                <p class="t-desc">Build a personal, searchable vault of everything you've learned.</p>
+            </div>
+            <div class="timeline-step" style="transition-delay:0.3s">
+                <div class="t-dot">🚀</div>
+                <div class="t-label">Step 04</div>
+                <div class="t-title">Master</div>
+                <p class="t-desc">Adaptive reviews and community sharing turn knowledge into mastery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ LANGUAGE MARQUEE ═══ -->
+    <section class="marquee-section">
+        <div class="marquee-label">100+ Languages Supported</div>
+        <div class="marquee-track">
+            <div class="marquee-inner">
+                <div class="lang-pill"><span>🇮🇳</span> Tamil</div>
+                <div class="lang-pill"><span>🇺🇸</span> English</div>
+                <div class="lang-pill"><span>🇮🇳</span> Hindi</div>
+                <div class="lang-pill"><span>🇪🇸</span> Spanish</div>
+                <div class="lang-pill"><span>🇫🇷</span> French</div>
+                <div class="lang-pill"><span>🇩🇪</span> German</div>
+                <div class="lang-pill"><span>🇯🇵</span> Japanese</div>
+                <div class="lang-pill"><span>🇧🇷</span> Portuguese</div>
+                <div class="lang-pill"><span>🇮🇳</span> Telugu</div>
+                <div class="lang-pill"><span>🇮🇳</span> Kannada</div>
+                <div class="lang-pill"><span>🇦🇪</span> Arabic</div>
+                <div class="lang-pill"><span>🇨🇳</span> Mandarin</div>
+                <div class="lang-pill"><span>🇮🇳</span> Tamil</div>
+                <div class="lang-pill"><span>🇺🇸</span> English</div>
+                <div class="lang-pill"><span>🇮🇳</span> Hindi</div>
+                <div class="lang-pill"><span>🇪🇸</span> Spanish</div>
+                <div class="lang-pill"><span>🇫🇷</span> French</div>
+                <div class="lang-pill"><span>🇩🇪</span> German</div>
+                <div class="lang-pill"><span>🇯🇵</span> Japanese</div>
+                <div class="lang-pill"><span>🇧🇷</span> Portuguese</div>
+                <div class="lang-pill"><span>🇮🇳</span> Telugu</div>
+                <div class="lang-pill"><span>🇮🇳</span> Kannada</div>
+                <div class="lang-pill"><span>🇦🇪</span> Arabic</div>
+                <div class="lang-pill"><span>🇨🇳</span> Mandarin</div>
+            </div>
+        </div>
+        <br>
+        <div class="marquee-track">
+            <div class="marquee-inner marquee-inner2">
+                <div class="lang-pill"><span>🇰🇷</span> Korean</div>
+                <div class="lang-pill"><span>🇮🇹</span> Italian</div>
+                <div class="lang-pill"><span>🇷🇺</span> Russian</div>
+                <div class="lang-pill"><span>🇳🇱</span> Dutch</div>
+                <div class="lang-pill"><span>🇮🇳</span> Malayalam</div>
+                <div class="lang-pill"><span>🇮🇳</span> Bengali</div>
+                <div class="lang-pill"><span>🇹🇷</span> Turkish</div>
+                <div class="lang-pill"><span>🇻🇳</span> Vietnamese</div>
+                <div class="lang-pill"><span>🇮🇩</span> Indonesian</div>
+                <div class="lang-pill"><span>🇵🇱</span> Polish</div>
+                <div class="lang-pill"><span>🇰🇷</span> Korean</div>
+                <div class="lang-pill"><span>🇮🇹</span> Italian</div>
+                <div class="lang-pill"><span>🇷🇺</span> Russian</div>
+                <div class="lang-pill"><span>🇳🇱</span> Dutch</div>
+                <div class="lang-pill"><span>🇮🇳</span> Malayalam</div>
+                <div class="lang-pill"><span>🇮🇳</span> Bengali</div>
+                <div class="lang-pill"><span>🇹🇷</span> Turkish</div>
+                <div class="lang-pill"><span>🇻🇳</span> Vietnamese</div>
+                <div class="lang-pill"><span>🇮🇩</span> Indonesian</div>
+                <div class="lang-pill"><span>🇵🇱</span> Polish</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ WHO IS IT FOR ═══ -->
+    <section class="audience-section">
+        <div class="section-label">For Everyone</div>
+        <h2 class="section-title">Who learns with UNGAA?</h2>
+
+        <div class="audience-grid">
+            <div class="audience-card" style="transition-delay:0s">
+                <span class="aud-emoji">🎒</span>
+                <div class="aud-title">Students</div>
+                <p class="aud-desc">From school to college — build a powerful vocabulary that makes reading, writing, and exams easier than ever.</p>
+            </div>
+            <div class="audience-card" style="transition-delay:0.08s">
+                <span class="aud-emoji">👩‍🏫</span>
+                <div class="aud-title">Teachers & Educators</div>
+                <p class="aud-desc">Create and share custom word cards with students. Make vocabulary lessons immersive and visual.</p>
+            </div>
+            <div class="audience-card" style="transition-delay:0.16s">
+                <span class="aud-emoji">💼</span>
+                <div class="aud-title">Professionals</div>
+                <p class="aud-desc">Master industry jargon, communicate across languages, and stay ahead in a fast-moving world.</p>
+            </div>
+            <div class="audience-card" style="transition-delay:0.24s">
+                <span class="aud-emoji">✈️</span>
+                <div class="aud-title">Travelers</div>
+                <p class="aud-desc">Scan menus, signs, and notices in 100+ languages. Never feel lost in translation again.</p>
+            </div>
+            <div class="audience-card" style="transition-delay:0.32s">
+                <span class="aud-emoji">📝</span>
+                <div class="aud-title">Competitive Aspirants</div>
+                <p class="aud-desc">UPSC, GRE, IELTS, TOEFL — build a razor-sharp vocabulary for high-stakes exams with adaptive tools.</p>
+            </div>
+            <div class="audience-card" style="transition-delay:0.4s">
+                <span class="aud-emoji">🌍</span>
+                <div class="aud-title">Language Learners</div>
+                <p class="aud-desc">Learning a new tongue? UNGAA maps every word with context, audio, and examples in your native language.</p>
+            </div>
+        </div>
+    </section>
+
+
+
 </div>
 
 <footer>
     <p>© 2026 Vsynap Technologies. All Rights Reserved.</p>
+    <a href="privacyandpolicy.html">Privacy Policy & Terms</a>
+    <a href="support.html">Support Center</a>
+    <a href="index.html">← Back to Home</a>
 </footer>
 
 <script>
-// Theme Toggle Logic
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
+/* ─── CURSOR GLOW ─── */
+const glow = document.getElementById('glow');
+window.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+});
 
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
+/* ─── THEME ─── */
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme() {
+    const isDark = localStorage.getItem('ungaa-theme') === 'dark';
+    document.body.classList.toggle('dark-mode', isDark);
+}
+applyTheme();
+themeBtn.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark-mode');
     localStorage.setItem('ungaa-theme', isDark ? 'dark' : 'light');
 });
 
-/* --- THEME SYNC FOR SUBPAGES --- */
-const savedTheme = localStorage.getItem('ungaa-theme');
-if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    // If these pages have the theme toggle button too, update it here:
-    const themeBtn = document.getElementById('themeToggle');
-    if(themeBtn) themeBtn.innerText = "Theme"; 
+/* ─── SCROLL REVEAL ─── */
+const revealEls = document.querySelectorAll('.stat-item, .feature-card, .step-item, .timeline-step, .audience-card, .phone-frame');
+const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            io.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+/* ─── INTERACTIVE STEPS ─── */
+const steps = document.querySelectorAll('.step-item');
+const screenImgs = ['unga0.jpg','unga1.jpg','unga2.jpg','unga3.jpg'];
+const phoneScreen = document.getElementById('phoneScreen');
+
+let activeStep = 0;
+let stepTimer;
+
+function activateStep(idx) {
+    steps[activeStep].classList.remove('active');
+    activeStep = idx;
+    steps[activeStep].classList.add('active');
+    phoneScreen.style.opacity = '0';
+    setTimeout(() => {
+        phoneScreen.src = screenImgs[activeStep];
+        phoneScreen.style.opacity = '1';
+    }, 300);
 }
 
-// Background Animation Logic
-const aniCanvas = document.getElementById('antigravityCanvas');
-const aniCtx = aniCanvas.getContext('2d');
-let dots = [];
-const dotCount = 85; 
-const connectionDistance = 150;
-const mouse = { x: null, y: null, radius: 180 };
+function nextStep() {
+    activateStep((activeStep + 1) % steps.length);
+}
 
-window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+function startStepTimer() {
+    clearInterval(stepTimer);
+    stepTimer = setInterval(nextStep, 4000);
+}
+
+steps.forEach((step, idx) => {
+    step.addEventListener('click', () => {
+        activateStep(idx);
+        startStepTimer();
+    });
 });
 
-class Dot {
-    constructor() { this.init(); }
-    init() {
-        this.x = Math.random() * aniCanvas.width;
-        this.y = Math.random() * aniCanvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-    }
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x > aniCanvas.width) this.x = 0; else if (this.x < 0) this.x = aniCanvas.width;
-        if (this.y > aniCanvas.height) this.y = 0; else if (this.y < 0) this.y = aniCanvas.height;
+startStepTimer();
 
-        if (mouse.x != null) {
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < mouse.radius) {
-                const force = (mouse.radius - distance) / mouse.radius;
-                this.x -= dx * force * 0.03;
-                this.y -= dy * force * 0.03;
-            }
-        }
-    }
-    draw() {
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-        aniCtx.beginPath();
-        aniCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        aniCtx.fillStyle = primaryColor;
-        aniCtx.globalAlpha = 0.4;
-        aniCtx.fill();
-    }
-}
-
-function initAni() {
-    aniCanvas.width = window.innerWidth;
-    aniCanvas.height = window.innerHeight;
-    dots = [];
-    for (let i = 0; i < dotCount; i++) dots.push(new Dot());
-}
-
-function runAni() {
-    aniCtx.clearRect(0, 0, aniCanvas.width, aniCanvas.height);
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].update();
-        dots[i].draw();
-        for (let j = i + 1; j < dots.length; j++) {
-            const dx = dots[i].x - dots[j].x;
-            const dy = dots[i].y - dots[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < connectionDistance) {
-                aniCtx.strokeStyle = primaryColor;
-                aniCtx.globalAlpha = (1 - (distance / connectionDistance)) * 0.15;
-                aniCtx.lineWidth = 0.8;
-                aniCtx.beginPath();
-                aniCtx.moveTo(dots[i].x, dots[i].y);
-                aniCtx.lineTo(dots[j].x, dots[j].y);
-                aniCtx.stroke();
-            }
-        }
-    }
-    requestAnimationFrame(runAni);
-}
-
-window.addEventListener('resize', initAni);
-initAni();
-runAni();
-
-const glow = document.getElementById('glow');
-window.onmousemove = (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
+/* ─── CARD MOUSE GLOW ─── */
+document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', x + '%');
+        card.style.setProperty('--my', y + '%');
     });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.feature-section').forEach(s => observer.observe(s));
+});
 </script>
-
 </body>
 </html>

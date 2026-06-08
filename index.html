@@ -17,7 +17,7 @@
         --header-bg: rgba(0, 0, 0, 0.719);
         --card-bg: rgba(255, 255, 255, 0.7);
         --glass-border: rgba(0, 0, 0, 0.08);
-        --glow-color: rgba(0, 122, 255, 0.12);
+        --glow-color: rgba(70, 70, 70, 0.12);
         --cta-text: #ffffff;
         --btn-bg: #000000;
         --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -92,15 +92,18 @@
         animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* --- CANVAS STYLE --- */
-    #antigravityCanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1; 
-        pointer-events: none; 
+    /* FLASH ANIMATION FOR ACTIVE TEXT SENTENCES */
+    @keyframes sentenceFlash {
+        0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        10% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        90% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        100% { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
+    }
+
+    /* UNIQUE STABLE GLOW ANIMATION FOR INTRO HEADING */
+    @keyframes stablePulseGlow {
+        0%, 100% { text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 0px rgba(91, 154, 255, 0); }
+        50% { text-shadow: 0 2px 15px rgba(0,0,0,0.6), 0 0 20px rgba(91, 154, 255, 0.6); }
     }
 
     #glow {
@@ -162,7 +165,7 @@
     .tagline { 
         font-size: 9px; 
         font-weight: 500; 
-        color: white; /* UPDATED COLOR HERE */
+        color: white; 
         opacity: 0.9; 
         transition: var(--transition); 
         white-space: nowrap;
@@ -239,7 +242,7 @@
 
     /* --- HERO SECTION --- */
     .hero { 
-        padding: 140px 8% 80px; 
+        padding: 100px 0 80px; 
         text-align: center; 
     }
 
@@ -252,6 +255,7 @@
         align-items: center; 
         gap: 0px; 
         margin-bottom: 40px; 
+        position: relative;
     }
 
     .title-main-row {
@@ -259,6 +263,9 @@
         align-items: center;
         justify-content: center;
         gap: 20px;
+        position: relative;
+        z-index: 2;
+        padding: 10px 0;
     }
 
     .side-icon-left {
@@ -279,6 +286,8 @@
         margin-left: 55px;
         filter: drop-shadow(0 2px 10px rgba(0,0,0,0.1));
         opacity: 0.7;
+        position: relative;
+        z-index: 2;
     }
 
     .hero-icon { 
@@ -286,104 +295,6 @@
         margin-top: 25px;
         cursor: pointer; 
         transition: transform 0.4s; 
-    }
-
-    .hero-content { 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        gap: 60px; 
-    }
-
-    .hero-text { 
-        max-width: 750px; 
-        text-align: left; 
-    }
-
-    .hero-img-container {
-        position: relative;
-        width: 280px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        flex-shrink: 0;
-    }
-
-    .main-img-box {
-        position: relative;
-        width: 280px;
-        height: 606px;
-        background: var(--card-bg);
-        border-radius: 20px; 
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-    .bg-book {
-        position: absolute;
-        top: 20%;
-        width: 500px; 
-        z-index: -1; 
-        opacity: 0.35; 
-        pointer-events: none;
-        animation: floatBookPage 12s ease-in-out infinite;
-    }
-
-    @keyframes floatBookPage {
-        0%, 100% { transform: translate(-5%, 0) rotate(-4deg); }
-        50% { transform: translate(5%, -40px) rotate(4deg); }
-    }
-
-    .hero-img { 
-        width: 100%; 
-        height: 100%; 
-        object-fit: fill; 
-        transition: opacity 0.6s ease-in-out; 
-        z-index: 2;
-        background: transparent;
-    }
-
-    .support-text {
-        font-size: 18px;
-        font-weight: 800;
-        background: var(--lang-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: inline-block;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        letter-spacing: -0.5px;
-    }
-
-    .hero-points { 
-        list-style: none; 
-        margin-top: 20px; 
-    }
-
-    .hero-points li { 
-        margin-bottom: 25px; 
-        position: relative; 
-        padding-left: 30px; 
-        line-height: 1.4; 
-        font-size: clamp(18px, 2.5vw, 24px); 
-        font-weight: 500;
-    }
-
-    .hero-points li strong { 
-        font-weight: 800; 
-        color: var(--primary); 
-    }
-
-    .hero-points li::before { 
-        content: "•"; 
-        color: var(--primary); 
-        position: absolute; 
-        left: 0; 
-        font-weight: 800; 
     }
 
     /* --- PROVIDERS SECTION --- */
@@ -429,7 +340,10 @@
     /* --- EXPLORE BUTTON STYLE --- */
     .explore-btn-container {
         text-align: center;
-        margin-top: 40px;
+        margin-top: 50px;
+        width: 100%;
+        position: relative;
+        z-index: 5;
     }
 
     .explore-more-btn {
@@ -451,13 +365,16 @@
         color: white;
     }
 
-    /* --- HOW IT WORKS --- */
-    #about {
+    /* --- VIDEO EMBED AREA WITH DYNAMIC SYNCED SLIDES --- */
+    .hero-video-wrapper {
         position: relative;
-        padding: 80px 0; 
+        padding: 80px 8%; 
         background: #000;
         overflow: hidden; 
-        min-height: 100vh;
+        min-height: 85vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
     }
 
     .video-bg {
@@ -476,48 +393,161 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)); 
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); 
         z-index: 1; 
     }
 
     .container { 
         position: relative; 
         z-index: 2; 
-        width: 90%; 
+        width: 100%; 
         margin: 0 auto; 
     }
 
-    .section-header h2 { 
-        font-size: 42px; 
-        font-weight: 800; 
-        text-align: center; 
-        margin-bottom: 60px; 
+    /* SLOW SCROLL-REVEAL INITIAL SETUP FOR THE PANEL PANES */
+    .split-layout-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .video-frames { 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        gap: 45px; 
-        margin-bottom: 20px; 
-        flex-wrap: wrap; 
+    /* CLASS APPLIED VIA INTERSECTION OBSERVER ON SLOW SCROLL */
+    .split-layout-panel.revealed {
+        opacity: 1;
+        transform: translateY(0);
     }
 
-    .video-frame { 
-        width: 360px; 
-        height: 752px; 
-        border-radius: 40px; 
-        overflow: hidden; 
-        background: #000; 
-        border: 6px solid rgba(255, 255, 255, 0.2); 
-        box-shadow: 0 30px 70px rgba(0,0,0,0.5); 
+    /* LEFT PANEL FOR FLASHING TEXT SENTENCES */
+    .left-heading-panel {
+        flex: 1.2;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 250px;
     }
 
-    .video-frame video { 
-        width: 100%; 
-        height: 100%; 
-        object-fit: contain; 
+    /* STABLE INTRO HEADING CONFIGURATION */
+    .stable-intro-heading {
+        font-size: clamp(32px, 4.5vw, 48px);
+        font-weight: 800;
+        line-height: 1.2;
+        color: #ffffff;
+        margin-bottom: 25px;
+        text-align: left;
+        animation: stablePulseGlow 4s ease-in-out infinite;
     }
+
+    .stable-intro-heading strong {
+        color: var(--primary);
+        font-weight: 800;
+    }
+
+    .left-heading-panel h2 {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        display: none;
+    }
+
+    /* ATTACH FLASH ANIMATION CONFIG ON INITIAL ENTRY FUNCTION */
+    .left-heading-panel h2.active-text {
+        display: block;
+        animation: sentenceFlash 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    .left-heading-panel h2 strong {
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    /* RIGHT PANEL FOR IMAGE SLIDESHOW (CARD CAROUSEL STRUCTURE) */
+    .right-slides-panel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0.8;
+        position: relative;
+        min-height: 520px;
+        perspective: 1200px;
+    }
+
+    .mobile-image-frame {
+        position: absolute;
+        width: 240px;
+        height: 480px;
+        border-radius: 32px;
+        overflow: hidden;
+        background: #000;
+        border: 5px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        opacity: 0;
+        transform: scale(0.6) translateZ(-200px);
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, z-index 0.8s;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* CARD EFFECT LAYOUTS */
+    .mobile-image-frame.active-slide {
+        opacity: 1;
+        transform: scale(1) translateZ(0) translateX(0);
+        pointer-events: auto;
+        z-index: 10;
+    }
+
+    .mobile-image-frame.prev-card {
+        opacity: 0.4;
+        transform: scale(0.85) translateZ(-100px) translateX(-180px) rotateY(25deg);
+        z-index: 5;
+    }
+
+    .mobile-image-frame.next-card {
+        opacity: 0.4;
+        transform: scale(0.85) translateZ(-100px) translateX(180px) rotateY(-25deg);
+        z-index: 5;
+    }
+
+    .mobile-image-frame img, .mobile-image-frame video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* CAROUSEL BUTTON CONTROLS */
+    .panel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .panel-nav-btn:hover {
+        background: var(--primary);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .panel-nav-btn.panel-prev { left: -30px; }
+    .panel-nav-btn.panel-next { right: -30px; }
 
     /* --- FLIPPING SLIDER --- */
     .hero-slider-container { 
@@ -650,40 +680,49 @@
         header { padding: 10px 15px; }
         .header-actions { gap: 10px; }
         .support-btn { display: none; }
-        .hero-icon { width: clamp(45px, 7vw, 70px); margin-top: 8.3px;cursor: pointer; transition: transform 0.4s; }
-        .bg-book {position: absolute;top: 20%;width: 200px;  z-index: -1;  opacity: 0.35;  pointer-events: none; animation: floatBookPage 12s ease-in-out infinite; }
+        .hero-icon { width: clamp(45px, 7vw, 70px); margin-top: 8.3px; cursor: pointer; transition: transform 0.4s; }
         .logo-img { width: 30px; }
-        .company-name { font-size: 14px;margin-right: 30px; }
-        .tagline { font-size: 8px;margin-left: 5px; margin-right: 0px; }
-        .hero { padding: 120px 5% 40px; }
+        .company-name { font-size: 14px; margin-right: 30px; }
+        .tagline { font-size: 8px; margin-left: 5px; margin-right: 0px; }
+        .hero { padding: 120px 0 40px; }
         .hero-title { gap: 0px; flex-wrap: wrap; }
         .title-main-row { gap: 10px; }
-        .hero-content { flex-direction: column; gap: 40px; }
-        .hero-text { text-align: center; }
-        .hero-points li { font-size: 18px; padding-left: 20px; text-align: left; }
-        .hero-img-container { width: 100%; max-width: 280px; }
-        .main-img-box { height: 480px; width: 90%; }
-        .ungaa-tagline { margin-left: 0 !important; text-align: center !important; width: 100% !important;font-size: 10px !important;letter-spacing: 2px !important;margin-top: 0px !important;margin-right: 10px;
-        }    
-        .side-icon-left { height: 0.8em; width: auto;object-fit: contain;display: block; margin-top: 3px; }
+        .ungaa-tagline { margin-left: 0 !important; text-align: center !important; width: 100% !important; font-size: 10px !important; letter-spacing: 2px !important; margin-top: 0px !important; margin-right: 10px; }    
+        .side-icon-left { height: 0.8em; width: auto; object-fit: contain; display: block; margin-top: 3px; }
+        
+        /* ADJUST MOB REVEAL CONTAINER BOUNDS */
+        .hero-video-wrapper { padding: 40px 6%; min-height: auto; }
+        .split-layout-panel { flex-direction: column; text-align: center; gap: 20px; }
+        .left-heading-panel { text-align: center; min-height: auto; margin-bottom: 10px; }
+        .stable-intro-heading { text-align: center; font-size: 28px; margin-bottom: 15px; }
+        .left-heading-panel h2 { font-size: 17px; line-height: 1.4; }
+        
+        /* RESOLVE AUTOMATIC SCALING STRETCH FACTOR */
+        .right-slides-panel { 
+            min-height: auto; 
+            width: 100%; 
+            max-width: 200px; 
+            aspect-ratio: 1 / 2; 
+            margin: 0 auto;
+        }
+        .mobile-image-frame { 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 24px;
+        }
+        .mobile-image-frame.prev-card { transform: scale(0.85) translateZ(-100px) translateX(-70px) rotateY(20deg); }
+        .mobile-image-frame.next-card { transform: scale(0.85) translateZ(-100px) translateX(70px) rotateY(-20deg); }
+        .panel-nav-btn.panel-prev { left: -20px; }
+        .panel-nav-btn.panel-next { right: -20px; }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
-        .hero-slider-container {
-            width: 90%;
-            height: auto;
-            aspect-ratio: auto;
-        }
-        .hero-slide video {
-            height: auto;
-        }
+        .hero-slider-container { width: 90%; height: auto; aspect-ratio: auto; }
+        .hero-slide video { height: auto; }
     }
-
     </style>
 </head>
 <body>
-
-<canvas id="antigravityCanvas"></canvas>
 
 <div id="glow"></div>
 
@@ -702,7 +741,6 @@
     </div>
 
     <div class="dropdown" id="menuDropdown">
-        <a href="more.html">How it Works</a>
         <a href="support.html">Support Center</a>
         <a href="#download">Download App</a>
         <button id="settings-btn">Appearance Settings ⚙️</button>
@@ -725,21 +763,40 @@
         </div>
         <div class="ungaa-tagline animate-sentence">Feed your brain</div>
     </div>
-    <div class="hero-content">
-        <div class="hero-text">
-            <ul class="hero-points">
-                <li class="animate-sentence" style="animation-delay: 0.2s;"><strong>Curiosity is the mother of learning new things.</strong> Each new word you explore is a chance to upgrade yourself. Capture new words and topics daily in Ungaa App and learn about them instantly.</li>
-                <li class="animate-sentence" style="animation-delay: 0.4s;"><strong>Become an expert -</strong> Go beyond vocabulary, Learn with examples, short videos, create your own notes and learn deeper.</li>
-                 <li class="animate-sentence" style="animation-delay: 0.6s;"><strong>Become a champion -</strong> Everyone learns differently. Save your thoughts as text, voice, or video in your preferred language.</li>
-                <li class="animate-sentence" style="animation-delay: 0.8s;"><strong>Share your Creation -</strong> Share your meanings with friends and family on Ungaa App— their opinions and likes will motivate you.</li>
-            </ul>
-        </div>
-        <div class="hero-img-container">
-            <img src="book.png" alt="Book Design" class="bg-book">
-            <div class="main-img-box">
-                <img src="unga0.jpg" alt="UNGAA Preview" class="hero-img" id="ungaRotator">
+
+    <div class="hero-video-wrapper">
+        <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
+        <div class="video-overlay"></div>
+        <div class="container">
+            
+            <div class="split-layout-panel" id="scrollRevealPanel">
+                <!-- LEFT SIDE TEXT PANEL WITH FIXED HEADING & FLASHING LINES -->
+                <div class="left-heading-panel" id="textSequenceContainer">
+                    <h1 class="stable-intro-heading"><strong>V-synap Technologies - </strong> <br>Launches UNGAA</h1>
+                    <h2 class="active-text"><strong>Curiosity is the mother of learning new things.</strong> Each new word you explore is a chance to upgrade yourself. Capture new words daily in Ungaa App.</h2>
+                    <h2><strong>Become an expert -</strong> Go beyond simple vocabulary definitions. Learn with relevant examples, engaging short videos, or customize your own deep notes.</h2>
+                    <h2><strong>Become a champion -</strong> Everyone maps thoughts differently. Save your inspirations as raw text, voice notes, or videos in your preferred language.</h2>
+                    <h2><strong>Share your Creation -</strong> Share your meanings with friends and family on Ungaa App— their opinions and likes will motivate you.</h2>
+                </div>
+                
+                <!-- RIGHT SIDE INTERACTIVE MATCHING SLIDESHOW WITH BUTTON CONTROLS -->
+                <div class="right-slides-panel" id="imageSlideshowContainer">
+                    <button class="panel-nav-btn panel-prev" id="panelPrevBtn">❮</button>
+                    <button class="panel-nav-btn panel-next" id="panelNextBtn">❯</button>
+                    
+                    <div class="mobile-image-frame"><img src="unga0.jpg" alt="UNGAA Slide 0"></div>
+                    <div class="mobile-image-frame"><img src="unga1.jpg" alt="UNGAA Slide 1"></div>
+                    <div class="mobile-image-frame"><img src="unga2.jpg" alt="UNGAA Slide 2"></div>
+                    <div class="mobile-image-frame"><img src="unga3.jpg" alt="UNGAA Slide 3"></div>
+                    <div class="mobile-image-frame"><video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video></div>
+                </div>
             </div>
-            <p class="support-text animate-sentence" style="animation-delay: 1s;">UNGAA App supports 100+ languages</p>
+
+            <!-- CENTERED EXPLORE MORE BUTTON -->
+            <div class="explore-btn-container">
+                <a href="more.html" class="explore-more-btn">Features</a>
+            </div>
+            
         </div>
     </div>
 </section>
@@ -750,26 +807,6 @@
         <img src="chaticon.png" alt="AI Chat Icon" class="provider-icon" id="chatIcon">
         <img src="googlecloud.png" alt="Google Cloud Icon" class="provider-icon">
         <img src="awsicon.png" alt="AWS Icon" class="provider-icon" id="awsIcon">
-    </div>
-</section>
-
-<section class="section" id="about">
-    <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
-    <div class="video-overlay"></div>
-    <div class="container">
-        <div class="section-header" style="text-align: center;">
-            <h2 class="how-ungaa-works-shine">How UNGAA Works</h2>
-        </div>
-        
-        <div class="video-frames">
-            <div class="video-frame"><video autoplay muted loop playsinline><source src="video1.mp4" type="video/mp4"></video></div>
-            <div class="video-frame"><video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video></div>
-            <div class="video-frame"><video autoplay muted loop playsinline><source src="video3.mp4" type="video/mp4"></video></div>
-        </div>
-
-        <div class="explore-btn-container">
-            <a href="more.html" class="explore-more-btn">Explore More</a>
-        </div>
     </div>
 </section>
 
@@ -805,17 +842,19 @@
 <section class="download-section" id="download">
     <h2 class="download-title">Download UNGAA</h2>
     <div class="download-container">
-        <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank" rel="noopener" class="dl-svg-btn">
+        <!-- APPLE APP STORE REPLACED LINK -->
+        <a href="https://apps.apple.com/in/app/ungaa/id6751403740" target="_blank" rel="noopener" class="dl-svg-btn">
             <img src="apple.svg" alt="Download on App Store" class="dl-svg-img" id="iosIcon">
         </a>
         
-        <a href="https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME" target="_blank" rel="noopener" class="dl-svg-btn">
+        <!-- GOOGLE PLAY STORE REPLACED LINK -->
+        <a href="https://play.google.com/store/apps/details?id=com.vsynap.unga&pcampaignid=web_share" target="_blank" rel="noopener" class="dl-svg-btn">
             <img src="googleplay.svg" alt="Get it on Google Play" class="dl-svg-img">
         </a>
     </div>
 </section>
 
-<footer style="padding: 20px 40px; text-align: center; background: var(--footer-bg); border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative;"> 
+<footer style="padding: 20px 40px; text-align: center; background: #F8FAFC; border-radius: 20px 20px 0 0; margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative;"> 
     <span style="opacity: 100; font-weight: 700; font-size: larger; color: rgb(0, 0, 0);">Thanks &nbsp;to &nbsp;our &nbsp;Technology &nbsp;Partner</span>
     <div style="display: flex; align-items: center;">
         <a href="https://www.zettaone.com/" target="_blank">
@@ -833,96 +872,94 @@
 </footer>
 
 <script>
-/* --- ANTIGRAVITY ANIMATION LOGIC --- */
-const aniCanvas = document.getElementById('antigravityCanvas');
-const aniCtx = aniCanvas.getContext('2d');
+/* --- SLOW SCROLL REVEAL INTERSECTION OBSERVER --- */
+const revealPanel = document.getElementById('scrollRevealPanel');
+if (revealPanel) {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
 
-let particles = [];
-const particleCount = 85; 
-const connectionDistance = 160;
-const mouse = { x: null, y: null, radius: 180 };
-
-window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-
-class Particle {
-    constructor() { this.init(); }
-    init() {
-        this.x = Math.random() * aniCanvas.width;
-        this.y = Math.random() * aniCanvas.height;
-        this.size = Math.random() * 2 + 0.8;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.vx = (Math.random() - 0.5) * 0.6;
-        this.vy = (Math.random() - 0.5) * 0.6;
-        this.density = (Math.random() * 25) + 5;
-    }
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x > aniCanvas.width) this.x = 0; else if (this.x < 0) this.x = aniCanvas.width;
-        if (this.y > aniCanvas.height) this.y = 0; else if (this.y < 0) this.y = aniCanvas.height;
-
-        if (mouse.x != null) {
-            let dx = mouse.x - this.x;
-            let dy = mouse.y - this.y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < mouse.radius) {
-                const force = (mouse.radius - dist) / mouse.radius;
-                const dirX = (dx / dist) * force * this.density;
-                const dirY = (dy / dist) * force * this.density;
-                this.x -= dirX * 0.2;
-                this.y -= dirY * 0.2;
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                scrollObserver.unobserve(entry.target); 
             }
-        }
-    }
-    draw() {
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-        aniCtx.beginPath();
-        aniCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        aniCtx.fillStyle = primaryColor;
-        aniCtx.globalAlpha = 0.5;
-        aniCtx.fill();
-    }
+        });
+    }, observerOptions);
+
+    scrollObserver.observe(revealPanel);
 }
 
-function initAni() {
-    aniCanvas.width = window.innerWidth;
-    aniCanvas.height = window.innerHeight;
-    particles = [];
-    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+/* --- INTEGRATED INDEPENDENT SENTENCE LOOP & AUTOMATIC CARD CAROUSEL LOOP LOGIC --- */
+const textSentences = document.querySelectorAll('#textSequenceContainer h2');
+const imageSlides = document.querySelectorAll('#imageSlideshowContainer .mobile-image-frame');
+const panelPrevBtn = document.getElementById('panelPrevBtn');
+const panelNextBtn = document.getElementById('panelNextBtn');
+
+let textIndex = 0;
+let cardIndex = 0;
+let autoCardTimer;
+
+// Continuous Looping Smooth Sentence Flash
+setInterval(() => {
+    textSentences[textIndex].classList.remove('active-text');
+    textIndex = (textIndex + 1) % textSentences.length;
+    textSentences[textIndex].classList.add('active-text');
+}, 5000);
+
+// Update Carousel Card Positions (3D Depth Stack Setup)
+function updateCardLayout() {
+    imageSlides.forEach((slide, idx) => {
+        slide.classList.remove('active-slide', 'prev-card', 'next-card');
+        
+        const totalCards = imageSlides.length;
+        const prevIdx = (cardIndex - 1 + totalCards) % totalCards;
+        const nextIdx = (cardIndex + 1) % totalCards;
+
+        if (idx === cardIndex) {
+            slide.classList.add('active-slide');
+        } else if (idx === prevIdx) {
+            slide.classList.add('prev-card');
+        } else if (idx === nextIdx) {
+            slide.classList.add('next-card');
+        }
+    });
 }
 
-function runAni() {
-    aniCtx.clearRect(0, 0, aniCanvas.width, aniCanvas.height);
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-    
-    for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        for (let j = i; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < connectionDistance) {
-                aniCtx.strokeStyle = primaryColor;
-                aniCtx.globalAlpha = (1 - (dist / connectionDistance)) * 0.2;
-                aniCtx.lineWidth = 0.8;
-                aniCtx.beginPath();
-                aniCtx.moveTo(particles[i].x, particles[i].y);
-                aniCtx.lineTo(particles[j].x, particles[j].y);
-                aniCtx.stroke();
-            }
-        }
-    }
-    requestAnimationFrame(runAni);
+// Function to move to the next card automatically (Looping)
+function nextCardLoop() {
+    cardIndex = (cardIndex + 1) % imageSlides.length;
+    updateCardLayout();
 }
-window.addEventListener('resize', initAni);
-initAni();
-runAni();
+
+// Start the automated looping timer for the right-side cards
+function startAutoCardLoop() {
+    clearInterval(autoCardTimer);
+    autoCardTimer = setInterval(nextCardLoop, 4500); // Transitions to a new asset every 4.5 seconds
+}
+
+// Manual Right-To-Left or Left-To-Right Button Scrolling with Loop Restart
+panelPrevBtn.onclick = (e) => {
+    e.stopPropagation();
+    const totalCards = imageSlides.length;
+    cardIndex = (cardIndex - 1 + totalCards) % totalCards;
+    updateCardLayout();
+    startAutoCardLoop(); // Resets layout timer on manual click interaction
+};
+
+panelNextBtn.onclick = (e) => {
+    e.stopPropagation();
+    cardIndex = (cardIndex + 1) % imageSlides.length;
+    updateCardLayout();
+    startAutoCardLoop(); // Resets layout timer on manual click interaction
+};
+
+// Initial Setup Activation
+updateCardLayout();
+startAutoCardLoop();
 
 /* --- EXISTING UNGAA LOGIC --- */
 const allVid = document.getElementById('allVideo');
@@ -957,19 +994,12 @@ function currentSlide(n) {
     slides[currentIdx].style.display = 'block';
     slides[currentIdx].classList.add('active');
     dotsNav[currentIdx].classList.add('active');
-    videos[currentIdx].play();
+    videos[currentIdx].play().catch(e => {});
 }
 
 videos.forEach((video) => {
     video.addEventListener('ended', () => moveSlide(1));
 });
-
-let ungaIdx = 0;
-const ungaImg = document.getElementById('ungaRotator');
-setInterval(() => {
-    ungaIdx = (ungaIdx + 1) % 4; 
-    ungaImg.src = `unga${ungaIdx}.jpg`;
-}, 4500);
 
 const glow = document.getElementById('glow');
 window.onmousemove = (e) => {
@@ -996,7 +1026,6 @@ const dynamicIcon = document.getElementById('dynamicIcon');
 const chatIcon = document.getElementById('chatIcon');
 const awsIcon = document.getElementById('awsIcon');
 
-// Function to apply theme assets
 function applyThemeAssets(isDark) {
     if (isDark) {
         document.body.classList.add('dark-mode');
@@ -1015,13 +1044,11 @@ function applyThemeAssets(isDark) {
     }
 }
 
-// 1. Check for saved theme on page load
 const savedTheme = localStorage.getItem('ungaa-theme');
 if (savedTheme === 'dark') {
     applyThemeAssets(true);
 }
 
-// 2. Button Click Listeners
 document.getElementById('light-mode').onclick = () => applyThemeAssets(false);
 document.getElementById('dark-mode').onclick = () => applyThemeAssets(true);
 
