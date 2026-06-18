@@ -57,27 +57,27 @@ body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:v
 
 /* HEADER */
 header {
-    position:fixed; top:0; left:0; width:100%; padding:12px 44px;
-    background:var(--header-bg); backdrop-filter:blur(28px);
+    position:fixed; top:0; left:0; width:100%; padding:8px 44px;
+    background:#e8eaed; backdrop-filter:blur(28px);
     -webkit-backdrop-filter:blur(28px);
-    border-bottom:1px solid var(--glass-border); z-index:1000;
+    border-bottom:1px solid rgba(0,0,0,0.08); z-index:1000;
     display:flex; justify-content:space-between; align-items:center;
 }
 .header-left { display:flex; align-items:center; gap:0; }
-.logo-img { width:36px; display:block; }
+.logo-img { height:52px; width:auto; display:block; }
 .company-info { display:flex; flex-direction:column; align-items:center; }
 .company-name { font-size:17px; font-weight:800; color:var(--primary); line-height:1.1; white-space:nowrap; }
 .tagline { font-size:9px; font-weight:500; color:var(--text); opacity:0.7; white-space:nowrap; margin-top:2px; margin-right:90px; }
 .header-right { display:flex; align-items:center; gap:18px; }
 .theme-btn {
-    background:transparent; border:1px solid var(--glass-border); color:var(--text);
+    background:transparent; border:1px solid rgba(0,0,0,0.18); color:#1a1a1a;
     padding:7px 16px; border-radius:50px; cursor:pointer; font-size:12px; font-weight:700;
     font-family:'Plus Jakarta Sans',sans-serif; transition:var(--transition);
 }
 .theme-btn:hover { border-color:var(--primary); color:var(--primary); }
 .home-link {
-    text-decoration:none; color:var(--text); font-weight:700; font-size:13px; opacity:0.7;
-    padding:7px 16px; border-radius:50px; border:1px solid var(--glass-border); transition:var(--transition);
+    text-decoration:none; color:#1a1a1a; font-weight:700; font-size:13px; opacity:0.7;
+    padding:7px 16px; border-radius:50px; border:1px solid rgba(0,0,0,0.18); transition:var(--transition);
 }
 .home-link:hover { opacity:1; border-color:var(--primary); color:var(--primary); }
 
@@ -466,11 +466,7 @@ footer a:hover { color:var(--primary); }
 
 <header>
     <div class="header-left">
-        <img src="logo.png" alt="Logo" class="logo-img">
-        <div class="company-info">
-            <div class="company-name">V-Synap Technologies</div>
-            <div class="tagline">&nbsp;We &nbsp;connect &nbsp;your &nbsp;world</div>
-        </div>
+        <img src="vsynap_logo.svg" alt="V-Synap Technologies — We connect your world" class="logo-img">
     </div>
     <div class="header-right">
         <button class="theme-btn" id="themeBtn">Theme</button>

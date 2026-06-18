@@ -100,6 +100,12 @@
         100% { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
     }
 
+    /* FADE THE SENTENCE IN ONCE AND HOLD IT VISIBLE (used with fill-mode forwards) */
+    @keyframes sentenceFadeIn {
+        0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
     /* UNIQUE STABLE GLOW ANIMATION FOR INTRO HEADING */
     @keyframes stablePulseGlow {
         0%, 100% { text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 0px rgba(91, 154, 255, 0); }
@@ -119,12 +125,12 @@
     }
 
     header {
-        position: fixed; 
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        padding: 10px 40px; 
-        background: var(--header-bg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 8px 40px;
+        background: #e8eaed;   /* light grey navbar */
         backdrop-filter: blur(25px); 
         -webkit-backdrop-filter: blur(25px);
         border-bottom: 1px solid var(--glass-border); 
@@ -140,11 +146,12 @@
         gap: 0px; 
     }
 
-    .logo-img { 
-        width: 37px; 
+    .logo-img {
+        height: 56px;
+        width: auto;
         display: block;
         opacity: 1 !important;
-        transition: var(--transition); 
+        transition: var(--transition);
     }
 
     .company-info { 
@@ -181,27 +188,27 @@
 
     .support-btn {
         text-decoration: none;
-        color: #ffffff;
+        color: #1a1a1a;
         font-size: 14px;
         font-weight: 700;
         padding: 8px 20px;
         border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.2);
         transition: 0.3s;
-        opacity: 0.8;
+        opacity: 0.85;
     }
 
     .support-btn:hover {
         opacity: 1;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.06);
         border-color: var(--primary);
     }
 
-    .menu-btn { 
-        font-size: 24px; 
-        cursor: pointer; 
-        color: #ffffff; 
-        z-index: 1002; 
+    .menu-btn {
+        font-size: 24px;
+        cursor: pointer;
+        color: #1a1a1a;
+        z-index: 1002;
     }
 
     .dropdown { 
@@ -340,7 +347,7 @@
     /* --- EXPLORE BUTTON STYLE --- */
     .explore-btn-container {
         text-align: center;
-        margin-top: 50px;
+        margin-top: 24px;
         width: 100%;
         position: relative;
         z-index: 5;
@@ -349,29 +356,31 @@
     .explore-more-btn {
         display: inline-block;
         padding: 15px 45px;
-        background: var(--btn-bg);
-        color: var(--cta-text);
+        background: var(--primary);
+        color: #ffffff;
         text-decoration: none;
         font-weight: 800;
         border-radius: 50px;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--primary);
         transition: var(--transition);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 24px rgba(91,154,255,0.35);
     }
 
     .explore-more-btn:hover {
         transform: translateY(-3px);
-        background: var(--primary);
-        color: white;
+        background: #4789ef;
+        border-color: #4789ef;
+        color: #ffffff;
+        box-shadow: 0 14px 32px rgba(91,154,255,0.45);
     }
 
     /* --- VIDEO EMBED AREA WITH DYNAMIC SYNCED SLIDES --- */
     .hero-video-wrapper {
         position: relative;
-        padding: 80px 8%; 
+        padding: 50px 8%;
         background: #000;
-        overflow: hidden; 
-        min-height: 85vh;
+        overflow: hidden;
+        min-height: 100vh;
         width: 100%;
         display: flex;
         align-items: center;
@@ -432,14 +441,25 @@
         min-height: 250px;
     }
 
+    /* TOP BANNER: heading + quote, centered, spanning above both columns */
+    .hero-intro-banner {
+        width: 100%;
+        text-align: center;
+        margin: 0 0 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     /* STABLE INTRO HEADING CONFIGURATION */
     .stable-intro-heading {
-        font-size: clamp(32px, 4.5vw, 48px);
+        font-size: clamp(26px, 3.6vw, 42px);
         font-weight: 800;
-        line-height: 1.2;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
         color: #ffffff;
-        margin-bottom: 25px;
-        text-align: left;
+        margin-bottom: 12px;
+        text-align: center;
         animation: stablePulseGlow 4s ease-in-out infinite;
     }
 
@@ -447,6 +467,41 @@
         color: var(--primary);
         font-weight: 800;
     }
+    .stable-intro-heading .intro-sep {
+        color: var(--primary);
+        font-weight: 400;
+        margin: 0 4px;
+    }
+
+    /* QUOTE TAGLINE — centered pull-quote at the top of the banner */
+    .intro-tagline {
+        position: relative;
+        font-size: clamp(15px, 1.8vw, 20px);
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1.5;
+        color: #ffffff;
+        opacity: 0.95;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+        margin: 0 auto 16px;
+        max-width: 46ch;
+        padding: 12px 30px;
+        border-top: 1px solid rgba(255,255,255,0.18);
+        border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+    /* decorative opening / closing quote marks */
+    .intro-tagline::before,
+    .intro-tagline::after {
+        position: absolute;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 2.2em;
+        line-height: 1;
+        color: var(--primary);
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    .intro-tagline::before { content: '\201C'; left: 2px;  top: 4px; }
+    .intro-tagline::after  { content: '\201D'; right: 2px; bottom: -8px; }
 
     .left-heading-panel h2 {
         font-size: 24px;
@@ -457,10 +512,13 @@
         display: none;
     }
 
-    /* ATTACH FLASH ANIMATION CONFIG ON INITIAL ENTRY FUNCTION */
+    /* ATTACH FADE-IN ANIMATION ON ENTRY.
+       Plays ONCE and holds the text fully visible (forwards) for the entire
+       duration of its image group, so the sentence does not flash out while
+       its 2–4 matching images play one-by-one. */
     .left-heading-panel h2.active-text {
         display: block;
-        animation: sentenceFlash 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        animation: sentenceFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .left-heading-panel h2 strong {
@@ -483,7 +541,7 @@
         position: absolute;
         width: 240px;
         height: 480px;
-        border-radius: 32px;
+        border-radius: 24px;          /* slightly less curve than the original 32px */
         overflow: hidden;
         background: #000;
         border: 5px solid rgba(255, 255, 255, 0.25);
@@ -681,7 +739,7 @@
         .header-actions { gap: 10px; }
         .support-btn { display: none; }
         .hero-icon { width: clamp(45px, 7vw, 70px); margin-top: 8.3px; cursor: pointer; transition: transform 0.4s; }
-        .logo-img { width: 30px; }
+        .logo-img { height: 44px; width: auto; }
         .company-name { font-size: 14px; margin-right: 30px; }
         .tagline { font-size: 8px; margin-left: 5px; margin-right: 0px; }
         .hero { padding: 120px 0 40px; }
@@ -691,24 +749,27 @@
         .side-icon-left { height: 0.8em; width: auto; object-fit: contain; display: block; margin-top: 3px; }
         
         /* ADJUST MOB REVEAL CONTAINER BOUNDS */
-        .hero-video-wrapper { padding: 40px 6%; min-height: auto; }
-        .split-layout-panel { flex-direction: column; text-align: center; gap: 20px; }
-        .left-heading-panel { text-align: center; min-height: auto; margin-bottom: 10px; }
-        .stable-intro-heading { text-align: center; font-size: 28px; margin-bottom: 15px; }
+        .hero-video-wrapper { padding: 56px 6% 30px; min-height: 100vh; }
+        .split-layout-panel { flex-direction: column; text-align: center; gap: 16px; }
+        .left-heading-panel { text-align: center; min-height: auto; margin-bottom: 6px; }
+        .hero-intro-banner { margin: 0 0 8px; }
+        .stable-intro-heading { font-size: 23px; margin-bottom: 10px; }
+        .intro-tagline { font-size: 14px; max-width: 92%; margin: 0 auto 12px; padding: 10px 26px; text-align: center; }
+        .intro-tagline::before, .intro-tagline::after { font-size: 1.9em; }
         .left-heading-panel h2 { font-size: 17px; line-height: 1.4; }
         
         /* RESOLVE AUTOMATIC SCALING STRETCH FACTOR */
-        .right-slides-panel { 
-            min-height: auto; 
-            width: 100%; 
-            max-width: 200px; 
-            aspect-ratio: 1 / 2; 
+        .right-slides-panel {
+            min-height: auto;
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 1 / 2;
             margin: 0 auto;
         }
-        .mobile-image-frame { 
-            width: 100%; 
-            height: 100%; 
-            border-radius: 24px;
+        .mobile-image-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
         }
         .mobile-image-frame.prev-card { transform: scale(0.85) translateZ(-100px) translateX(-70px) rotateY(20deg); }
         .mobile-image-frame.next-card { transform: scale(0.85) translateZ(-100px) translateX(70px) rotateY(-20deg); }
@@ -720,6 +781,256 @@
         .hero-slider-container { width: 90%; height: auto; aspect-ratio: auto; }
         .hero-slide video { height: auto; }
     }
+
+    /* ============================================================
+       EMBEDDED FEATURES (from more.html) — all selectors scoped
+       under .features-embed so nothing collides with the page above.
+       Header was intentionally dropped (index already has one).
+       ============================================================ */
+    .features-embed {
+        --fe-primary: #5b9aff;
+        --fe-primary-glow: rgba(91,154,255,0.25);
+        --fe-text: #0a0a0a;
+        --fe-text-muted: #6b7280;
+        --fe-card-bg: rgba(255,255,255,0.7);
+        --fe-card-border: rgba(0,0,0,0.07);
+        --fe-glass-border: rgba(0,0,0,0.08);
+        --fe-section-alt: #f7f9ff;
+        --fe-pill-bg: rgba(91,154,255,0.08);
+        --fe-tag-border: rgba(91,154,255,0.3);
+        --fe-transition: all 0.55s cubic-bezier(0.16,1,0.3,1);
+        --fe-shine-1: #0a0a0a;
+        --fe-shine-2: #5b9aff;
+        position: relative;
+        background: var(--bg);
+        color: var(--fe-text);
+        overflow: hidden;
+    }
+    body.dark-mode .features-embed {
+        --fe-text: #f0f0f0;
+        --fe-text-muted: #8b8fa8;
+        --fe-card-bg: rgba(255,255,255,0.035);
+        --fe-card-border: rgba(255,255,255,0.08);
+        --fe-glass-border: rgba(255,255,255,0.08);
+        --fe-section-alt: #0d0d12;
+        --fe-pill-bg: rgba(91,154,255,0.1);
+        --fe-tag-border: rgba(91,154,255,0.4);
+        --fe-shine-1: #f0f0f0;
+    }
+
+    /* INTRO HEADER STRIP for the features block */
+    .features-embed .fe-intro {
+        text-align: center; padding: 70px 7% 10px;
+    }
+    .features-embed .fe-intro .fe-pill-top {
+        display:inline-flex; align-items:center; gap:8px;
+        background:var(--fe-pill-bg); border:1px solid var(--fe-tag-border);
+        border-radius:50px; padding:7px 18px; margin-bottom:24px;
+        font-size:12px; font-weight:700; color:var(--fe-primary); letter-spacing:2px; text-transform:uppercase;
+    }
+    .features-embed .fe-intro .fe-pill-top span { width:6px; height:6px; border-radius:50%; background:var(--fe-primary); display:inline-block; animation:fe-pulse 2s ease-in-out infinite; }
+    .features-embed .fe-intro h2 {
+        font-size:clamp(30px,5vw,60px); font-weight:800; line-height:1.1; letter-spacing:-1px; margin-bottom:18px;
+    }
+    .features-embed .fe-intro h2 .fe-grad {
+        background:linear-gradient(100deg,var(--fe-shine-1) 0%,var(--fe-primary) 45%,var(--fe-shine-2) 100%);
+        background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+        animation:fe-shine 4s linear infinite;
+    }
+    .features-embed .fe-intro p {
+        max-width:580px; margin:0 auto; font-size:clamp(15px,1.8vw,19px); line-height:1.65; color:var(--fe-text-muted); font-weight:500;
+    }
+
+    @keyframes fe-shine { to { background-position:200% center; } }
+    @keyframes fe-pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.7;transform:scale(1.3);} }
+    @keyframes fe-fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+    /* STATS STRIP */
+    .features-embed .stats-strip {
+        display:flex; justify-content:center; gap:0; margin-top:40px;
+        background:var(--fe-section-alt); border-top:1px solid var(--fe-glass-border); border-bottom:1px solid var(--fe-glass-border);
+        overflow:hidden; flex-wrap:wrap;
+    }
+    .features-embed .stat-item {
+        flex:1; min-width:180px; padding:40px 30px; text-align:center;
+        border-right:1px solid var(--fe-glass-border);
+        opacity:0; transform:translateY(20px); transition:var(--fe-transition);
+    }
+    .features-embed .stat-item.revealed { opacity:1; transform:translateY(0); }
+    .features-embed .stat-item:last-child { border-right:none; }
+    .features-embed .stat-num { font-size:clamp(30px,4vw,48px); font-weight:800; color:var(--fe-primary); line-height:1; margin-bottom:6px; }
+    .features-embed .stat-label { font-size:13px; font-weight:600; color:var(--fe-text-muted); text-transform:uppercase; letter-spacing:1.5px; }
+
+    /* FEATURE CARDS GRID */
+    .features-embed .features-section { padding:90px 7%; }
+    .features-embed .section-label {
+        display:flex; align-items:center; gap:12px; margin-bottom:16px;
+        font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--fe-primary);
+    }
+    .features-embed .section-label::before { content:''; width:30px; height:2px; background:var(--fe-primary); border-radius:2px; }
+    .features-embed .section-title {
+        font-size:clamp(26px,3.5vw,44px); font-weight:800; line-height:1.15; letter-spacing:-0.5px;
+        max-width:580px; margin-bottom:60px; color:var(--fe-text);
+    }
+    .features-embed .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .features-embed .feature-card {
+        background:var(--fe-card-bg); border:1px solid var(--fe-card-border);
+        border-radius:24px; padding:36px 30px;
+        backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+        position:relative; overflow:hidden;
+        transition:transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease, border-color 0.4s ease;
+        opacity:0; transform:translateY(30px);
+    }
+    .features-embed .feature-card.revealed { opacity:1; transform:translateY(0); }
+    .features-embed .feature-card:hover {
+        transform:translateY(-6px); box-shadow:0 20px 50px rgba(91,154,255,0.12); border-color:rgba(91,154,255,0.3);
+    }
+    .features-embed .feature-card::before {
+        content:''; position:absolute; inset:0; border-radius:24px;
+        background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(91,154,255,0.07) 0%, transparent 60%);
+        opacity:0; transition:opacity 0.3s ease;
+    }
+    .features-embed .feature-card:hover::before { opacity:1; }
+    .features-embed .feature-card.large { grid-column:span 2; }
+    .features-embed .card-icon {
+        width:52px; height:52px; border-radius:16px;
+        background:var(--fe-pill-bg); border:1px solid var(--fe-tag-border);
+        display:flex; align-items:center; justify-content:center;
+        font-size:22px; margin-bottom:22px; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .features-embed .feature-card:hover .card-icon { transform:scale(1.1) rotate(-5deg); }
+    .features-embed .card-tag {
+        display:inline-block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+        color:var(--fe-primary); background:var(--fe-pill-bg); border:1px solid var(--fe-tag-border);
+        padding:3px 10px; border-radius:20px; margin-bottom:14px;
+    }
+    .features-embed .card-title { font-size:clamp(16px,1.5vw,20px); font-weight:800; letter-spacing:-0.3px; margin-bottom:12px; line-height:1.25; color:var(--fe-text); }
+    .features-embed .card-desc { font-size:14px; line-height:1.7; color:var(--fe-text-muted); font-weight:500; }
+    .features-embed .card-desc strong { color:var(--fe-text); font-weight:700; }
+
+    /* INTERACTIVE SHOWCASE */
+    .features-embed .showcase-section {
+        padding:90px 7%; background:var(--fe-section-alt);
+        border-top:1px solid var(--fe-glass-border); border-bottom:1px solid var(--fe-glass-border);
+    }
+    .features-embed .showcase-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:70px; }
+    .features-embed .showcase-left { flex:1.1; }
+    .features-embed .showcase-steps { margin-top:36px; display:flex; flex-direction:column; gap:0; }
+    .features-embed .step-item {
+        display:flex; gap:22px; padding:22px 0;
+        border-bottom:1px solid var(--fe-glass-border); cursor:pointer;
+        position:relative; transition:var(--fe-transition);
+        opacity:0; transform:translateX(-20px);
+    }
+    .features-embed .step-item.revealed { opacity:1; transform:translateX(0); }
+    .features-embed .step-item:last-child { border-bottom:none; }
+    .features-embed .step-item.active .step-num { background:var(--fe-primary); color:#fff; border-color:var(--fe-primary); }
+    .features-embed .step-item.active .step-text-title { color:var(--fe-primary); }
+    .features-embed .step-num {
+        min-width:42px; height:42px; border-radius:50%;
+        border:2px solid var(--fe-glass-border); display:flex; align-items:center; justify-content:center;
+        font-size:13px; font-weight:800; flex-shrink:0; transition:var(--fe-transition); color:var(--fe-text);
+    }
+    .features-embed .step-content { flex:1; }
+    .features-embed .step-text-title { font-size:16px; font-weight:800; margin-bottom:6px; transition:color 0.3s; color:var(--fe-text); }
+    .features-embed .step-text-desc { font-size:13.5px; line-height:1.65; color:var(--fe-text-muted); font-weight:500; max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+    .features-embed .step-item.active .step-text-desc { max-height:120px; }
+    .features-embed .showcase-right { flex:0.9; display:flex; align-items:center; justify-content:center; position:relative; height:520px; }
+    .features-embed .phone-frame {
+        width:220px; height:460px; border-radius:38px; overflow:hidden;
+        background:#000; border:6px solid #222;
+        box-shadow:0 40px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05);
+        position:relative; z-index:2;
+        opacity:0; transform:translateY(30px) scale(0.95); transition:var(--fe-transition);
+    }
+    .features-embed .phone-frame.revealed { opacity:1; transform:translateY(0) scale(1); }
+    .features-embed .phone-frame::after {
+        content:''; position:absolute; top:12px; left:50%; transform:translateX(-50%);
+        width:70px; height:18px; background:#000; border-radius:12px; z-index:10;
+    }
+    .features-embed .phone-screen { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; transition:opacity 0.6s ease; }
+    .features-embed .phone-glow {
+        position:absolute; width:260px; height:260px; border-radius:50%;
+        background:radial-gradient(circle,var(--fe-primary-glow) 0%,transparent 70%);
+        z-index:1; top:50%; left:50%; transform:translate(-50%,-50%);
+        animation:fe-glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes fe-glowPulse { 0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)} }
+
+    /* TIMELINE */
+    .features-embed .timeline-section { padding:90px 7%; }
+    .features-embed .timeline-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; margin-top:60px; }
+    .features-embed .timeline-grid::before {
+        content:''; position:absolute; top:32px; left:calc(12.5% + 0px); right:calc(12.5% + 0px);
+        height:2px; background:linear-gradient(90deg,var(--fe-primary),rgba(91,154,255,0.2)); z-index:0;
+    }
+    .features-embed .timeline-step {
+        display:flex; flex-direction:column; align-items:center; text-align:center;
+        padding:0 20px; position:relative; z-index:1;
+        opacity:0; transform:translateY(20px); transition:var(--fe-transition);
+    }
+    .features-embed .timeline-step.revealed { opacity:1; transform:translateY(0); }
+    .features-embed .t-dot {
+        width:64px; height:64px; border-radius:50%; background:var(--bg);
+        border:2px solid var(--fe-primary); display:flex; align-items:center; justify-content:center;
+        font-size:24px; margin-bottom:20px; position:relative;
+        box-shadow:0 0 0 6px var(--bg), 0 0 20px var(--fe-primary-glow); transition:var(--fe-transition);
+    }
+    .features-embed .timeline-step:hover .t-dot { background:var(--fe-primary); transform:scale(1.1); }
+    .features-embed .t-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--fe-primary); margin-bottom:8px; }
+    .features-embed .t-title { font-size:16px; font-weight:800; margin-bottom:8px; color:var(--fe-text); }
+    .features-embed .t-desc { font-size:13px; color:var(--fe-text-muted); line-height:1.6; }
+
+    /* LANGUAGE MARQUEE */
+    .features-embed .marquee-section { padding:60px 0; background:var(--fe-section-alt); overflow:hidden; border-top:1px solid var(--fe-glass-border); border-bottom:1px solid var(--fe-glass-border); }
+    .features-embed .marquee-label { text-align:center; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--fe-text-muted); margin-bottom:28px; }
+    .features-embed .marquee-track { display:flex; gap:0; white-space:nowrap; }
+    .features-embed .marquee-inner { display:flex; gap:0; animation:fe-marquee 22s linear infinite; }
+    .features-embed .marquee-inner2 { animation-direction:reverse; }
+    @keyframes fe-marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .features-embed .lang-pill {
+        display:inline-flex; align-items:center; gap:10px; padding:12px 28px; margin:0 8px;
+        background:var(--fe-card-bg); border:1px solid var(--fe-card-border);
+        border-radius:50px; font-size:14px; font-weight:700; white-space:nowrap; backdrop-filter:blur(8px); color:var(--fe-text);
+    }
+    .features-embed .lang-pill span { font-size:20px; }
+
+    /* AUDIENCE */
+    .features-embed .audience-section { padding:90px 7%; }
+    .features-embed .audience-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:60px; }
+    .features-embed .audience-card {
+        background:var(--fe-card-bg); border:1px solid var(--fe-card-border);
+        border-radius:24px; padding:36px 28px; text-align:center;
+        backdrop-filter:blur(12px); transition:var(--fe-transition);
+        opacity:0; transform:translateY(20px);
+    }
+    .features-embed .audience-card.revealed { opacity:1; transform:translateY(0); }
+    .features-embed .audience-card:hover { transform:translateY(-6px); border-color:rgba(91,154,255,0.3); box-shadow:0 16px 40px rgba(91,154,255,0.1); }
+    .features-embed .aud-emoji { font-size:42px; margin-bottom:18px; display:block; }
+    .features-embed .aud-title { font-size:18px; font-weight:800; margin-bottom:10px; color:var(--fe-text); }
+    .features-embed .aud-desc { font-size:14px; line-height:1.7; color:var(--fe-text-muted); font-weight:500; }
+
+    /* RESPONSIVE for embedded features */
+    @media (max-width:1024px) {
+        .features-embed .features-grid { grid-template-columns:repeat(2,1fr); }
+        .features-embed .feature-card.large { grid-column:span 1; }
+        .features-embed .timeline-grid { grid-template-columns:repeat(2,1fr); gap:30px; }
+        .features-embed .timeline-grid::before { display:none; }
+        .features-embed .audience-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:768px) {
+        .features-embed .features-grid { grid-template-columns:1fr; }
+        .features-embed .showcase-inner { flex-direction:column-reverse; gap:40px; }
+        .features-embed .showcase-right { height:380px; }
+        .features-embed .phone-frame { width:175px; height:360px; }
+        .features-embed .audience-grid { grid-template-columns:1fr; }
+        .features-embed .timeline-grid { grid-template-columns:1fr 1fr; }
+        .features-embed .stats-strip { flex-wrap:wrap; }
+        .features-embed .stat-item { border-right:none; border-bottom:1px solid var(--fe-glass-border); min-width:50%; }
+    }
+    @media (max-width:480px) {
+        .features-embed .timeline-grid { grid-template-columns:1fr; }
+    }
     </style>
 </head>
 <body>
@@ -728,11 +1039,7 @@
 
 <header>
     <div class="header-left">
-        <img src="logo.png" alt="Logo" class="logo-img">
-        <div class="company-info">
-            <div class="company-name">V-Synap Technologies</div>
-            <div class="tagline">We &nbsp;connect &nbsp;your &nbsp;world</div>
-        </div>
+        <img src="vsynap_logo.svg" alt="V-Synap Technologies — We connect your world" class="logo-img">
     </div>
     
     <div class="header-actions">
@@ -769,33 +1076,62 @@
         <video autoplay muted loop playsinline class="video-bg"><source src="i.mp4" type="video/mp4"></video>
         <div class="video-overlay"></div>
         <div class="container">
-            
+
+            <!-- TOP BANNER: quote first, then heading — both centered, span across both columns -->
+            <div class="hero-intro-banner">
+                <h1 class="stable-intro-heading"><strong>V-synap Technologies</strong> <span class="intro-sep">—</span> Launches UNGAA</h1>
+                <blockquote class="intro-tagline">Education leads the way, so feed your brain every single day.</blockquote>
+            </div>
+
             <div class="split-layout-panel" id="scrollRevealPanel">
-                <!-- LEFT SIDE TEXT PANEL WITH FIXED HEADING & FLASHING LINES -->
+                <!-- LEFT SIDE TEXT PANEL WITH FLASHING LINES -->
                 <div class="left-heading-panel" id="textSequenceContainer">
-                    <h1 class="stable-intro-heading"><strong>V-synap Technologies - </strong> <br>Launches UNGAA</h1>
-                    <h2 class="active-text"><strong>Curiosity is the mother of learning new things.</strong> Each new word you explore is a chance to upgrade yourself. Capture new words daily in Ungaa App.</h2>
+                    <h2 data-group="0"><strong>Welcome to UNGAA -</strong> Your AI-powered companion to discover, understand, and master every new word. Sign in and start feeding your brain today.</h2>
+                    <h2 data-group="1"><strong>Curiosity is the mother of learning new things.</strong> Each new word you explore is a chance to upgrade yourself. Capture new words daily in Ungaa App.</h2>
                     <h2><strong>Become an expert -</strong> Go beyond simple vocabulary definitions. Learn with relevant examples, engaging short videos, or customize your own deep notes.</h2>
                     <h2><strong>Become a champion -</strong> Everyone maps thoughts differently. Save your inspirations as raw text, voice notes, or videos in your preferred language.</h2>
                     <h2><strong>Share your Creation -</strong> Share your meanings with friends and family on Ungaa App— their opinions and likes will motivate you.</h2>
                 </div>
                 
                 <!-- RIGHT SIDE INTERACTIVE MATCHING SLIDESHOW WITH BUTTON CONTROLS -->
+                <!-- Each frame carries data-text-group so it stays in sync with the matching left-side sentence.
+                     Group 0 = intro (logo first), 1 = Curiosity, 2 = Become an expert, 3 = Become a champion, 4 = Share -->
                 <div class="right-slides-panel" id="imageSlideshowContainer">
                     <button class="panel-nav-btn panel-prev" id="panelPrevBtn">❮</button>
                     <button class="panel-nav-btn panel-next" id="panelNextBtn">❯</button>
-                    
-                    <div class="mobile-image-frame"><img src="unga0.jpg" alt="UNGAA Slide 0"></div>
-                    <div class="mobile-image-frame"><img src="unga1.jpg" alt="UNGAA Slide 1"></div>
-                    <div class="mobile-image-frame"><img src="unga2.jpg" alt="UNGAA Slide 2"></div>
-                    <div class="mobile-image-frame"><img src="unga3.jpg" alt="UNGAA Slide 3"></div>
-                    <div class="mobile-image-frame"><video autoplay muted loop playsinline><source src="video2.mp4" type="video/mp4"></video></div>
+
+                    <!-- INTRO: logo shows first, then login -->
+                    <div class="mobile-image-frame" data-text-group="0"><img src="unga0.jpg" alt="UNGAA Logo"></div>
+                    <!-- <div class="mobile-image-frame" data-text-group="0"><img src="unga1.jpg" alt="UNGAA Login"></div> -->
+
+                    <!-- TEXT 1: Curiosity — capture & explore new words daily -->
+                    <div class="mobile-image-frame" data-text-group="1"><img src="slide_images/slide-curiosity-1.jpg" alt="Curiosity Slide 1"></div>
+                    <div class="mobile-image-frame" data-text-group="1"><img src="slide_images/slide-curiosity-2.jpg" alt="Curiosity Slide 2"></div>
+                    <div class="mobile-image-frame" data-text-group="1"><img src="slide_images/slide-curiosity-3.jpg" alt="Curiosity Slide 3"></div>
+
+                    <!-- TEXT 2: Become an expert — examples, short videos, deep notes -->
+                    <div class="mobile-image-frame" data-text-group="2"><img src="slide_images/slide-expert-1.jpg" alt="Expert Slide 1"></div>
+                    <div class="mobile-image-frame" data-text-group="2"><img src="slide_images/slide-expert-2.jpg" alt="Expert Slide 2"></div>
+                    <div class="mobile-image-frame" data-text-group="2"><img src="slide_images/slide-expert-3.jpg" alt="Expert Slide 3"></div>
+                    <div class="mobile-image-frame" data-text-group="2"><img src="slide_images/slide-expert-4.jpg" alt="Expert Slide 4"></div>
+
+                    <!-- TEXT 3: Become a champion — raw text, voice notes, videos (My Meaning) -->
+                    <div class="mobile-image-frame" data-text-group="3"><img src="slide_images/slide-champio.jpg" alt="Champion Slide 1"></div>
+                    <div class="mobile-image-frame" data-text-group="3"><img src="slide_images/slide-champion-1.jpg" alt="Champion Slide 2"></div>
+                    <div class="mobile-image-frame" data-text-group="3"><img src="slide_images/slide-champion-2.jpg" alt="Champion Slide 3"></div>
+                    <div class="mobile-image-frame" data-text-group="3"><img src="slide_images/slide-champion-3.jpg" alt="Champion Slide 4"></div>
+
+                    <!-- TEXT 4: Share your creation — share with friends -->
+                    <div class="mobile-image-frame" data-text-group="4"><img src="slide_images/slide-share-1.jpg" alt="Share Slide 1"></div>
+                    <div class="mobile-image-frame" data-text-group="4"><img src="slide_images/slide-share-2.jpg" alt="Share Slide 2"></div>
+                    <div class="mobile-image-frame" data-text-group="4"><img src="slide_images/slide-share-3.jpg" alt="Share Slide 3"></div>
+                    <div class="mobile-image-frame" data-text-group="4"><img src="slide_images/slide-share-4.jpg" alt="Share Slide 4"></div>
                 </div>
             </div>
 
             <!-- CENTERED EXPLORE MORE BUTTON -->
             <div class="explore-btn-container">
-                <a href="more.html" class="explore-more-btn">Features</a>
+                <a href="#features-embed" class="explore-more-btn" id="featuresScrollBtn">Features</a>
             </div>
             
         </div>
@@ -839,6 +1175,183 @@
     <span class="dot" onclick="currentSlide(3)"></span>
     <span class="dot" onclick="currentSlide(4)"></span>
 </div>
+
+
+<!-- ═══ EMBEDDED FEATURES (inlined from more.html, header removed) — Features button scrolls here ═══ -->
+<section id="features-embed" class="features-embed">
+
+    <!-- INTRO STRIP -->
+    <div class="fe-intro">
+        <div class="fe-pill-top"><span></span> Everything UNGAA Can Do</div>
+        <h2>Everything UNGAA <span class="fe-grad">Can Do For You</span></h2>
+        <p>Scan any word. Understand deeply. Save your way. Share with the world. UNGAA is your AI-powered vocabulary companion — built for curious minds.</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-strip">
+        <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">Languages</div></div>
+        <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered Engine</div></div>
+        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Words to Discover</div></div>
+        <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Platforms (iOS &amp; Android)</div></div>
+    </div>
+
+    <!-- FEATURE CARDS -->
+    <section class="features-section">
+        <div class="section-label">Core Features</div>
+        <h2 class="section-title">Built for how you actually learn</h2>
+        <div class="features-grid">
+            <div class="feature-card large">
+                <div class="card-icon">🔍</div>
+                <span class="card-tag">Discovery</span>
+                <h3 class="card-title">Instant AI Word Recognition</h3>
+                <p class="card-desc">Point your camera at any object, sign, or page. UNGAA's neural engine extracts meaning, context, and definition in real time — <strong>zero typing needed.</strong></p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">📖</div>
+                <span class="card-tag">Learning</span>
+                <h3 class="card-title">Deep Definitions &amp; Examples</h3>
+                <p class="card-desc">Go far beyond a dictionary. Every word comes with rich examples, etymology, and usage in real-world sentences.</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">🎬</div>
+                <span class="card-tag">Media</span>
+                <h3 class="card-title">Video Learning Cards</h3>
+                <p class="card-desc">Short, loopable video snippets reinforce meaning visually. <strong>See a word. Hear it. Feel it.</strong></p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">🗒️</div>
+                <span class="card-tag">Notes</span>
+                <h3 class="card-title">Personal Brain Storage</h3>
+                <p class="card-desc">Save words with your own text notes, voice recordings, or video memos. Your vocabulary vault, your way.</p>
+            </div>
+            <div class="feature-card large">
+                <div class="card-icon">🌐</div>
+                <span class="card-tag">Language</span>
+                <h3 class="card-title">100+ Language Cross-Bridges</h3>
+                <p class="card-desc">Instantly translate or explore any word across <strong>100+ native languages</strong>, with contextual alignment — not just word-for-word substitution.</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">🔊</div>
+                <span class="card-tag">Audio</span>
+                <h3 class="card-title">Crystal-Clear Pronunciation</h3>
+                <p class="card-desc">High-fidelity AI voice generation helps you hear and mimic the right pronunciation every time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">☁️</div>
+                <span class="card-tag">Sync</span>
+                <h3 class="card-title">Secure Cloud Backup</h3>
+                <p class="card-desc">Your entire word library stays safe and synced across all your devices automatically in the background.</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">📈</div>
+                <span class="card-tag">Growth</span>
+                <h3 class="card-title">Adaptive Learning Paths</h3>
+                <p class="card-desc">UNGAA studies how you learn and adjusts pacing and content to <strong>match your personal growth tempo.</strong></p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon">🤝</div>
+                <span class="card-tag">Community</span>
+                <h3 class="card-title">Share &amp; Inspire</h3>
+                <p class="card-desc">Publish your word cards to friends and the UNGAA community. Collect likes and motivate others to learn.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE SHOWCASE -->
+    <section class="showcase-section">
+        <div class="showcase-inner">
+            <div class="showcase-left">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title" style="max-width:420px">From one tap to deep understanding</h2>
+                <div class="showcase-steps" id="feStepsList">
+                    <div class="step-item active">
+                        <div class="step-num">01</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Scan Anything</div>
+                            <div class="step-text-desc">Open UNGAA and point at any word, object, or text. The AI identifies it instantly — no manual searching required.</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">02</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Explore Deeply</div>
+                            <div class="step-text-desc">Dive into rich definitions, example sentences, etymology, pronunciation, and curated videos — all in one card.</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">03</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Save Your Way</div>
+                            <div class="step-text-desc">Capture words with your own notes in text, voice, or video — in any language you prefer.</div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">04</div>
+                        <div class="step-content">
+                            <div class="step-text-title">Share &amp; Grow</div>
+                            <div class="step-text-desc">Share your creations with the community, get likes, and build a living personal dictionary together.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-right">
+                <div class="phone-glow"></div>
+                <div class="phone-frame">
+                    <!-- Step 1 shows a video; steps 2–4 show an image. JS toggles which is visible. -->
+                    <video class="phone-screen" id="fePhoneVideo" muted loop playsinline>
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                    <img src="slide_images/slide-expert-2.jpg" alt="UNGAA App Screen" class="phone-screen" id="fePhoneScreen" style="display:none;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline-section">
+        <div class="section-label">Your Journey</div>
+        <h2 class="section-title">One app. Every stage of growth.</h2>
+        <div class="timeline-grid">
+            <div class="timeline-step"><div class="t-dot">🎓</div><div class="t-label">Step 01</div><div class="t-title">Discover</div><p class="t-desc">Encounter new words in the wild — on a book, a billboard, or a screen.</p></div>
+            <div class="timeline-step"><div class="t-dot">🧠</div><div class="t-label">Step 02</div><div class="t-title">Understand</div><p class="t-desc">Get instant AI-powered context, definitions, and multimedia explanations.</p></div>
+            <div class="timeline-step"><div class="t-dot">💾</div><div class="t-label">Step 03</div><div class="t-title">Retain</div><p class="t-desc">Build a personal, searchable vault of everything you've learned.</p></div>
+            <div class="timeline-step"><div class="t-dot">🚀</div><div class="t-label">Step 04</div><div class="t-title">Master</div><p class="t-desc">Adaptive reviews and community sharing turn knowledge into mastery.</p></div>
+        </div>
+    </section>
+
+    <!-- LANGUAGE MARQUEE -->
+    <section class="marquee-section">
+        <div class="marquee-label">100+ Languages Supported</div>
+        <div class="marquee-track">
+            <div class="marquee-inner">
+                <div class="lang-pill"><span>🇮🇳</span> Tamil</div><div class="lang-pill"><span>🇺🇸</span> English</div><div class="lang-pill"><span>🇮🇳</span> Hindi</div><div class="lang-pill"><span>🇪🇸</span> Spanish</div><div class="lang-pill"><span>🇫🇷</span> French</div><div class="lang-pill"><span>🇩🇪</span> German</div><div class="lang-pill"><span>🇯🇵</span> Japanese</div><div class="lang-pill"><span>🇧🇷</span> Portuguese</div><div class="lang-pill"><span>🇮🇳</span> Telugu</div><div class="lang-pill"><span>🇮🇳</span> Kannada</div><div class="lang-pill"><span>🇦🇪</span> Arabic</div><div class="lang-pill"><span>🇨🇳</span> Mandarin</div>
+                <div class="lang-pill"><span>🇮🇳</span> Tamil</div><div class="lang-pill"><span>🇺🇸</span> English</div><div class="lang-pill"><span>🇮🇳</span> Hindi</div><div class="lang-pill"><span>🇪🇸</span> Spanish</div><div class="lang-pill"><span>🇫🇷</span> French</div><div class="lang-pill"><span>🇩🇪</span> German</div><div class="lang-pill"><span>🇯🇵</span> Japanese</div><div class="lang-pill"><span>🇧🇷</span> Portuguese</div><div class="lang-pill"><span>🇮🇳</span> Telugu</div><div class="lang-pill"><span>🇮🇳</span> Kannada</div><div class="lang-pill"><span>🇦🇪</span> Arabic</div><div class="lang-pill"><span>🇨🇳</span> Mandarin</div>
+            </div>
+        </div>
+        <br>
+        <div class="marquee-track">
+            <div class="marquee-inner marquee-inner2">
+                <div class="lang-pill"><span>🇰🇷</span> Korean</div><div class="lang-pill"><span>🇮🇹</span> Italian</div><div class="lang-pill"><span>🇷🇺</span> Russian</div><div class="lang-pill"><span>🇳🇱</span> Dutch</div><div class="lang-pill"><span>🇮🇳</span> Malayalam</div><div class="lang-pill"><span>🇮🇳</span> Bengali</div><div class="lang-pill"><span>🇹🇷</span> Turkish</div><div class="lang-pill"><span>🇻🇳</span> Vietnamese</div><div class="lang-pill"><span>🇮🇩</span> Indonesian</div><div class="lang-pill"><span>🇵🇱</span> Polish</div>
+                <div class="lang-pill"><span>🇰🇷</span> Korean</div><div class="lang-pill"><span>🇮🇹</span> Italian</div><div class="lang-pill"><span>🇷🇺</span> Russian</div><div class="lang-pill"><span>🇳🇱</span> Dutch</div><div class="lang-pill"><span>🇮🇳</span> Malayalam</div><div class="lang-pill"><span>🇮🇳</span> Bengali</div><div class="lang-pill"><span>🇹🇷</span> Turkish</div><div class="lang-pill"><span>🇻🇳</span> Vietnamese</div><div class="lang-pill"><span>🇮🇩</span> Indonesian</div><div class="lang-pill"><span>🇵🇱</span> Polish</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO IS IT FOR -->
+    <section class="audience-section">
+        <div class="section-label">For Everyone</div>
+        <h2 class="section-title">Who learns with UNGAA?</h2>
+        <div class="audience-grid">
+            <div class="audience-card"><span class="aud-emoji">🎒</span><div class="aud-title">Students</div><p class="aud-desc">From school to college — build a powerful vocabulary that makes reading, writing, and exams easier than ever.</p></div>
+            <div class="audience-card"><span class="aud-emoji">👩‍🏫</span><div class="aud-title">Teachers &amp; Educators</div><p class="aud-desc">Create and share custom word cards with students. Make vocabulary lessons immersive and visual.</p></div>
+            <div class="audience-card"><span class="aud-emoji">💼</span><div class="aud-title">Professionals</div><p class="aud-desc">Master industry jargon, communicate across languages, and stay ahead in a fast-moving world.</p></div>
+            <div class="audience-card"><span class="aud-emoji">✈️</span><div class="aud-title">Travelers</div><p class="aud-desc">Scan menus, signs, and notices in 100+ languages. Never feel lost in translation again.</p></div>
+            <div class="audience-card"><span class="aud-emoji">📝</span><div class="aud-title">Competitive Aspirants</div><p class="aud-desc">UPSC, GRE, IELTS, TOEFL — build a razor-sharp vocabulary for high-stakes exams with adaptive tools.</p></div>
+            <div class="audience-card"><span class="aud-emoji">🌍</span><div class="aud-title">Language Learners</div><p class="aud-desc">Learning a new tongue? UNGAA maps every word with context, audio, and examples in your native language.</p></div>
+        </div>
+    </section>
+
+</section>
 
 <section class="download-section" id="download">
     <h2 class="download-title">Download UNGAA</h2>
@@ -894,32 +1407,71 @@ if (revealPanel) {
     scrollObserver.observe(revealPanel);
 }
 
-/* --- INTEGRATED INDEPENDENT SENTENCE LOOP & AUTOMATIC CARD CAROUSEL LOOP LOGIC --- */
+/* --- TEXT-SYNCED CARD CAROUSEL ---
+   The carousel walks through ALL image cards in document order, one at a time.
+   Every card carries data-text-group; whenever the active card's group changes,
+   the matching left-side sentence is flashed. So one text's images play one-by-one
+   (could be 2, 3 or 4 of them), and only when they finish does the text switch
+   to the next group's text. The intro group (0 = logo) has no sentence, so when
+   it is showing, no h2 is highlighted (the stable heading stays). */
 const textSentences = document.querySelectorAll('#textSequenceContainer h2');
 const imageSlides = document.querySelectorAll('#imageSlideshowContainer .mobile-image-frame');
 const panelPrevBtn = document.getElementById('panelPrevBtn');
 const panelNextBtn = document.getElementById('panelNextBtn');
 
-let textIndex = 0;
+// Map a card's data-text-group to the index of its sentence in textSentences.
+// Sentences are now 1:1 with groups: index 0 = intro (group 0), 1 = Curiosity,
+// 2 = Become an expert, 3 = Become a champion, 4 = Share.
+function sentenceIndexForGroup(group) {
+    return (group >= 0 && group < textSentences.length) ? group : -1;
+}
+
+// PER-GROUP SLIDE SPEED (milliseconds each image stays on screen).
+// Lower = faster. Tune any single group without touching the others.
+//   0 = intro (logo / login)   1 = Curiosity
+//   2 = Become an expert       3 = Become a champion
+//   4 = Share your creation
+const GROUP_SPEED = {
+    0: 2500,  // intro: logo + login (slower so the welcome text is readable)
+    1: 2000,  // Curiosity
+    2: 2000,  // Become an expert
+    3: 2000,  // Become a champion
+    4: 2000   // Share your creation
+};
+const DEFAULT_SPEED = 2000; // fallback if a group has no entry
+
+// How long the CURRENT active card should stay before advancing.
+function currentCardSpeed() {
+    const group = parseInt(imageSlides[cardIndex].getAttribute('data-text-group'), 10);
+    return GROUP_SPEED[group] != null ? GROUP_SPEED[group] : DEFAULT_SPEED;
+}
+
 let cardIndex = 0;
+let activeGroup = null;   // currently-highlighted sentence group
 let autoCardTimer;
 
-// Continuous Looping Smooth Sentence Flash
-setInterval(() => {
-    textSentences[textIndex].classList.remove('active-text');
-    textIndex = (textIndex + 1) % textSentences.length;
-    textSentences[textIndex].classList.add('active-text');
-}, 5000);
+// Highlight the sentence belonging to the active card's group (if any).
+function syncTextToCard() {
+    const group = parseInt(imageSlides[cardIndex].getAttribute('data-text-group'), 10);
+    if (group === activeGroup) return; // still inside the same text's image set — leave text as-is
+    activeGroup = group;
 
-// Update Carousel Card Positions (3D Depth Stack Setup)
+    textSentences.forEach(s => s.classList.remove('active-text'));
+    const sIdx = sentenceIndexForGroup(group);
+    if (sIdx >= 0 && textSentences[sIdx]) {
+        textSentences[sIdx].classList.add('active-text');
+    }
+}
+
+// Update Carousel Card Positions (3D Depth Stack Setup) — keeps the existing
+// bright-centre + dim side-cards UI exactly as before.
 function updateCardLayout() {
+    const totalCards = imageSlides.length;
+    const prevIdx = (cardIndex - 1 + totalCards) % totalCards;
+    const nextIdx = (cardIndex + 1) % totalCards;
+
     imageSlides.forEach((slide, idx) => {
         slide.classList.remove('active-slide', 'prev-card', 'next-card');
-        
-        const totalCards = imageSlides.length;
-        const prevIdx = (cardIndex - 1 + totalCards) % totalCards;
-        const nextIdx = (cardIndex + 1) % totalCards;
-
         if (idx === cardIndex) {
             slide.classList.add('active-slide');
         } else if (idx === prevIdx) {
@@ -928,18 +1480,27 @@ function updateCardLayout() {
             slide.classList.add('next-card');
         }
     });
+
+    syncTextToCard();
 }
 
-// Function to move to the next card automatically (Looping)
+// Advance to the next card automatically (loops back to the logo at the end),
+// then reschedule using the NEW active card's per-group speed.
 function nextCardLoop() {
     cardIndex = (cardIndex + 1) % imageSlides.length;
     updateCardLayout();
+    scheduleNextCard();
 }
 
-// Start the automated looping timer for the right-side cards
+// Schedule the next advance based on the current card's group speed.
+function scheduleNextCard() {
+    clearTimeout(autoCardTimer);
+    autoCardTimer = setTimeout(nextCardLoop, currentCardSpeed());
+}
+
+// Start the automated looping timer for the right-side cards.
 function startAutoCardLoop() {
-    clearInterval(autoCardTimer);
-    autoCardTimer = setInterval(nextCardLoop, 4500); // Transitions to a new asset every 4.5 seconds
+    scheduleNextCard();
 }
 
 // Manual Right-To-Left or Left-To-Right Button Scrolling with Loop Restart
@@ -1054,6 +1615,95 @@ document.getElementById('light-mode').onclick = () => applyThemeAssets(false);
 document.getElementById('dark-mode').onclick = () => applyThemeAssets(true);
 
 window.onclick = () => { menuDropdown.style.display = 'none'; };
+
+/* --- FEATURES: smooth-scroll to the embedded features section (no page navigation) --- */
+const featuresBtn = document.getElementById('featuresScrollBtn');
+if (featuresBtn) {
+    featuresBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('features-embed').scrollIntoView({ behavior: 'smooth' });
+    });
+}
+
+/* --- EMBEDDED FEATURES: scroll-reveal animations --- */
+const feRevealEls = document.querySelectorAll(
+    '.features-embed .stat-item, .features-embed .feature-card, .features-embed .step-item, ' +
+    '.features-embed .timeline-step, .features-embed .audience-card, .features-embed .phone-frame'
+);
+const feObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            feObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+feRevealEls.forEach(el => feObserver.observe(el));
+
+/* --- EMBEDDED FEATURES: interactive "How It Works" steps + phone screen swap --- */
+const feSteps = document.querySelectorAll('.features-embed .step-item');
+/* One media item per step, in order. Step 01 is a VIDEO; steps 02–04 are images. */
+const feScreenMedia = [
+    { type: 'video' },                                          // 01 Scan Anything — video2.mp4
+    { type: 'img', src: 'slide_images/slide-expert-2.jpg' },    // 02 Explore Deeply — Detailed Meaning
+    { type: 'img', src: 'slide_images/slide-champion-1.jpg' },  // 03 Save Your Way — My Meaning
+    { type: 'img', src: 'slide_images/slide-share-1.jpg' }      // 04 Share & Grow — Share to Synap
+];
+const fePhoneScreen = document.getElementById('fePhoneScreen');
+const fePhoneVideo = document.getElementById('fePhoneVideo');
+let feActiveStep = 0;
+let feStepTimer;
+
+function feShowMedia(idx) {
+    const media = feScreenMedia[idx];
+    if (media.type === 'video') {
+        // show + play the video, hide the image
+        if (fePhoneScreen) fePhoneScreen.style.display = 'none';
+        if (fePhoneVideo) {
+            fePhoneVideo.style.display = 'block';
+            fePhoneVideo.style.opacity = '1';
+            fePhoneVideo.currentTime = 0;
+            fePhoneVideo.play().catch(() => {});
+        }
+    } else {
+        // show the image with the right src, hide/pause the video
+        if (fePhoneVideo) { fePhoneVideo.pause(); fePhoneVideo.style.display = 'none'; }
+        if (fePhoneScreen) {
+            fePhoneScreen.style.display = 'block';
+            fePhoneScreen.src = media.src;
+            fePhoneScreen.style.opacity = '1';
+        }
+    }
+}
+
+function feActivateStep(idx) {
+    feSteps[feActiveStep].classList.remove('active');
+    feActiveStep = idx;
+    feSteps[feActiveStep].classList.add('active');
+    // brief fade on both layers, then swap
+    if (fePhoneScreen) fePhoneScreen.style.opacity = '0';
+    if (fePhoneVideo) fePhoneVideo.style.opacity = '0';
+    setTimeout(() => feShowMedia(feActiveStep), 300);
+}
+function feNextStep() { feActivateStep((feActiveStep + 1) % feSteps.length); }
+function feStartStepTimer() { clearInterval(feStepTimer); feStepTimer = setInterval(feNextStep, 4000); }
+
+feSteps.forEach((step, idx) => {
+    step.addEventListener('click', () => { feActivateStep(idx); feStartStepTimer(); });
+});
+// Show step 1's video on load, then start the auto-rotation
+if (feSteps.length) { feShowMedia(0); feStartStepTimer(); }
+
+/* --- EMBEDDED FEATURES: feature-card mouse glow --- */
+document.querySelectorAll('.features-embed .feature-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', x + '%');
+        card.style.setProperty('--my', y + '%');
+    });
+});
 </script>
 </body>
 </html>
