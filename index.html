@@ -588,18 +588,19 @@
         }
 
         /* ════════════════════════════════════════════════
-       ANIMATED QUOTE CARD — premium glass "spotlight" with
-       drifting aurora mesh, glowing pill heading, word-by-
-       word reveal, floating orbs + hand-drawn doodles.
+       QUOTE CARD — glass card with animated aurora background,
+       glowing border, and floating orbs. The TEXT is kept as
+       whole phrases (no per-letter / per-word splitting) so
+       Google Translate translates it correctly.
        ════════════════════════════════════════════════ */
         .quote-card {
             position: relative;
             margin: 0 auto 30px;
             max-width: 700px;
-            padding: 40px 46px 34px;
+            padding: 38px 44px 32px;
             border-radius: 28px;
-            background:
-                linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            text-align: center;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
                 0 0 80px rgba(91, 154, 255, 0.12),
@@ -607,7 +608,6 @@
             backdrop-filter: blur(22px);
             -webkit-backdrop-filter: blur(22px);
             overflow: hidden;
-            text-align: center;
             isolation: isolate;
             animation: qCardIn 1s cubic-bezier(0.16, 1, 0.3, 1) both,
                 qCardFloat 7s ease-in-out 1s infinite;
@@ -616,7 +616,7 @@
         @keyframes qCardIn {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.96);
+                transform: translateY(28px) scale(0.96);
                 filter: blur(6px);
             }
 
@@ -639,7 +639,7 @@
             }
         }
 
-        /* drifting aurora mesh behind everything */
+        /* drifting aurora mesh behind the text */
         .quote-card::before {
             content: '';
             position: absolute;
@@ -668,7 +668,7 @@
             }
         }
 
-        /* animated gradient border shimmer (sits above the aurora) */
+        /* animated glowing gradient border */
         .quote-card::after {
             content: '';
             position: absolute;
@@ -682,11 +682,11 @@
             -webkit-mask-composite: xor;
             mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             mask-composite: exclude;
-            animation: borderSpin 5s linear infinite;
+            animation: qBorderSpin 5s linear infinite;
             pointer-events: none;
         }
 
-        @keyframes borderSpin {
+        @keyframes qBorderSpin {
             0% {
                 background-position: 0% 50%;
             }
@@ -714,32 +714,31 @@
         .quote-card .q-orb.o1 {
             width: 10px;
             height: 10px;
-            top: 22%;
-            left: 12%;
-            animation-delay: 0s;
+            top: 18%;
+            left: 10%;
         }
 
         .quote-card .q-orb.o2 {
             width: 6px;
             height: 6px;
-            top: 64%;
-            left: 88%;
+            top: 70%;
+            left: 90%;
             animation-delay: 1.5s;
         }
 
         .quote-card .q-orb.o3 {
             width: 8px;
             height: 8px;
-            top: 80%;
-            left: 30%;
+            top: 82%;
+            left: 24%;
             animation-delay: 3s;
         }
 
         .quote-card .q-orb.o4 {
             width: 5px;
             height: 5px;
-            top: 30%;
-            left: 78%;
+            top: 26%;
+            left: 84%;
             animation-delay: 4.5s;
         }
 
@@ -757,97 +756,42 @@
             }
         }
 
-        /* "Education First" — glowing pill with rotating conic halo */
-        /* ── "EDUCATION FIRST" — the hero focal label, highly animated ── */
+        /* keep all text above the decorative layers */
+        .quote-card .quote-heading,
+        .quote-card .qtext,
+        .quote-card .qtail {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* "EDUCATION FIRST" — bright animated text (kept as ONE phrase so it
+           translates correctly and wraps instead of overflowing). */
         .quote-card .quote-heading {
             position: relative;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: clamp(18px, 2.6vw, 30px);
+            display: block;
+            max-width: 100%;
+            font-size: clamp(20px, 5.2vw, 40px);
             font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: 3px;
-            margin-bottom: 26px;
-            padding: 12px 30px;
-            border-radius: 999px;
+            line-height: 1.15;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
             text-transform: uppercase;
-            background:
-                linear-gradient(95deg, rgba(96, 165, 250, 0.28), rgba(167, 139, 250, 0.28));
-            border: 1.5px solid rgba(124, 192, 255, 0.55);
-            box-shadow:
-                0 0 0 0 rgba(91, 154, 255, 0.55),
-                0 8px 30px rgba(91, 154, 255, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.22);
-            animation:
-                headingPop 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both,
-                headingPulse 2.6s ease-in-out 1.1s infinite,
-                headingFloat 5s ease-in-out 1.1s infinite;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
-        /* rotating conic glow halo around the pill */
-        .quote-card .quote-heading::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 999px;
-            z-index: -1;
-            background: conic-gradient(from 0deg, transparent, #5b9aff, #a78bfa, #38bdf8, #5b9aff, transparent 75%);
-            filter: blur(9px);
-            opacity: 0.85;
-            animation: qHalo 3.4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes qHalo {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* breathing glow pulse — draws the eye */
-        @keyframes headingPulse {
-
-            0%,
-            100% {
-                box-shadow:
-                    0 0 0 0 rgba(91, 154, 255, 0.5),
-                    0 8px 30px rgba(91, 154, 255, 0.4),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-                border-color: rgba(124, 192, 255, 0.55);
-            }
-
-            50% {
-                box-shadow:
-                    0 0 0 8px rgba(91, 154, 255, 0),
-                    0 10px 42px rgba(167, 139, 250, 0.7),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-                border-color: rgba(167, 139, 250, 0.95);
-            }
-        }
-
-        /* gentle vertical float */
-        @keyframes headingFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-4px);
-            }
-        }
-
-        /* the label wrapper */
         .quote-card .quote-heading .qh-text {
-            position: relative;
-            z-index: 1;
             display: inline-block;
-            white-space: nowrap;
-            filter: drop-shadow(0 0 14px rgba(124, 192, 255, 0.7));
+            max-width: 100%;
+            background: linear-gradient(100deg, #ffffff, #7cc0ff, #c9b8ff, #7fe0ff, #ffffff);
+            background-size: 280% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation:
+                qHeadIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both,
+                qFlow 3s linear infinite,
+                qGlow 2.6s ease-in-out infinite;
         }
 
         @keyframes qFlow {
@@ -856,178 +800,27 @@
             }
         }
 
-        /* each letter carries the bright FLOWING gradient and a staggered pop-in */
-        .quote-card .quote-heading .qh-letter {
-            display: inline-block;
-            background: linear-gradient(100deg, #eaf4ff, #7cc0ff, #c9b8ff, #7fe0ff, #eaf4ff);
-            background-size: 280% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(16px) scale(0.5) rotate(-12deg);
-            animation:
-                qLetterIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-                qFlow 3s linear infinite;
-        }
+        @keyframes qHeadIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(0.92);
+            }
 
-        .quote-card .quote-heading .qh-letter.qh-space {
-            width: 0.4em;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes qLetterIn {
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1) rotate(0);
+                transform: translateY(0) scale(1);
             }
         }
 
-        /* small floating spark badges flanking the label */
-        .quote-card .quote-heading .qh-badge {
-            position: relative;
-            z-index: 1;
-            font-size: 0.62em;
-            -webkit-text-fill-color: initial;
-            color: #ffe27a;
-            filter: drop-shadow(0 0 8px rgba(255, 210, 90, 0.8));
-            animation: qBadge 1.8s ease-in-out infinite;
-        }
-
-        .quote-card .quote-heading .qh-badge.r {
-            animation-delay: 0.9s;
-        }
-
-        @keyframes qBadge {
+        @keyframes qGlow {
 
             0%,
             100% {
-                transform: scale(0.85) rotate(0);
-                opacity: 0.8;
+                filter: drop-shadow(0 0 10px rgba(124, 192, 255, 0.6));
             }
 
             50% {
-                transform: scale(1.25) rotate(20deg);
-                opacity: 1;
-            }
-        }
-
-        /* sweeping shine streak across the pill */
-        .quote-card .quote-heading .qh-shine {
-            position: absolute;
-            inset: 0;
-            border-radius: 999px;
-            background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
-            background-size: 250% 100%;
-            mix-blend-mode: screen;
-            animation: headingSweep 3s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        @keyframes headingSweep {
-
-            0%,
-            55% {
-                background-position: 160% 0;
-            }
-
-            100% {
-                background-position: -60% 0;
-            }
-        }
-
-        @keyframes headingPop {
-            0% {
-                opacity: 0;
-                transform: translateY(16px) scale(0.8);
-            }
-
-            60% {
-                transform: translateY(0) scale(1.06);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* drifting doodle sparkles */
-        .quote-card .q-spark {
-            position: absolute;
-            z-index: 1;
-            font-size: 16px;
-            color: #aed3ff;
-            opacity: 0;
-            pointer-events: none;
-            filter: drop-shadow(0 2px 8px rgba(91, 154, 255, 0.6));
-            animation: qSparkle 4.5s ease-in-out infinite;
-        }
-
-        .quote-card .q-spark-1 {
-            top: 18px;
-            right: 30px;
-            animation-delay: 0.4s;
-        }
-
-        .quote-card .q-spark-2 {
-            bottom: 44px;
-            left: 28px;
-            font-size: 13px;
-            animation-delay: 1.6s;
-        }
-
-        .quote-card .q-spark-3 {
-            top: 52%;
-            right: 22px;
-            font-size: 18px;
-            animation-delay: 2.6s;
-        }
-
-        @keyframes qSparkle {
-
-            0%,
-            100% {
-                opacity: 0;
-                transform: scale(0.5) rotate(0);
-            }
-
-            45%,
-            65% {
-                opacity: 0.8;
-                transform: scale(1) rotate(16deg);
-            }
-        }
-
-        /* top-left large decorative quote mark */
-        .quote-card .qmark {
-            position: absolute;
-            top: 18px;
-            left: 34px;
-            font-family: Georgia, serif;
-            font-size: 80px;
-            line-height: 1;
-            background: linear-gradient(135deg, #5b9aff 0%, #a78bfa 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.2;
-            pointer-events: none;
-            user-select: none;
-            z-index: 0;
-            animation: qMarkIn 0.8s ease 0.5s both;
-        }
-
-        @keyframes qMarkIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px) scale(0.7);
-            }
-
-            to {
-                opacity: 0.2;
-                transform: translateY(0) scale(1);
+                filter: drop-shadow(0 0 22px rgba(167, 139, 250, 0.9));
             }
         }
 
@@ -1036,75 +829,44 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             position: relative;
-            z-index: 1;
             min-height: 2.4em;
             perspective: 600px;
         }
 
-        .quote-card .qline-lead {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0 12px;
-            font-size: clamp(24px, 3.6vw, 46px);
-            font-weight: 800;
-            line-height: 1.25;
-        }
-
+        /* the quote line — ONE bright text block, blur-in + rise entrance.
+           Animates on whatever text is shown (original or translated). */
         .quote-card .qline-rest {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0 9px;
-            font-size: clamp(16px, 1.9vw, 23px);
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+            font-size: clamp(16px, 2vw, 24px);
             font-weight: 600;
             font-style: italic;
             line-height: 1.5;
-        }
-
-        /* each word — blur-in + 3D flip-up entrance */
-        .quote-card .qword {
-            display: inline-block;
+            color: #ffffff;
+            text-shadow: 0 1px 12px rgba(124, 192, 255, 0.55);
+            overflow-wrap: break-word;
             opacity: 0;
-            transform: translateY(20px) rotateX(-55deg) scale(0.9);
-            transform-origin: bottom center;
+            transform: translateY(16px);
             filter: blur(4px);
-            transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.55s ease;
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.7s ease;
         }
 
-        .quote-card .qword.show {
+        .quote-card .qline-rest.show {
             opacity: 1;
-            transform: translateY(0) rotateX(0) scale(1);
+            transform: translateY(0);
             filter: blur(0);
         }
 
-        /* HIGHLIGHTED lead-in words */
-        .quote-card .qword.qhighlight {
-            background: linear-gradient(95deg, #7cc0ff 0%, #c9b8ff 45%, #7fe0ff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
-            filter: drop-shadow(0 2px 14px rgba(91, 154, 255, 0.5));
-        }
-
-        .quote-card .qword.qmuted {
-            color: rgba(255, 255, 255, 0.86);
-        }
-
-        /* tail divider + sublabel */
+        /* sub label under the quote — plain bright text */
         .quote-card .qtail {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 18px;
+            display: block;
+            margin-top: 14px;
             position: relative;
-            z-index: 1;
             opacity: 0;
             transform: translateY(8px);
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1116,46 +878,31 @@
         }
 
         .quote-card .qtail .qline {
-            width: 44px;
-            height: 2px;
-            border-radius: 2px;
-            background: linear-gradient(90deg, transparent, #5b9aff, #a78bfa);
-        }
-
-        .quote-card .qtail .qline:last-child {
-            background: linear-gradient(90deg, #a78bfa, #5b9aff, transparent);
+            display: none;
         }
 
         .quote-card .qtail .qsub {
-            font-size: clamp(11px, 1.3vw, 14px);
+            font-size: clamp(11px, 1.4vw, 14px);
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #7cc0ff, #c9b8ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3.5s linear infinite;
+            color: #9ec4ff;
+            text-shadow: 0 1px 10px rgba(124, 192, 255, 0.6);
         }
 
         @media (prefers-reduced-motion: reduce) {
 
             .quote-card,
-            .quote-card::before,
-            .quote-card .quote-heading,
-            .quote-card .quote-heading::before,
-            .quote-card .qh-letter,
-            .quote-card .qh-badge,
-            .quote-card .qh-shine,
-            .quote-card .q-orb,
-            .quote-card .q-spark {
+            .quote-card .qh-text,
+            .quote-card .qline-rest {
                 animation: none !important;
+                transition: none !important;
             }
 
-            .quote-card .qh-letter {
+            .quote-card .qline-rest {
                 opacity: 1 !important;
                 transform: none !important;
+                filter: none !important;
             }
         }
 
@@ -1640,32 +1387,18 @@
             }
 
             .quote-card {
-                padding: 24px 18px 20px;
-                border-radius: 18px;
+                padding: 26px 20px 22px;
+                border-radius: 20px;
             }
 
             .quote-card .quote-heading {
-                font-size: clamp(15px, 4.6vw, 20px);
-                letter-spacing: 2px;
-                padding: 9px 20px;
-                margin-bottom: 20px;
-                gap: 8px;
-            }
-
-            .quote-card .qline-lead {
-                font-size: clamp(20px, 6vw, 30px);
-                gap: 0 8px;
+                font-size: clamp(20px, 6.5vw, 30px);
+                letter-spacing: 1.5px;
+                margin-bottom: 14px;
             }
 
             .quote-card .qline-rest {
-                font-size: clamp(13px, 3.6vw, 17px);
-                gap: 0 7px;
-            }
-
-            .quote-card .qmark {
-                font-size: 58px;
-                top: 4px;
-                left: 12px;
+                font-size: clamp(14px, 4vw, 18px);
             }
 
             .quote-card .qtail {
@@ -2749,6 +2482,8 @@
             }
         }
     </style>
+    <!-- Global responsive safety net (loaded last to override overflow) -->
+    <link rel="stylesheet" href="responsive-fix.css">
 </head>
 
 <body>
@@ -2802,31 +2537,21 @@
             <div class="video-overlay"></div>
             <div class="container">
 
-                <!-- TOP BANNER: animated word-reveal quote card -->
+                <!-- TOP BANNER: glass quote card (translatable whole-phrase text) -->
                 <div class="hero-intro-banner">
                     <div class="quote-card">
-                        <!-- floating orb particles -->
+                        <!-- floating orb particles (decorative) -->
                         <span class="q-orb o1"></span>
                         <span class="q-orb o2"></span>
                         <span class="q-orb o3"></span>
                         <span class="q-orb o4"></span>
 
                         <h2 class="quote-heading" id="quoteHeading">
-                            <span class="qh-badge l">✦</span>
                             <span class="qh-text">Education First</span>
-                            <span class="qh-badge r">✦</span>
-                            <span class="qh-shine"></span>
                         </h2>
-                        <span class="qmark">&ldquo;</span>
-                        <!-- doodle sparkles drifting around the quote -->
-                        <span class="q-spark q-spark-1">✦</span>
-                        <span class="q-spark q-spark-2">✳</span>
-                        <span class="q-spark q-spark-3">✏️</span>
                         <div class="qtext" id="quoteText"></div>
                         <div class="qtail" id="quoteTail">
-                            <span class="qline"></span>
-                            <span class="qsub">Feed Your Brain</span>
-                            <span class="qline"></span>
+                            <!-- <span class="qsub">Feed Your Brain</span> -->
                         </div>
                     </div>
                 </div>
@@ -2851,8 +2576,7 @@
                         <div class="fr-text">
                             <span class="fr-step">02</span>
                             <h3><strong>Curiosity is the mother of learning</strong></h3>
-                            <p>Each new word you explore is a chance to upgrade yourself. Capture new words daily in the
-                                Ungaa App.</p>
+                            <p>Curious about a word, topic, formula, or concept? <strong>Underline it in your book</strong>, take a photo, and let UNGAA explain it instantly.</strong> Each new word you explore is a chance to upgrade yourself. </p>
                         </div>
                         <div class="fr-images">
                             <div class="fr-frame"><img src="slide_images/slide-curiosity-1.jpg" alt="Curiosity 1"></div>
@@ -2915,8 +2639,9 @@
                     <div class="left-heading-panel" id="textSequenceContainer">
                         <h2 data-group="0"><strong>Welcome to UNGAA -</strong> Your AI-powered companion to discover,
                             understand, and master every new word. Sign in and start feeding your brain today.</h2>
-                        <h2 data-group="1"><strong>Curiosity is the mother of learning new things.</strong> Each new
-                            word you explore is a chance to upgrade yourself. Capture new words daily in Ungaa App.</h2>
+                        <h2 data-group="1"><strong>Curiosity is the mother of learning new things.</strong> 
+                            Curious about a word, topic, formula, or concept? Underline it in your book, take a photo, and let UNGAA explain it instantly.
+                       Each new word you explore is a chance to upgrade yourself. </h2>
                         <h2><strong>Become an expert -</strong> Go beyond simple vocabulary definitions. Learn with
                             relevant examples, engaging short videos, or customize your own deep notes.</h2>
                         <h2><strong>Become a champion -</strong> Everyone maps thoughts differently. Save your
@@ -3403,50 +3128,25 @@
     </footer>
 
     <script>
-        /* --- HEADING: split "Education First" into per-letter spans that pop in
-               one after another for a lively, attention-grabbing entrance. --- */
-        (function () {
-            const qh = document.querySelector('#quoteHeading .qh-text');
-            if (!qh) return;
-            const text = qh.textContent;
-            qh.textContent = '';
-            [...text].forEach((ch, i) => {
-                const s = document.createElement('span');
-                s.className = 'qh-letter' + (ch === ' ' ? ' qh-space' : '');
-                s.textContent = ch === ' ' ? ' ' : ch;
-                s.style.animationDelay = (0.25 + i * 0.05) + 's';
-                qh.appendChild(s);
-            });
-        })();
-
-        /* --- WORD-BY-WORD QUOTE ANIMATION ---
-           "Education" shows first as the bright heading (CSS pop-in). The quote line
-           below then reveals word-by-word in one uniform style. */
+        /* --- QUOTE ANIMATION (translation-safe) ---
+           The heading and quote are kept as WHOLE phrases (no per-letter / per-word
+           span splitting) so Google Translate can translate them, and the CSS
+           animations play on whatever text is shown — original OR translated. */
         (function () {
             const full = "Education leads the way, so feed your brain every single day.";
             const container = document.getElementById('quoteText');
             const tail = document.getElementById('quoteTail');
             if (!container || !tail) return;
 
-            const line = document.createElement('span');
+            // one plain text line (translatable as a single phrase)
+            const line = document.createElement('div');
             line.className = 'qline-rest';
-            full.split(' ').forEach(w => {
-                const s = document.createElement('span');
-                s.className = 'qword qmuted';
-                s.textContent = w;
-                line.appendChild(s);
-            });
+            line.textContent = full;
             container.appendChild(line);
 
-            const spans = container.querySelectorAll('.qword');
-            spans.forEach((span, i) => {
-                setTimeout(() => {
-                    span.classList.add('show');
-                    if (i === spans.length - 1) {
-                        setTimeout(() => tail.classList.add('show'), 300);
-                    }
-                }, 700 + i * 80); // start after the heading has popped in
-            });
+            // reveal the line, then the sub label — CSS handles the motion
+            setTimeout(function () { line.classList.add('show'); }, 600);
+            setTimeout(function () { tail.classList.add('show'); }, 1100);
         })();
 
         /* --- SLOW SCROLL REVEAL INTERSECTION OBSERVER --- */

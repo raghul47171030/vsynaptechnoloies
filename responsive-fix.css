@@ -1,0 +1,115 @@
+/* ============================================================
+   GLOBAL RESPONSIVE SAFETY NET
+   Loaded last on every page. Prevents content from overflowing
+   the viewport or running out of its box — especially after
+   Google Translate swaps in longer text (Tamil, German, etc.).
+   ============================================================ */
+
+/* 1. never allow horizontal scroll / sideways overflow */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 2. media and embeds can never exceed their container */
+img, svg, video, canvas, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 3. long words / translated strings wrap instead of overflowing */
+h1, h2, h3, h4, h5, h6, p, span, a, li, button, label, td, th, div {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* ---- targeted fixes for known fixed-width blocks ---- */
+
+/* hero quote card: keep inside the viewport, let text wrap */
+.quote-card {
+    width: min(700px, calc(100vw - 28px));
+    max-width: 100%;
+}
+
+.quote-card .quote-heading,
+.quote-card .quote-heading .qh-text,
+.quote-card .qline-rest,
+.quote-card .qsub {
+    max-width: 100%;
+    white-space: normal;
+}
+
+/* UNGAA stats strip: items shrink & wrap, labels never clip */
+.features-embed .stats-strip {
+    flex-wrap: wrap;
+}
+
+.features-embed .stat-item {
+    min-width: 0;
+    flex: 1 1 160px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.features-embed .stat-label {
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* feature timeline cards: cap width so translated text stays in-box */
+.features-embed .fx-card {
+    max-width: 100%;
+}
+
+/* generic grids/flex rows: allow children to shrink below content size */
+.bento-grid > *,
+.audience-grid > *,
+.timeline-grid > *,
+.feature-row,
+.feature-row > * {
+    min-width: 0;
+}
+
+/* nav / header rows wrap rather than push content off-screen */
+header, .header-actions, .dropdown {
+    flex-wrap: wrap;
+}
+
+/* ---- phone-width hardening ---- */
+@media (max-width: 600px) {
+
+    /* translated UI labels (uppercase + letter-spacing) overflow easily —
+       relax spacing so they fit */
+    .features-embed .stat-label,
+    .quote-card .qsub,
+    .features-embed .section-label,
+    .features-embed .fx-tag {
+        letter-spacing: 0.5px;
+    }
+
+    .features-embed .stat-item {
+        flex: 1 1 45%;
+    }
+
+    /* hero slider caption: keep compact and inside the frame on phones */
+    .hero-slide .slide-caption {
+        padding: 14px 16px;
+        letter-spacing: 0;
+    }
+
+    .hero-slide .slide-eyebrow {
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    /* tables / wide content scroll internally instead of breaking layout */
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
