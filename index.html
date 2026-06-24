@@ -379,13 +379,12 @@
             animation: fe-pulse 2s ease-in-out infinite;
         }
 
-        /* the company name part — coloured gradient */
-        .hero-launch-badge .badge-company {
-            background: linear-gradient(90deg, #5b9aff 0%, #a78bfa 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        /* the company logo inside the badge */
+        .hero-launch-badge .badge-logo {
+            height: clamp(26px, 3.4vw, 40px);
+            width: auto;
+            display: block;
+            flex-shrink: 0;
         }
 
         /* the "— Launches" part — plain white */
@@ -488,7 +487,7 @@
         /* --- VIDEO EMBED AREA WITH DYNAMIC SYNCED SLIDES --- */
         .hero-video-wrapper {
             position: relative;
-            padding: 80px 8%;
+            padding: 80px 3%;
             background: #000;
             overflow: hidden;
             min-height: 100vh;
@@ -915,23 +914,28 @@
             flex-direction: column;
             gap: 60px;
             width: 100%;
-            max-width: 1150px;
+            max-width: 1500px;
             margin: 0 auto;
+            padding: 0 24px;
         }
 
+        /* STACKED: text on top, images on the bottom — so images show big & clear */
         .feature-row {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 50px;
+            gap: 32px;
         }
 
-        /* alternate rows flip the image/text order for rhythm */
+        /* alt rows no longer flip sides — same top/bottom stack */
         .feature-row.alt {
-            flex-direction: row-reverse;
+            flex-direction: column;
         }
 
         .feature-row .fr-text {
-            flex: 0.85;
+            width: 100%;
+            max-width: 860px;
+            text-align: center;
             position: relative;
         }
 
@@ -949,10 +953,10 @@
         }
 
         .feature-row .fr-text h3 {
-            font-size: clamp(20px, 2.2vw, 30px);
+            font-size: clamp(24px, 2.8vw, 38px);
             font-weight: 800;
             line-height: 1.25;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: #ffffff;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
@@ -965,29 +969,31 @@
         }
 
         .feature-row .fr-text p {
-            font-size: clamp(14px, 1.4vw, 17px);
+            font-size: clamp(16px, 1.7vw, 21px);
             font-weight: 500;
             line-height: 1.7;
             color: rgba(255, 255, 255, 0.85);
             text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
         }
 
-        /* image strip — all phone frames in a row */
+        /* image strip — all phone frames in a row, BIGGER & centered below text */
         .feature-row .fr-images {
-            flex: 1.15;
+            width: 100%;
             display: flex;
             justify-content: center;
-            gap: 16px;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 44px;
         }
 
         .feature-row .fr-frame {
-            width: 150px;
+            width: 250px;
             aspect-ratio: 1 / 2;
-            border-radius: 18px;
+            border-radius: 24px;
             overflow: hidden;
             background: #000;
             border: 3px solid rgba(255, 255, 255, 0.22);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.55);
             flex-shrink: 0;
             /* each frame starts hidden; animates in via JS stagger */
             opacity: 0;
@@ -1009,21 +1015,74 @@
             box-shadow: 0 28px 60px rgba(91, 154, 255, 0.3);
         }
 
-        /* row enters: text slides in, then frames pop in (frame stagger via JS) */
+        /* STEP FLOW: badge above each phone, arrow between steps */
+        .feature-row .fr-images {
+            align-items: flex-start;
+        }
+
+        .feature-row .fr-step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .feature-row .fr-step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fff;
+            background: linear-gradient(135deg, #5b9aff, #a78bfa);
+            box-shadow: 0 6px 18px rgba(91, 154, 255, 0.4);
+            white-space: nowrap;
+        }
+
+        .feature-row .fr-step-arrow {
+            align-self: center;
+            margin-top: 24px;
+            /* center the arrow against the phone, not the badge row */
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1;
+            color: #7cc0ff;
+            text-shadow: 0 2px 12px rgba(91, 154, 255, 0.55);
+            animation: frArrow 1.6s ease-in-out infinite;
+        }
+
+        @keyframes frArrow {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateX(6px);
+                opacity: 1;
+            }
+        }
+
+        /* row enters: text drops in from the top, then frames pop in (JS stagger) */
         .feature-row.reveal-row .fr-text {
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateY(-24px);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .feature-row.alt.reveal-row .fr-text {
-            transform: translateX(30px);
+            transform: translateY(-24px);
         }
 
         .feature-row.revealed .fr-text {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
         }
 
         .feature-row.revealed .fr-frame.in {
@@ -1453,17 +1512,14 @@
                 height: auto;
             }
 
-            /* feature rows: tighter on tablets so 4 frames still fit */
-            .feature-row {
-                gap: 30px;
-            }
-
+            /* feature rows are now stacked (text top / images bottom) — frames
+               span the full width and wrap, so they can stay nicely sized */
             .feature-row .fr-images {
-                gap: 10px;
+                gap: 32px;
             }
 
             .feature-row .fr-frame {
-                width: 110px;
+                width: 210px;
             }
         }
 
@@ -2515,8 +2571,7 @@
     <section class="hero">
         <div class="hero-title">
             <div class="hero-launch-badge">
-                <span class="badge-dot"></span>
-                <span class="badge-company">V-synap Technologies</span>
+                <img src="vsynap_logo.svg" alt="V-Synap Technologies" class="badge-logo">
                 <span class="badge-action">&mdash; Launches</span>
             </div>
             <div class="title-main-row">
@@ -2597,7 +2652,7 @@
                             <div class="fr-frame"><img src="slide_images/slide-expert-1.jpg" alt="Expert 1"></div>
                             <div class="fr-frame"><img src="slide_images/slide-expert-2.jpg" alt="Expert 2"></div>
                             <div class="fr-frame"><img src="slide_images/slide-expert-3.jpg" alt="Expert 3"></div>
-                            <div class="fr-frame"><img src="slide_images/slide-expert-4.jpg" alt="Expert 4"></div>
+                            <!-- <div class="fr-frame"><img src="slide_images/slide-expert-4.jpg" alt="Expert 4"></div> -->
                         </div>
                     </div>
 
@@ -2613,7 +2668,7 @@
                             <div class="fr-frame"><img src="slide_images/slide-champio.jpg" alt="Champion 1"></div>
                             <div class="fr-frame"><img src="slide_images/slide-champion-1.jpg" alt="Champion 2"></div>
                             <div class="fr-frame"><img src="slide_images/slide-champion-2.jpg" alt="Champion 3"></div>
-                            <div class="fr-frame"><img src="slide_images/slide-champion-3.jpg" alt="Champion 4"></div>
+                            <!-- <div class="fr-frame"><img src="slide_images/slide-champion-3.jpg" alt="Champion 4"></div> -->
                         </div>
                     </div>
 
@@ -2629,7 +2684,7 @@
                             <div class="fr-frame"><img src="slide_images/slide-share-1.jpg" alt="Share 1"></div>
                             <div class="fr-frame"><img src="slide_images/slide-share-2.jpg" alt="Share 2"></div>
                             <div class="fr-frame"><img src="slide_images/slide-share-3.jpg" alt="Share 3"></div>
-                            <div class="fr-frame"><img src="slide_images/slide-share-4.jpg" alt="Share 4"></div>
+                            <!-- <div class="fr-frame"><img src="slide_images/slide-share-4.jpg" alt="Share 4"></div> -->
                         </div>
                     </div>
                 </div>
@@ -3169,6 +3224,32 @@
 
             scrollObserver.observe(revealPanel);
         }
+
+        /* --- DESKTOP FEATURE ROWS: turn multi-image rows into a STEP flow
+               (Step 1 → Step 2 → Step 3) with numbered badges + arrows. --- */
+        document.querySelectorAll('#featureRows .fr-images').forEach(strip => {
+            const frames = Array.from(strip.querySelectorAll('.fr-frame'));
+            if (frames.length < 2) return; // a single image isn't a sequence
+            frames.forEach((frame, i) => {
+                // wrap each frame with a numbered "Step" badge above it
+                const step = document.createElement('div');
+                step.className = 'fr-step-item';
+                const badge = document.createElement('span');
+                badge.className = 'fr-step-badge';
+                badge.innerHTML = '<b>Step ' + (i + 1) + '</b>';
+                strip.insertBefore(step, frame);
+                step.appendChild(badge);
+                step.appendChild(frame);
+                // arrow between steps (not after the last one)
+                if (i < frames.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'fr-step-arrow';
+                    arrow.setAttribute('aria-hidden', 'true');
+                    arrow.textContent = '→';
+                    strip.insertBefore(arrow, frame.parentElement.nextSibling);
+                }
+            });
+        });
 
         /* --- DESKTOP FEATURE ROWS: reveal each row on scroll, frames pop in one-by-one --- */
         const featureRowEls = document.querySelectorAll('#featureRows .feature-row');
